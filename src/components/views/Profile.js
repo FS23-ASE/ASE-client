@@ -9,6 +9,7 @@ import "styles/views/Profile.scss";
 import User from "../../models/User";
 import Book from "../../models/Book";
 
+//Present user information
 const Player = ({user}, {online_status = user.logged_in.toString()}) => (
     <div className="player container">
         <div className="player username">{user.username}</div>
@@ -17,6 +18,7 @@ const Player = ({user}, {online_status = user.logged_in.toString()}) => (
         <div className="player address">Birthday: {user.address}</div>
     </div>
 );
+//Present book information
 const Book_ = ({book}) => (
     <div className="book container">
         <div className="book name">{book.name}</div>
@@ -29,7 +31,7 @@ const Book_ = ({book}) => (
 Player.propTypes = {
     user: PropTypes.object
 };
-Book.propTypes = {
+Book_.propTypes = {
     book: PropTypes.object
 };
 
@@ -37,13 +39,15 @@ const Profile = () => {
 
     const history = useHistory();
 
-    const [user, setUser] = useState();
-    const [books, setBooks] = useState()
+    const [user, setUser] = useState(new User());
+    const [books, setBooks] = useState(null)
     const {id} = useParams();
 
+    //back to main page
     const backToGame = async () => {
         history.push('/game');}
 
+    //direct to edit page
     const goToEdit = async () => {
         history.push(`/edit/`+id);
     }
@@ -51,15 +55,17 @@ const Profile = () => {
 
     useEffect(() => {
 
-        // effect callbacks are synchronous to prevent race conditions. So we put the async function inside:
+        //Fetch the user's information from server side
         async function fetchData() {
             try {
                 const response = await api.get('/users/'+id);
 
                 await new Promise(resolve => setTimeout(resolve, 1000));
 
-                // Get the returned users and update the state.
-                const user = new User(response.data);
+                // Get the returned user and update the state.
+                const user_ = new User(response.data);
+                setUser(user_);
+
                 console.log(response);
             } catch (error) {
                 console.error(`Something went wrong while fetching the user: \n${handleError(error)}`);
@@ -68,6 +74,7 @@ const Profile = () => {
             }
         }
 
+        //Fetch books' information from server side
         async function fetchBook() {
             try {
                 var seller_id = id;
@@ -75,7 +82,7 @@ const Profile = () => {
 
                 await new Promise(resolve => setTimeout(resolve, 1000));
 
-                // Get the returned users and update the state.
+                // Get the returned books and update the state.
                 setBooks(response.data);
 
                 console.log(response);
@@ -92,6 +99,7 @@ const Profile = () => {
     let content = <Spinner/>;
     let bookcontent = <Spinner/>;
 
+    //present book list
     if(books) {
         bookcontent = (
             <div className="book">
@@ -105,6 +113,7 @@ const Profile = () => {
     }
 
 
+    //present user information
     if (user) {
         content = (
             <div className="game">

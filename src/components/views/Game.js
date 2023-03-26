@@ -43,10 +43,7 @@ const Game = () => {
 
   }
 
-  // the effect hook can be used to react to change in your component.
-  // in this case, the effect hook is only run once, the first time the component is mounted
-  // this can be achieved by leaving the second argument an empty array.
-  // for more information on the effect hook, please see https://reactjs.org/docs/hooks-effect.html
+
   useEffect(() => {
     // effect callbacks are synchronous to prevent race conditions. So we put the async function inside:
     async function fetchData() {
@@ -60,13 +57,6 @@ const Game = () => {
 
         // Get the returned users and update the state.
         setUsers(response.data);
-
-        // This is just some data for you to see what is available.
-        // Feel free to remove it.
-        console.log('request to:', response.request.responseURL);
-        console.log('status code:', response.status);
-        console.log('status text:', response.statusText);
-        console.log('requested data:', response.data);
 
         // See here to get more data.
         console.log(response);
@@ -85,7 +75,7 @@ const Game = () => {
     if (users) {
         content = (
             <div className="game">
-                <Link className="linkStyle" to={`profile/${localStorage.getItem('id')}`}>
+                <Link className="linkStyle" to={`/profile/${localStorage.getItem('id')}`}>
                     <Button
                         width="100%"
                     >

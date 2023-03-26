@@ -8,10 +8,7 @@ import BaseContainer from "components/ui/BaseContainer";
 import PropTypes from "prop-types";
 
 /*
-It is possible to add multiple components inside a single file,
-however be sure not to clutter your files with an endless amount!
-As a rule of thumb, use one file per component and only add small,
-specific components that belong to the main one in the same file.
+Component for login and registration
  */
 const FormField = props => {
   return (
@@ -37,12 +34,14 @@ FormField.propTypes = {
 
 const Login = props => {
   const history = useHistory();
-  const [password, setPassword] = useState(null);
-  const [username, setUsername] = useState(null);
+  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
 
+  //Registration function
   const doRegistration = async () => {
     try {
-      const requestBody = JSON.stringify({username, password});
+      const requestBody = JSON.stringify({username, password, email});
       const response = await api.post('/users', requestBody);
 
       // Get the returned user and update a new object.
@@ -59,6 +58,7 @@ const Login = props => {
     }
   };
 
+  //Login function
   const doLogin = async () => {
     try {
       const requestBody = JSON.stringify({username, password});
@@ -79,6 +79,16 @@ const Login = props => {
     }
   };
 
+  //Check the format of email input
+  const handleEmail =(em) =>{
+    let value = em;
+    if(!(/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/.test(value))) {
+      console.log('Please Input Correct Email');
+    }else{
+      setEmail(em);
+    }
+  }
+
 
   return (
     <BaseContainer>
@@ -94,9 +104,14 @@ const Login = props => {
             value={password}
             onChange={n => setPassword(n)}
           />
+          <FormField
+              label="Email"
+              value={email}
+              onChange={n => handleEmail(n)}
+          />
           <div className="registration button-container">
             <Button
-              disabled={!username || !password}
+              disabled={!username || !password || !email}
               width="50%"
               onClick={() => doRegistration()}
             >
@@ -118,8 +133,4 @@ const Login = props => {
   );
 };
 
-/**
- * You can get access to the history object's properties via the withRouter.
- * withRouter will pass updated match, location, and history props to the wrapped component whenever it renders.
- */
 export default Login;

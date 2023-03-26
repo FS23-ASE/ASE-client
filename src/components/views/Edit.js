@@ -10,7 +10,9 @@ import User from 'models/User';
 import Book from "../../models/Book";
 import 'styles/views/Login.scss';
 
-
+/*
+This component is for user profile editing
+ */
 const FormField = props => {
     return (
         <div className="Update field">
@@ -18,6 +20,7 @@ const FormField = props => {
                 {props.label}
             </label>
             <input
+                defaultValue
                 className="update input"
                 placeholder="enter here.."
                 value={props.value}
@@ -32,18 +35,21 @@ FormField.propTypes = {
     value: PropTypes.string,
     onChange: PropTypes.func
 };
-//
 
+//Edit component
 const Edit = () => {
     // use react-router-dom's hook to access the history
     const history = useHistory();
+    //values relate to user
     const {id} = useParams();
-    const [user, setUser] = useState();
+    const [user, setUser] = useState(new User());
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('')
     const [email, setEmail] = useState('');
     const [address, setAddress] = useState('');
 
+    //values relate to book
+    const [book, setBook] = useState(new Book());
     const [name, setName] = useState('');
     const [author, setAuthor] = useState('');
     const [description, setDescription] = useState('');
@@ -52,12 +58,13 @@ const Edit = () => {
     const [image, setImage] = useState()
 
 
+    //fetch existing user information from server side
     useEffect(() => {
         async function fetchData() {
 
         const response = await api.get('/users/'+id);
         await new Promise(resolve => setTimeout(resolve, 1000));
-        const user = new User(response.data)
+        setUser(new User(response.data));
         setUsername(user.username);
         setAddress(user.address);
         setEmail(user.email)
@@ -65,6 +72,7 @@ const Edit = () => {
         fetchData();
     }, []);
 
+    //function for updating profile
     const doUpdateProfile = async () => {
         try {
             const requestBody = JSON.stringify({id, username, address, email, password});
@@ -77,25 +85,26 @@ const Edit = () => {
         }
     };
 
+    //function for uploading book
     const doUploadBook = async () => {
         try {
             setSeller_id(id);
             const requestBody = JSON.stringify({name, author, description, publisher, seller_id, image});
             await api.post('/books', requestBody);
-
-            // Update successfully worked --> navigate to the route /profile
-            history.push(`/game/profile/`+id);
+            alert('Upload Successfully');
         } catch (error) {
-            alert(`Something went wrong during the Profile update: \n${handleError(error)}`);
+            alert(`Something went wrong during the book upload: \n${handleError(error)}`);
         }
     };
 
 
+    //back to profile page
     const backToOverview = async () => {
         history.push(`/profile/`+id);}
 
     const handleChange = (e)=> {
         const file = e.target.files[0];
+        setImage(file);
         const reader = new FileReader();
         reader.onload = event => {
             document.getElementById('bi').src = event.target.result;
@@ -111,6 +120,7 @@ const Edit = () => {
             <div className="Update container">
                 <div className="update form">
                     <FormField
+                        defaultValue={username}
                         label="Username"
                         value={username}
                         onChange={un => setUsername(un)}
@@ -125,6 +135,7 @@ const Edit = () => {
                     <br/>
                     <br/>
                     <FormField
+                        defaultValue={email}
                         label="Email"
                         value={email}
                         onChange={n => setEmail(n)}
@@ -132,6 +143,7 @@ const Edit = () => {
                     <br/>
                     <br/>
                     <FormField
+                        defaultValue={address}
                         label="Address"
                         value={address}
                         onChange={n => setAddress(n)}
