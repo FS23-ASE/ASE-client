@@ -13,7 +13,7 @@ import Book from "../../models/Book";
 const Player = ({user}) => (
     <div className="player container">
         <div className="player username">{user.username}</div>
-        <div className="player id">ONLINE: {user.id}</div>
+        <div className="player id">ID: {user.id}</div>
         <div className="player email">Email: {user.email}</div>
         <div className="player address">Address: {user.address}</div>
     </div>
@@ -21,10 +21,11 @@ const Player = ({user}) => (
 //Present book information
 const Book_ = ({book}) => (
     <div className="book container">
-        <div className="book name">{book.name}</div>
-        <div className="book id">ONLINE: {book.id}</div>
-        <div className="book author">Email: {book.author}</div>
-        <div className="book publisher">Birthday: {book.publisher}</div>
+        <div className="book name">Book name: {book.name}</div>
+        <div className="book id">Book ID: {book.id}</div>
+        <div className="book author">Author: {book.author}</div>
+        <div className="book publisher">Publisher: {book.publisher}</div>
+        <div className="book status">Book Status: {book.status.toString()}</div>
     </div>
 );
 
