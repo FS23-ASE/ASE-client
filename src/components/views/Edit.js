@@ -54,7 +54,7 @@ const Edit = () => {
     const [author, setAuthor] = useState('');
     const [description, setDescription] = useState('');
     const [publisher, setPublisher] = useState('');
-    const [sellerid, setSellerid] = useState('');
+    const [sellerid, setSellerid] = useState(id);
     const [image, setImage] = useState(null);
 
 
