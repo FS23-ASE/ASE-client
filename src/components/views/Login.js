@@ -80,6 +80,7 @@ const Login = props => {
   };
 
   //Check the format of email input
+  /*
   const handleEmail =(em) =>{
     let value = em;
     if(!(/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/.test(value))) {
@@ -88,6 +89,8 @@ const Login = props => {
       setEmail(em);
     }
   }
+
+   */
 
 
   return (
@@ -107,7 +110,7 @@ const Login = props => {
           <FormField
               label="Email"
               value={email}
-              onChange={n => handleEmail(n)}
+              onChange={n => setEmail(n)}
           />
           <div className="registration button-container">
             <Button

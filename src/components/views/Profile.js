@@ -10,12 +10,12 @@ import User from "../../models/User";
 import Book from "../../models/Book";
 
 //Present user information
-const Player = ({user}, {online_status = user.logged_in.toString()}) => (
+const Player = ({user}) => (
     <div className="player container">
         <div className="player username">{user.username}</div>
         <div className="player id">ONLINE: {user.id}</div>
         <div className="player email">Email: {user.email}</div>
-        <div className="player address">Birthday: {user.address}</div>
+        <div className="player address">Address: {user.address}</div>
     </div>
 );
 //Present book information
