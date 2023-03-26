@@ -55,7 +55,7 @@ const Edit = () => {
     const [description, setDescription] = useState('');
     const [publisher, setPublisher] = useState('');
     const [seller_id, setSeller_id] = useState('');
-    const [image, setImage] = useState()
+    const [image, setImage] = useState(null);
 
 
     //fetch existing user information from server side
@@ -104,12 +104,15 @@ const Edit = () => {
 
     const handleChange = (e)=> {
         const file = e.target.files[0];
-        setImage(file);
+        //setImage(file);
         const reader = new FileReader();
         reader.onload = event => {
             document.getElementById('bi').src = event.target.result;
         };
         reader.readAsDataURL(file);
+        reader.onloadend = function () {
+            setImage(reader.result);
+        }
     }
 
     return (
