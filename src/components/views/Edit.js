@@ -54,7 +54,7 @@ const Edit = () => {
     const [author, setAuthor] = useState('');
     const [description, setDescription] = useState('');
     const [publisher, setPublisher] = useState('');
-    const [seller_id, setSeller_id] = useState('');
+    const [sellerid, setSellerid] = useState('');
     const [image, setImage] = useState(null);
 
 
@@ -88,8 +88,8 @@ const Edit = () => {
     //function for uploading book
     const doUploadBook = async () => {
         try {
-            setSeller_id(id);
-            const requestBody = JSON.stringify({name, author, description, publisher, seller_id, image});
+            setSellerid(id);
+            const requestBody = JSON.stringify({name, author, description, publisher, sellerid, image});
             await api.post('/books', requestBody);
             alert('Upload Successfully');
         } catch (error) {

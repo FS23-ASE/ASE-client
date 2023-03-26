@@ -78,8 +78,8 @@ const Profile = () => {
         //Fetch books' information from server side
         async function fetchBook() {
             try {
-                var seller_id = id;
-                const response = await api.get('/books/seller/'+seller_id);
+                var sellerid = id;
+                const response = await api.get('/books/seller/'+sellerid);
 
                 await new Promise(resolve => setTimeout(resolve, 1000));
 

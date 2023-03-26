@@ -8,9 +8,9 @@ class Book {
         this.author = null;
         this.publisher = null;
         this.description = null;
-        this.seller_id = null;
+        this.sellerid = null;
         this.status = null;
-        this.buyer_id = null;
+        this.buyerid = null;
         this.image = null;
         Object.assign(this, data);
     }
