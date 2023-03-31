@@ -4,6 +4,7 @@ import GameRouter from "components/routing/routers/GameRouter";
 import {LoginGuard} from "components/routing/routeProtectors/LoginGuard";
 import Login from "components/views/Login";
 import Edit from "../../views/Edit";
+import Upload from "../../views/Upload";
 import Profile from "../../views/Profile";
 
 const AppRouter = () => {
@@ -24,6 +25,8 @@ const AppRouter = () => {
           <Redirect to="/game"/>
         </Route>
         <Route exact path={`/edit/:id`}> <Edit />}> </Route>
+        <Route exact path={`/upload/:id`}> <Upload />}> </Route>
+
         <Route exact path={`/profile/:id`}> <Profile />}> </Route>
       </Switch>
     </BrowserRouter>

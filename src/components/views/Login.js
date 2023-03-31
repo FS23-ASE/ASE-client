@@ -6,6 +6,8 @@ import {Button} from 'components/ui/Button';
 import 'styles/views/Login.scss';
 import BaseContainer from "components/ui/BaseContainer";
 import PropTypes from "prop-types";
+import Header from "components/views/Header";
+
 
 /*
 Component for login and registration
@@ -95,6 +97,8 @@ const Login = props => {
 
   return (
     <BaseContainer>
+      <div>
+      <Header height="100"/>
       <div className="login container">
         <div className="login form">
           <FormField
@@ -115,7 +119,7 @@ const Login = props => {
           <div className="registration button-container">
             <Button
               disabled={!username || !password || !email}
-              width="50%"
+              width="100%"
               onClick={() => doRegistration()}
             >
               Registration
@@ -124,13 +128,14 @@ const Login = props => {
           <div className="login button-container">
             <Button
                 disabled={!username || !password}
-                width="50%"
+                width="100%"
                 onClick={() => doLogin()}
             >
               Login
             </Button>
           </div>
         </div>
+      </div>
       </div>
     </BaseContainer>
   );
