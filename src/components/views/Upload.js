@@ -58,8 +58,13 @@ const Upload = () => {
         try {
             setSellerid(id);
             const requestBody = JSON.stringify({name, author, description, publisher, sellerid, image});
-            alert(requestBody);
-            await api.post('/books', requestBody);
+            const formData = new FormData();
+            formData.append(requestBody);
+            if (image) {
+                formData.append("image", image);
+            }
+            const config = { headers: { "Content-Type": "multipart/form-data" } };
+            await api.post('/books', formData, config);
             alert('Upload Successfully');
         } catch (error) {
             alert(`Something went wrong during the book upload: \n${handleError(error)}`);
@@ -71,18 +76,17 @@ const Upload = () => {
     const backToOverview = async () => {
         history.push(`/profile/`+id);}
 
-    const handleChange = (e)=> {
-        const file = e.target.files[0];
-        //setImage(file);
-        const reader = new FileReader();
-        reader.onload = event => {
-            document.getElementById('bi').src = event.target.result;
-        };
-        reader.readAsDataURL(file);
-        reader.onloadend = function () {
-            setImage(reader.result);
+    const handleChange = (e) => {
+        const selectedImage = e.target.files[0];
+        if (selectedImage) {
+            setImage(selectedImage);
+            const reader = new FileReader();
+            reader.onload = () => {
+                //setPreview(reader.result);
+            };
+            reader.readAsDataURL(selectedImage);
         }
-    }
+    };
 
     return (
         <div>

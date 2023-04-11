@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {api, handleError} from 'helpers/api';
 import {Spinner} from 'components/ui/Spinner';
+import {Button} from 'components/ui/Button';
 import {SmallButton} from 'components/ui/SmallButton';
 import {Link, useHistory, useParams} from 'react-router-dom';
 import BaseContainer from "components/ui/BaseContainer";
@@ -15,6 +16,16 @@ import Book from "../../models/Book";
 const Book_ = ({book}) => (
     <div className="book container">
         <div>
+            {alert(book)}
+            {/*<Button style={{*/}
+            {/*    "width": "100px", "height": "100px", "border-radius": "50px",*/}
+            {/*    "background-color": "rgb(214, 222, 235)",*/}
+            {/*    "box-shadow": "0px 3px 0px rgba(0, 0, 0, 0.2), 0px 5px 10px rgba(0, 0, 0, 0.2)",*/}
+            {/*    "position": "absolute", "top": "12%", "left": "50%", "transform": "translate(-50%, -50%)"*/}
+            {/*}}>*/}
+            {/*    <img src={URL.createObjectURL(book.image)} alt="blob image"*/}
+            {/*         style={{width: "100%", height: "100%"}}/>*/}
+            {/*</Button>*/}
             <div className="book name"> {book.name}</div>
             <div className="book author">Author: {book.author}</div>
             <div className="book publisher">Publisher: {book.publisher}</div>
@@ -96,7 +107,6 @@ const Profile = () => {
 
                 // Get the returned books and update the state.
                 setBooks(response.data);
-
                 console.log(response);
             } catch (error) {
                 console.error(`You have not uploaded any book.`);
