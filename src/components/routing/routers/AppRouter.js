@@ -6,6 +6,7 @@ import Login from "components/views/Login";
 import Edit from "../../views/Edit";
 import Upload from "../../views/Upload";
 import Profile from "../../views/Profile";
+import Cartpage from "../../views/Cartpage";
 
 const AppRouter = () => {
   return (
@@ -28,6 +29,9 @@ const AppRouter = () => {
         <Route exact path={`/upload/:id`}> <Upload />}> </Route>
 
         <Route exact path={`/profile/:id`}> <Profile />}> </Route>
+
+        <Route exact path={`/cartpage/:id`}> <Cartpage />}> </Route>
+
       </Switch>
     </BrowserRouter>
   );
