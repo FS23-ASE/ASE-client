@@ -97,6 +97,10 @@ const Checkout = () => {
     }
 
     const check_out = async () => {
+        const response = await api.put('/cart/checkout/' + id);
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        setCart(response.data);
+        console.log(response);
         alert('Checkout Successfully!');
     }
 

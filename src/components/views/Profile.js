@@ -143,7 +143,6 @@ const Profile = () => {
     //present user information
     if (user) {
         content = (
-
             <div className="game">
                 <ul className="game user-list">
                     <br/>
@@ -170,7 +169,7 @@ const Profile = () => {
 
     return (
         <div>
-            <Header height="100"/>
+            <Header height="250"/>
             <div className={`part-container`}>
                 <div className={`left`}>
                     {content}
@@ -181,6 +180,7 @@ const Profile = () => {
                         Edit Profile
                     </SmallButton>
                     <br/>
+                    <br/>
 
                     <SmallButton
                         width="80%"
@@ -188,6 +188,7 @@ const Profile = () => {
                     >
                         Upload Books
                     </SmallButton>
+                    <br/>
                     <br/>
                     <SmallButton
                         width="80%"
@@ -197,12 +198,14 @@ const Profile = () => {
                     </SmallButton>
 
                     <br/>
+                    <br/>
                     <SmallButton
                         width="80%"
                         onClick={() => goToCart()}
                     >
                         Cart
                     </SmallButton>
+                    <br/>
                     <br/>
                     <br/>
                 </div>
