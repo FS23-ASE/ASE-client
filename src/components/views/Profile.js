@@ -16,6 +16,7 @@ import Book from "../../models/Book";
 const Book_ = ({book}) => (
     <div className="book container">
         <div>
+            {book.image && <img src={book.image} alt="Book image" style={{ width: '200px', height: 'auto' }} />}
             <div className="book name"> {book.name}</div>
             <div className="book author">Author: {book.author}</div>
             <div className="book publisher">Publisher: {book.publisher}</div>
@@ -82,22 +83,41 @@ const Profile = () => {
         }
 
         //Fetch books' information from server side
-        async function fetchBook() {
-            try {
-                var seller_id = id;
-                const response = await api.get('/books/seller/' + seller_id);
-
-                await new Promise(resolve => setTimeout(resolve, 1000));
-
-                // Get the returned books and update the state.
-                setBooks(response.data);
-                console.log(response);
-            } catch (error) {
-                console.error(`You have not uploaded any book.`);
-                console.error("Details:", error);
-                alert("You have not uploaded any book.");
+        // async function fetchBook() {
+        //     try {
+        //         var seller_id = id;
+        //         const response = await api.get('/books/seller/' + seller_id);
+        //
+        //         await new Promise(resolve => setTimeout(resolve, 1000));
+        //
+        //         // Get the returned books and update the state.
+        //         setBooks(response.data);
+        //         books.map(async book => (book.image = await api.get('/books/' + book.id+'/image')));
+        //         console.log(response);
+        //     } catch (error) {
+        //         console.error(`You have not uploaded any book.`);
+        //         console.error("Details:", error);
+        //         alert("You have not uploaded any book.");
+        //     }
+        // }
+        const fetchBook = async () => {
+            var seller_id = id;
+            const response = await api.get('/books/seller/' + seller_id);
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            if (response.data) {
+                const booksWithImagePromises = response.data.map(async book => {
+                    const response = await api.get(`/books/${book.id}/image`, { responseType: 'arraybuffer' });
+                    const blob = new Blob([response.data], { type: response.headers['content-type'] });
+                    const url = URL.createObjectURL(blob);
+                    return { ...book, image: url };
+                });
+                const booksWithImage = await Promise.all(booksWithImagePromises);
+                setBooks(booksWithImage);
+            } else {
+                setBooks([]);
             }
-        }
+        };
+
 
         fetchData();
         fetchBook()
