@@ -109,7 +109,7 @@ const Upload = () => {
                         value={name}
                         onChange={un => setName(un)}
                     />
-                    <p>Book Category:</p>
+                    <p>Book Category*:</p>
                     <Dropdown title={category}
                               value={category}
                               onSelect={handleSelect}
@@ -141,12 +141,12 @@ const Upload = () => {
                         onChange={n => setDescription(n)}
                     />
                     <FormField
-                        label="Price:"
+                        label="Price*:"
                         value={price}
                         onChange={n => setPrice(n)}
                     />
                     <div className="edit label">
-                        Image:
+                        Image*:
                     </div>
                     <br/>
                     <input type="file" id="file" accept="image/*"
@@ -156,7 +156,7 @@ const Upload = () => {
                     <br/>
                     <div className="upload book button-container">
                         <Button
-                            disabled={!name || !author || !publisher}
+                            disabled={!name || !author || !publisher|| !image|| !price|| !category}
                             width="100%"
                             onClick={() => doUploadBook()}
                         >
