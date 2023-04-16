@@ -57,8 +57,17 @@ const Register = () => {
             localStorage.setItem('id', user.id);
 
             setUserId(user.id);
-            const requestBody1 = JSON.stringify({books, quantity, prices, userId});
-            await api.post('/cart', requestBody1);
+            const data = {
+                    list: null
+                  };
+            const requestBody1 = {
+                                   list: data.list || [],
+                                   prop1: 0,
+                                   prop2: 0,
+                                   userId: user.id
+                                 };
+            const response1 = await api.post('/cart', requestBody1);
+            const cart = new Cart(response1.data);
             alert('Create Cart Successfully!');
             // Login successfully worked --> navigate to the route /game in the GameRouter
             history.push(`/login`);

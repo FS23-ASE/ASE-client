@@ -59,6 +59,9 @@ const Profile = () => {
         history.push(`/upload/` + id);
     }
 
+    const goToCart = async () => {
+            history.push(`/cartpage/` + id);
+    }
 
     useEffect(() => {
 
@@ -178,7 +181,6 @@ const Profile = () => {
                         Edit Profile
                     </SmallButton>
                     <br/>
-                    <br/>
 
                     <SmallButton
                         width="80%"
@@ -187,13 +189,19 @@ const Profile = () => {
                         Upload Books
                     </SmallButton>
                     <br/>
-                    <br/>
-
                     <SmallButton
                         width="80%"
                         onClick={() => backToGame()}
                     >
                         Back
+                    </SmallButton>
+
+                    <br/>
+                    <SmallButton
+                        width="80%"
+                        onClick={() => goToCart()}
+                    >
+                        Cart
                     </SmallButton>
                     <br/>
                     <br/>

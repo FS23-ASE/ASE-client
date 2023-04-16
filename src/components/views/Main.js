@@ -81,6 +81,14 @@ const Main = () => {
                 </Link>
                 <br/>
                 <br/>
+                <Link className="linkStyle" to={`/cartpage/${localStorage.getItem('id')}`}>
+                    <Button
+                        width="100%"
+                    >
+                        View Cart
+                    </Button>
+                </Link>
+                <br/>
                 <br/>
                 <Link className="linkStyle" to={`/profile/${localStorage.getItem('id')}`}>
                     <Button

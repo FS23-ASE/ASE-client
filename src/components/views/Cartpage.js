@@ -10,12 +10,28 @@ import User from "../../models/User";
 import Book from "../../models/Book";
 import Cart from "../../models/Cart";
 
+const Book_ = ({book}) => (
+    <div className="book container">
+        <div>
+            {alert(book)}
+            <div className="book name"> {book.name}</div>
+            <div className="book author">Author: {book.author}</div>
+            <div className="book publisher">Publisher: {book.publisher}</div>
+            <div className="book status">Book Status: {book.status.toString()}</div>
+        </div>
+    </div>
+);
+
+Book_.propTypes = {
+    book: PropTypes.object
+};
 
 const Cartpage =() => {
 
     const history = useHistory();
 
     const [cart, setCart] = useState(new Cart());
+    const [books, setBooks] = useState(null);
     const {id} = useParams();
 
     //back to main page
@@ -24,7 +40,7 @@ const Cartpage =() => {
     }
 
     const backToProfile = async () => {
-            history.push(`/Profile/` + id);
+        history.push(`/Profile/` + id);
     }
 
     useEffect(() => {
@@ -43,27 +59,39 @@ const Cartpage =() => {
             }
         }
 
+
+        async function fetchBook() {
+            try {
+                var user_id = id;
+                const response = await api.get('/cart/books/' + user_id);
+
+                await new Promise(resolve => setTimeout(resolve, 1000));
+
+                // Get the returned books and update the state.
+                setBooks(response.data);
+                //books.map(async book => (book.image = await api.get('/books/' + book.id+'/image')));
+                console.log(response);
+            } catch (error) {
+                console.error(`You have not added any book.`);
+                console.error("Details:", error);
+                alert("You have not added any book.");
+            }
+        }
+
+        fetchBook();
         fetchCart();
     }, []);
 
     let bookcontent = <Spinner/>;
 
-    if(cart.books){
-        bookcontent=(
-            <ul>
-                {cart.books.map(book => (
-                          <li key={book.id}>
-                            <div>
-                              <img src={book.image} alt={book.title} />
-                            </div>
-                            <div>
-                              <h3>{book.title}</h3>
-                              <p>by {book.author}</p>
-                            </div>
-                          </li>
-                        ))}
-            </ul>
-        )
+    if(books){
+        bookcontent = (
+                    <div className="book">
+                            {books.map(book => (
+                                <Book_ book={book} key={book.id}/>
+                            ))}
+                    </div>
+                )
     }
 
     return(
@@ -71,6 +99,9 @@ const Cartpage =() => {
             <h1>Cart information</h1>
             <h2>CartId:{cart.id}</h2>
             <h2>Total Price:{cart.prices}</h2>
+            {bookcontent}
+            <br/>
+            <br/>
 
 
 
