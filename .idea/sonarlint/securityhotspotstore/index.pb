@@ -3,8 +3,6 @@ L
 src/styles/views/Header.scss,b/c/bccc8617021cab791f842e03d8a1a42265010591
 K
 src/styles/views/Login.scss,8/d/8d66570ff1e03387360f796924a54024ea979dc4
-M
-src/styles/views/Profile.scss,4/e/4e2f14377462380fb249fcf6a54662583bb39013
 F
 src/styles/_theme.scss,e/3/e3770288c7b0f0ba5dc27e712f37e3b06641bb42
 E
@@ -17,7 +15,5 @@ J
 src/styles/ui/Spinner.scss,4/e/4ed7459aeea66e0a1509d371554dcf3b17ee88a8
 L
 src/components/views/Edit.js,4/1/4152ec55a02f38c1efb856c5612e3395cd5540c4
-O
-src/components/views/Profile.js,f/4/f47d92c2e2815b868fe59886ea263a67229ba44a
 N
 src/components/views/Header.js,c/1/c1b536fac841a5c9478da338e1fc19daa1005e67

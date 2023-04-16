@@ -29,7 +29,6 @@ const Book_ = ({book}) => (
 const Header = props => (
     <div className="headertitle container" style={{height: props.height}}>
         <h1 className="headertitle title">Personal Homepage</h1>
-
     </div>
 );
 
@@ -43,7 +42,7 @@ const Profile = () => {
     const history = useHistory();
 
     const [user, setUser] = useState(new User());
-    const [books, setBooks] = useState(null)
+    const [books, setBooks] = useState(null);
     const {id} = useParams();
 
     //back to main page
