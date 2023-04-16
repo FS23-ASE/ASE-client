@@ -13,7 +13,6 @@ import Cart from "../../models/Cart";
 const Book_ = ({book}) => (
     <div className="book container">
         <div>
-            {alert(book)}
             <div className="book name"> {book.name}</div>
             <div className="book author">Author: {book.author}</div>
             <div className="book publisher">Publisher: {book.publisher}</div>

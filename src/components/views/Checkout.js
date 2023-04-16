@@ -13,7 +13,7 @@ import Cart from "../../models/Cart";
 const Book_ = ({book}) => (
     <div className="book container">
         <div>
-            {book.image && <img src={book.image} alt="Book image" style={{ width: '100px', height: 'auto' }} />}
+            {/*{book.image && <img src={book.image} alt="Book image" style={{ width: '100px', height: 'auto' }} />}*/}
             <div className="book name"> {book.name}</div>
             <div className="book price">Price: {book.price}</div>
         </div>
@@ -70,26 +70,36 @@ const Checkout = () => {
             }
         }
 
-        const fetchBook = async (bookid) => {
-            var id = bookid;
-            const response = await api.get('/books/' + id);
+        async function fetchBook () {
+            var user_id = id;
+            const response = await api.get('/cart/books/' + user_id);
+
             await new Promise(resolve => setTimeout(resolve, 1000));
 
-            let book = new Book();
-            book = response.data;
+            // Get the returned books and update the state.
+            setBooks(response.data);
 
-            const response1 = await api.get(`/books/${book.id}/image`, { responseType: 'arraybuffer' });
-            const blob = new Blob([response1.data], { type: response.headers['content-type'] });
-            const url = URL.createObjectURL(blob);
-            return { ...book, image: url };
+            // var id = bookid;
+            // const response = await api.get('/books/' + id);
+            // await new Promise(resolve => setTimeout(resolve, 1000));
+            //
+            // let book = new Book();
+            // book = response.data;
+            //
+            // const response1 = await api.get(`/books/${book.id}/image`, { responseType: 'arraybuffer' });
+            // const blob = new Blob([response1.data], { type: response.headers['content-type'] });
+            // const url = URL.createObjectURL(blob);
+            // return { ...book, image: url };
         };
         fetchData();
         fetchCart();
-        setBook_list(cart.books);
-        for(let i = 0; i < book_list.length; i++){
-            setBook(fetchBook(book_list[i]));
-            books.push(book);
-        }
+        fetchBook();
+
+        // setBook_list(cart.books);
+        // for(let i = 0; i < book_list.length; i++){
+        //     setBook(fetchBook(book_list[i]));
+        //     books.push(book);
+        // }
     }, []);
 
     const backToCart = async () => {
