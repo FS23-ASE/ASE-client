@@ -40,7 +40,11 @@ const Cartpage =() => {
     }
 
     const backToProfile = async () => {
-        history.push(`/Profile/` + id);
+        history.push(`/profile/` + id);
+    }
+
+    const gotocheckout = async () => {
+        history.push(`/checkout/` + id)
     }
 
     useEffect(() => {
@@ -105,6 +109,12 @@ const Cartpage =() => {
 
 
 
+          <SmallButton
+              width="80%"
+              onClick={() => gotocheckout()}
+          >
+              Go to Checkout
+          </SmallButton>
             <SmallButton
                 width="80%"
                 onClick={() => backToProfile()}

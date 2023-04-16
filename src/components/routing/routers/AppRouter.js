@@ -9,6 +9,7 @@ import Profile from "../../views/Profile";
 import Cartpage from "../../views/Cartpage";
 import Register from "../../views/Register";
 import Browser from "../../views/Browser";
+import Checkout from "../../views/Checkout";
 
 const AppRouter = () => {
   return (
@@ -37,6 +38,7 @@ const AppRouter = () => {
 
           <Route exact path={`/browser/:id`}> <Browser /> </Route>
 
+          <Route exact path={`/checkout/:id`}> <Checkout /> </Route>
         </Switch>
       </BrowserRouter>
   );
