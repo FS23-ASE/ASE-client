@@ -22,6 +22,12 @@ const Book_ = ({book}) => (
 Book_.propTypes = {
     book: PropTypes.object
 };
+
+const Header = props => (
+    <div className="headertitle container" style={{height: props.height}}>
+        <h1 className="headertitle title">Checkout Page</h1>
+    </div>
+);
 const Checkout = () => {
     const history = useHistory();
     const [user, setUser] = useState(new User());
@@ -69,8 +75,8 @@ const Checkout = () => {
             const response = await api.get('/books/' + id);
             await new Promise(resolve => setTimeout(resolve, 1000));
 
-            const [book, setBk] = useState(new Book());
-            setBk(response.data);
+            let book = new Book();
+            book = response.data;
 
             const response1 = await api.get(`/books/${book.id}/image`, { responseType: 'arraybuffer' });
             const blob = new Blob([response1.data], { type: response.headers['content-type'] });
