@@ -28,12 +28,10 @@ const Main = () => {
   const [users, setUsers] = useState(null);
 
   const logout = async () => {
-      try { await api.put('/users/'+localStorage.getItem("id")+"/logout");
-          localStorage.removeItem('token');
-          localStorage.removeItem('id');
+      try {
+      // await api.put('/users/'+localStorage.getItem("id")+"/logout");
+
           history.push('/login');}
-
-
       catch (error) {
           alert(`Something went wrong during the logout: \n${handleError(error)}`);
       }

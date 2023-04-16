@@ -16,16 +16,6 @@ import Book from "../../models/Book";
 const Book_ = ({book}) => (
     <div className="book container">
         <div>
-            {alert(book)}
-            {/*<Button style={{*/}
-            {/*    "width": "100px", "height": "100px", "border-radius": "50px",*/}
-            {/*    "background-color": "rgb(214, 222, 235)",*/}
-            {/*    "box-shadow": "0px 3px 0px rgba(0, 0, 0, 0.2), 0px 5px 10px rgba(0, 0, 0, 0.2)",*/}
-            {/*    "position": "absolute", "top": "12%", "left": "50%", "transform": "translate(-50%, -50%)"*/}
-            {/*}}>*/}
-            {/*    <img src={URL.createObjectURL(book.image)} alt="blob image"*/}
-            {/*         style={{width: "100%", height: "100%"}}/>*/}
-            {/*</Button>*/}
             <div className="book name"> {book.name}</div>
             <div className="book author">Author: {book.author}</div>
             <div className="book publisher">Publisher: {book.publisher}</div>
@@ -33,12 +23,6 @@ const Book_ = ({book}) => (
         </div>
     </div>
 );
-
-
-
-
-
-
 
 
 const Header = props => (

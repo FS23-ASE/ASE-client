@@ -57,15 +57,17 @@ const Upload = () => {
     const doUploadBook = async () => {
         try {
             setSellerid(id);
-            const requestBody = JSON.stringify({name, author, description, publisher, sellerid, image});
+            const requestBody = JSON.stringify({name, author, description, publisher, sellerid});
+            const response = await api.post('/books', requestBody);
+            const bookid=response.data.id;
             const formData = new FormData();
-            formData.append(requestBody);
             if (image) {
                 formData.append("image", image);
             }
             const config = { headers: { "Content-Type": "multipart/form-data" } };
-            await api.post('/books', formData, config);
+            await api.put(`/books/${bookid}`, formData, config);
             alert('Upload Successfully');
+            history.push(`/profile/`+id);
         } catch (error) {
             alert(`Something went wrong during the book upload: \n${handleError(error)}`);
         }
