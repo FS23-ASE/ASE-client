@@ -8,10 +8,10 @@
    feel free to play around with these and see what other look you can come up with! :D
 */
 
-$accent: #97ABFF;
-$accentDark: #996577;
-$textColor: black;
-$background: #B0E2FF;
+$accent: #E6D2AA;
+$accentDark: #D36B00;
+$textColor: #42032C;
+$background: #f1efdc;
 
 /* some constants */
 
@@ -26,7 +26,7 @@ $fontDefault: "M PLUS Rounded 1c", sans-serif;
 $fontMono: "Roboto Mono", monospace;
 
 /* a standard drop shadow */
-$dropShadow: 0 0.25em 0.25em rgba(0, 0, 0, 0.25);
+$dropShadow: 0 0.25em 0.25em rgba(#E6D2AA, 0.25);
 
 $borderRadius: 0.75em;
 

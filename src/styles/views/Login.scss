@@ -2,8 +2,8 @@
 
 .login {
   &.container {
-    margin-top: 2em;
-    min-height: 300px;
+    margin-top: 1em;
+    min-height: 500px;
     /* we include the center mixin defined in _theme.scss and save three duplicate lines :) */
     @include center;
     flex-direction: column;
@@ -20,9 +20,9 @@
     padding-left: 37px;
     padding-right: 37px;
     border-radius: 0.75em;
-    background-color: $background;
+    //background-color: $background;
     transition: opacity 0.5s ease, transform 0.5s ease;
-    box-shadow: $dropShadow;
+    //box-shadow: $dropShadow;
   }
   &.field {
     display: flex;
@@ -30,23 +30,23 @@
     justify-content: center;
   }
   &.input {
-    height: 35px;
+    height: 50px;
     padding-left: 15px;
     margin-left: -4px;
-    border: none;
+    border:1px solid $accentDark;
     border-radius: 0.75em;
     margin-bottom: 20px;
-    background: transparentize(white, 0.85);
-    color: $textColor;
+    background: transparentize(white, 1);
+    color: $accentDark;
   }
   &.label {
-    color: $textColor;
+    color: $accentDark;
     margin-bottom: 10px;
-    text-transform: lowercase;
+    text-transform: uppercase;
     font-weight: 300;
   }
   &.button-container {
-    display: flex;
+    display: center;
     justify-content: center;
     margin-top: 2em;
   }

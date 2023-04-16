@@ -6,8 +6,24 @@
   }
 
   &.title {
-    font-weight: bold;
-    color: $background;
+    margin-top: 1em;
+    font-size: 55px;
+    font-weight: 850;
+    color: $accentDark;
+    text-align: center;
+  }
+}
+
+.headertitle {
+  &.container {
+    @include center;
+  }
+
+  &.title {
+    margin-top: 1em;
+    font-size: 40px;
+    font-weight: bolder;
+    color: $accentDark;
     text-align: center;
   }
 }

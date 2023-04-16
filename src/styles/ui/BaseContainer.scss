@@ -2,9 +2,52 @@
 
 .base-container {
   margin-left: auto;
-  padding-left: 15px;
+  padding-left: 25px;
   margin-right: auto;
-  padding-right: 15px;
+  padding-right: 25px;
   max-width: $DESKTOP_WIDTH;
   color: $textColor;
+  border-radius: $borderRadius;
+}
+
+.part-container{
+  margin-left: auto;
+  padding-left: 40px;
+  margin-right: auto;
+  padding-right: 40px;
+  display: flex;
+}
+.left {
+  text-align: center;
+  box-shadow:6px 6px 6px 0px rgb(130, 110, 70);
+
+  align-items: center;
+  margin-left: 40px;
+  padding-left: 0px;
+  margin-right: auto;
+  padding-right: 0px;
+  border-radius: $borderRadius;
+  width: 400px;
+  height: 480px;
+  background-color: $accentDark;
+  order: 0;
+}
+.middle{
+  order: 1;
+  width: 100%;
+  border-radius: $borderRadius;
+  background-color: purple;
+}
+.right {
+  box-shadow:6px 6px 6px 0px rgb(180, 160, 120);
+  align-items: center;
+  margin-left: auto;
+  padding-left: 40px;
+  margin-right: auto;
+  padding-right: 40px;
+  width: 900px;
+  height:auto;
+  background-color: $accent;
+  border-radius: $borderRadius;
+  order: 2;
 }

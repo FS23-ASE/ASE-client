@@ -10,17 +10,20 @@
     align-items: center;
     box-shadow: $dropShadow;
   }
+
   &.user-list {
     list-style: none;
     padding-left: 0;
   }
+
   &.user-item {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
   }
-  & p,h2 {
+
+  & p, h2 {
     margin: 0.5em 0;
   }
 }
@@ -28,75 +31,104 @@
 .book {
   &.container {
     background: $background;
-    padding: 3.5em;
     border-radius: $borderRadius;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    box-shadow: $dropShadow;
+    padding: 20px;
+    display: inline-block;
+    margin: 20px;
+    justify-content: space-around;
+    font-weight: 500;
+    color: $textColor;
+    font-size: 15px;
+    align-content: start;
   }
-  &.book-list {
-    list-style: none;
-    padding-left: 0;
+
+  &.name {
+    font-weight: 600;
+    color: $textColor;
+    font-size: 18px;
+    text-align: center;
   }
-  &.book-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
-  & p,h2 {
+
+
+  & p, h2 {
     margin: 0.5em 0;
   }
+}
+
+.title {
+  font-weight: 700;
+  color: $textColor;
+  margin-top: 20px;
+  font-size: 25px;
+  text-align: center;
 }
 
 .player {
   &.container {
-    margin: 0.5em 0;
-    width: 70em;
-    padding: 20px;
+    width: 350px;
     border-radius: $borderRadius;
-    display: flex;
-    align-items: center;
-    background: lighten($background, 5);
-    justify-content: center;
+    background: $accentDark;
+    max-height: 30px;
+    margin-left: 25px;
+    margin-right: 25px;
 
   }
-  &.password {
-    font-weight: 300;
-    margin-left: 5px;
-    margin-right: 10px;
-  }
-  &.username {
-    font-weight: 300;
-    color: $accent;
-    margin-right: 10px;
-    margin-left: 20px;
-  }
-  &.logged_in {
-    font-weight: 300;
-    color: yellow;
-    margin-right: 10px;
-    margin-left: 20px;
-  }
-  &.creation_date {
-    font-weight: 300;
-    color: #00fd00;
-    margin-right: 10px;
-    margin-left: 20px;
-  }
-  &.birthday {
-    font-weight: 300;
-    color: #e600ff;
-    margin-right: 10px;
-    margin-left: 20px;
+
+  &.name {
+    font-weight: 700;
+    color: $textColor;
+    margin-left: 2px;
+    font-size: 20px;
   }
 
-  &.id {
-    margin-left: auto;
-    margin-right: 10px;
-    font-family: $fontMono;
-    font-weight: 300;
-
+  &.content {
+    font-weight: 400;
+    color: $textColor;
+    margin-left: 4px;
+    font-size: 20px;
   }
 }
+
+
+.edit-container {
+  margin-left: 500px;
+  margin-right: 500px;
+  font-size: 18px;
+  //text-align: center;
+  color: $textColor;
+  border-radius: $borderRadius;
+}
+.edit{
+&.form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 60%;
+  font-size: 16px;
+  font-weight: 300;
+  border-radius: 0.75em;
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+&.field {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+&.input {
+  height: 40px;
+  padding-left: 15px;
+  margin-left: -4px;
+  border:1px solid $accentDark;
+  border-radius: 0.75em;
+  margin-bottom: 20px;
+  background: transparentize(white, 1);
+  color: $accentDark;
+}
+&.label {
+  color: $textColor;
+  font-weight: 400;
+  font-size: 18px;
+}}
+
+
+
