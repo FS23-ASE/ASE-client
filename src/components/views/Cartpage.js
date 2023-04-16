@@ -11,14 +11,6 @@ import Book from "../../models/Book";
 import Cart from "../../models/Cart";
 
 
-const Header = props => (
-    <div className="headertitle container" style={{height: props.height}}>
-        <h1 className="headertitle title">Cart</h1>
-
-    </div>
-);
-
-
 const Cartpage =() => {
 
     const history = useHistory();
@@ -29,6 +21,10 @@ const Cartpage =() => {
     //back to main page
     const backToGame = async () => {
         history.push('/game');
+    }
+
+    const backToProfile = async () => {
+            history.push(`/Profile/` + id);
     }
 
     useEffect(() => {
@@ -42,19 +38,18 @@ const Cartpage =() => {
                 setCart(response.data);
                 console.log(response);
             } catch (error) {
-                console.error(`You have not uploaded any book.`);
                 console.error("Details:", error);
-                alert("You have not uploaded any book.");
+                alert("Some error happens when get cart");
             }
         }
 
         fetchCart();
     }, []);
 
-    let cartcontent = <Spinner/>;
+    let bookcontent = <Spinner/>;
 
-    if(cart){
-        cartcontent=(
+    if(cart.books){
+        bookcontent=(
             <ul>
                 {cart.books.map(book => (
                           <li key={book.id}>
@@ -73,14 +68,20 @@ const Cartpage =() => {
 
     return(
           <div>
-            <Header height="100"/>
-            <h1 className="headertitle title">Cart</h1>
-            <div className="cart">
-                <h2>My Cart</h2>
-                <h3>Total Price:{cart.prices}</h3>
-                {cartcontent}
-            </div>
-          </div>
+            <h1>Cart information</h1>
+            <h2>CartId:{cart.id}</h2>
+            <h2>Total Price:{cart.prices}</h2>
+
+
+
+            <SmallButton
+                width="80%"
+                onClick={() => backToProfile()}
+            >
+                Profile
+            </SmallButton>
+
+        </div>
 
     );
 
