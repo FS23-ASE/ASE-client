@@ -12,6 +12,8 @@ class Book {
         this.status = null;
         this.buyer_id = null;
         this.image = null;
+        this.price = null;
+        this.category = null;
         Object.assign(this, data);
     }
 }

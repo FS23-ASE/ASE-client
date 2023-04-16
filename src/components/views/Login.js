@@ -38,27 +38,11 @@ const Login = props => {
   const history = useHistory();
   const [password, setPassword] = useState('');
   const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
 
   //Registration function
-  const doRegistration = async () => {
-    try {
-      const requestBody = JSON.stringify({username, password, email});
-      const response = await api.post('/users', requestBody);
-
-      // Get the returned user and update a new object.
-      const user = new User(response.data);
-
-      // Store the token into the local storage.
-      localStorage.setItem('token', user.token);
-      localStorage.setItem('id', user.id);
-
-      // Login successfully worked --> navigate to the route /game in the GameRouter
-      history.push(`/game`);
-    } catch (error) {
-      alert(`Something went wrong during the Registration: \n${handleError(error)}`);
-    }
-  };
+  const goRegister = () => {
+    history.push('/register');
+  }
 
   //Login function
   const doLogin = async () => {
@@ -81,20 +65,6 @@ const Login = props => {
     }
   };
 
-  //Check the format of email input
-  /*
-  const handleEmail =(em) =>{
-    let value = em;
-    if(!(/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/.test(value))) {
-      console.log('Please Input Correct Email');
-    }else{
-      setEmail(em);
-    }
-  }
-
-   */
-
-
   return (
     <BaseContainer>
       <div>
@@ -111,18 +81,12 @@ const Login = props => {
             value={password}
             onChange={n => setPassword(n)}
           />
-          <FormField
-              label="Email"
-              value={email}
-              onChange={n => setEmail(n)}
-          />
           <div className="registration button-container">
             <Button
-              disabled={!username || !password || !email}
-              width="100%"
-              onClick={() => doRegistration()}
+                width="100%"
+                onClick={() => goRegister()}
             >
-              Registration
+              Register
             </Button>
           </div>
           <div className="login button-container">

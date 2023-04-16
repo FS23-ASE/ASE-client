@@ -9,6 +9,7 @@ import "styles/views/Profile.scss";
 import User from 'models/User';
 import Book from "../../models/Book";
 import 'styles/views/Login.scss';
+import {Dropdown} from 'rsuite';
 
 /*
 This component is for user profile editing
@@ -50,6 +51,8 @@ const Upload = () => {
     const [publisher, setPublisher] = useState('');
     const [sellerid, setSellerid] = useState(id);
     const [image, setImage] = useState(null);
+    const [category, setCategory] = useState('');
+    const [price, setPrice] = useState('');
 
 
 
@@ -57,7 +60,7 @@ const Upload = () => {
     const doUploadBook = async () => {
         try {
             setSellerid(id);
-            const requestBody = JSON.stringify({name, author, description, publisher, sellerid});
+            const requestBody = JSON.stringify({name, author, description, publisher, sellerid, category, price});
             const response = await api.post('/books', requestBody);
             const bookid=response.data.id;
             const formData = new FormData();
@@ -90,6 +93,10 @@ const Upload = () => {
         }
     };
 
+    const handleSelect = eventKey => {
+        setCategory(eventKey);
+    }
+
     return (
         <div>
         <Header height="100"/>
@@ -102,6 +109,22 @@ const Upload = () => {
                         value={name}
                         onChange={un => setName(un)}
                     />
+                    <p>Book Category:</p>
+                    <Dropdown title={category}
+                              value={category}
+                              onSelect={handleSelect}
+                    >
+                        <Dropdown.Item eventKey={'Science'}>Science</Dropdown.Item>
+                        <Dropdown.Item eventKey={'History'}>History</Dropdown.Item>
+                        <Dropdown.Item eventKey={'Engineering'}>Engineering</Dropdown.Item>
+                        <Dropdown.Item eventKey={'Fantasy'}>Fantasy</Dropdown.Item>
+                        <Dropdown.Item eventKey={'Adventure'}>Adventure</Dropdown.Item>
+                        <Dropdown.Item eventKey={'Mystery'}>Mystery</Dropdown.Item>
+                        <Dropdown.Item eventKey={'Tools Book'}>Tools Book</Dropdown.Item>
+                        <Dropdown.Item eventKey={'Other'}>Other</Dropdown.Item>
+                    </Dropdown>
+                    <br/>
+                    <br/>
                     <FormField
                         label="Author*:"
                         value={author}
@@ -116,6 +139,11 @@ const Upload = () => {
                         label="Description:"
                         value={description}
                         onChange={n => setDescription(n)}
+                    />
+                    <FormField
+                        label="Price:"
+                        value={price}
+                        onChange={n => setPrice(n)}
                     />
                     <div className="edit label">
                         Image:

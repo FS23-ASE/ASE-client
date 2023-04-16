@@ -7,6 +7,7 @@ import BaseContainer from "components/ui/BaseContainer";
 import PropTypes from "prop-types";
 import "styles/views/Main.scss";
 import User from "../../models/User";
+import Cart from "../../models/Cart";
 
 const Player = ({user}) => (
   <div className="player container">
@@ -26,6 +27,8 @@ const Main = () => {
   const history = useHistory();
 
   const [users, setUsers] = useState(null);
+    const [cart, setCart] = useState(new Cart());
+    cart.userId = localStorage.getItem("id");
 
   const logout = async () => {
       try {
@@ -69,6 +72,16 @@ const Main = () => {
     if (users) {
         content = (
             <div className="game">
+                <Link className="linkStyle" to={`/browser/${localStorage.getItem('id')}`}>
+                    <Button
+                        width="100%"
+                    >
+                        Go to Browser Page
+                    </Button>
+                </Link>
+                <br/>
+                <br/>
+                <br/>
                 <Link className="linkStyle" to={`/profile/${localStorage.getItem('id')}`}>
                     <Button
                         width="100%"
