@@ -43,6 +43,7 @@ const Browser = () => {
 
     const [query, setQuery] = useState('');
     const [filter, setFilter] = useState('');
+    const [a, setA] = useState('');
     const search_parameters = Object.keys(Object.assign({}, ...books));
     const filter_items = [...new Set(books.map((book) => book.category))];
     const [paginate, setPaginate] = useState(8);
@@ -69,6 +70,7 @@ const Browser = () => {
             }
         fetchBooks();
     },[]);
+
 
     const backToGame = async () => {
         localStorage.setItem('id', id)
@@ -102,8 +104,13 @@ const Browser = () => {
                 <label className="search-form">
                     <FormField
                         type="search"
-                        onChange={bs => setQuery(bs.target.value)}/>
+                        onChange={e => setA(e.target.value)}/>
                     <span className="sr-only">Search books here</span>
+                    <Button
+                        width="50%"
+                        onClick={setQuery(a)}>
+                        Search
+                    </Button>
                 </label>
             </div>
             <div className="cart">
