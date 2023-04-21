@@ -79,7 +79,7 @@ const Edit = () => {
 
 
     //back to profile page
-    const backToOverview = async () => {
+    const backToOverview = () => {
         history.push(`/profile/` + id);
     }
 

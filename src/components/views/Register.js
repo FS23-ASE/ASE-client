@@ -8,7 +8,6 @@ import BaseContainer from "components/ui/BaseContainer";
 import PropTypes from "prop-types";
 import User from 'models/User';
 import 'styles/views/Login.scss';
-import Book from "../../models/Book";
 import Cart from "../../models/Cart";
 
 const FormField = props => {

@@ -35,16 +35,12 @@ FormField.propTypes = {
 const Browser = () => {
     const history = useHistory();
 
-    const [user, setUser] = useState(new User());
     const [books, setBooks] = useState([]);
     const {id} = useParams();
-    const [cart, setCart] = useState(new Cart());
-    //cart.userId = id;
 
     const [query, setQuery] = useState('');
     const [filter, setFilter] = useState('');
     const [a, setA] = useState('');
-    const search_parameters = Object.keys(Object.assign({}, ...books));
     const filter_items = [...new Set(books.map((book) => book.category))];
     const [paginate, setPaginate] = useState(8);
 
@@ -71,7 +67,7 @@ const Browser = () => {
         fetchBooks();
     },[]);
 
-    const backToGame = async () => {
+    const backToGame = () => {
         localStorage.setItem('id', id)
         history.push('/game');}
 
@@ -90,7 +86,6 @@ const Browser = () => {
             const requestBody = JSON.stringify({userId, bookId});
             await api.post('/cart/' + userId + '/' + bookId, requestBody);
             alert('Add Successfully');
-
     }
 
     const load_more = () => {
@@ -106,7 +101,7 @@ const Browser = () => {
                         onChange={bs => setA(bs.target.value)}/>
                     <SmallButton
                         width="100%"
-                        onClick={setQuery(a)}>
+                        onClick={() => setQuery(a)}>
                         Search
                     </SmallButton>
                     <span className="sr-only">Search books here</span>

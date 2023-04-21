@@ -3,7 +3,6 @@ import {api, handleError} from 'helpers/api';
 import {Spinner} from 'components/ui/Spinner';
 import {SmallButton} from 'components/ui/SmallButton';
 import {Link, useHistory, useParams} from 'react-router-dom';
-import BaseContainer from "components/ui/BaseContainer";
 import PropTypes from "prop-types";
 import "styles/views/Cartpage.scss";
 import User from "../../models/User";
@@ -34,15 +33,16 @@ const Cartpage =() => {
     const {id} = useParams();
 
     //back to main page
-    const backToGame = async () => {
+    const backToGame = () => {
+        localStorage.setItem('id', id);
         history.push('/game');
     }
 
-    const backToProfile = async () => {
+    const backToProfile = () => {
         history.push(`/profile/` + id);
     }
 
-    const gotocheckout = async () => {
+    const gotocheckout = () => {
         history.push(`/checkout/` + id)
     }
 
@@ -105,22 +105,26 @@ const Cartpage =() => {
             {bookcontent}
             <br/>
             <br/>
-
-
-
           <SmallButton
               width="80%"
               onClick={() => gotocheckout()}
           >
               Go to Checkout
           </SmallButton>
+          <br/>
             <SmallButton
                 width="80%"
                 onClick={() => backToProfile()}
             >
                 Profile
             </SmallButton>
-
+          <br/>
+          <SmallButton
+              width="80%"
+              onClick={() => backToGame()}
+          >
+              Back to Main Page
+          </SmallButton>
         </div>
 
     );

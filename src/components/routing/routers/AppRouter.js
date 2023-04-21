@@ -10,6 +10,7 @@ import Cartpage from "../../views/Cartpage";
 import Register from "../../views/Register";
 import Browser from "../../views/Browser";
 import Checkout from "../../views/Checkout";
+import Orderpage from "../../views/Orderpage";
 
 const AppRouter = () => {
   return (
@@ -39,6 +40,8 @@ const AppRouter = () => {
           <Route exact path={`/browser/:id`}> <Browser /> </Route>
 
           <Route exact path={`/checkout/:id`}> <Checkout /> </Route>
+
+          <Route exact path={`/orderpage/:id`}> <Orderpage /> </Route>
         </Switch>
       </BrowserRouter>
   );
