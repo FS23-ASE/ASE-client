@@ -11,6 +11,7 @@ import Register from "../../views/Register";
 import Browser from "../../views/Browser";
 import Checkout from "../../views/Checkout";
 import Orderpage from "../../views/Orderpage";
+import Salespage from "../../views/Salespage";
 
 const AppRouter = () => {
   return (
@@ -42,6 +43,8 @@ const AppRouter = () => {
           <Route exact path={`/checkout/:id`}> <Checkout /> </Route>
 
           <Route exact path={`/orderpage/:id`}> <Orderpage /> </Route>
+
+          <Route exact path={`/salespage/:id`}> <Salespage /> </Route>
         </Switch>
       </BrowserRouter>
   );

@@ -10,6 +10,7 @@ import "styles/views/Profile.scss";
 import User from "../../models/User";
 import Book from "../../models/Book";
 import Order from "../../models/Order";
+import {Chat} from "../ui/Chat";
 
 const Header = props => (
     <div className="headertitle container" style={{height: props.height}}>
@@ -30,8 +31,8 @@ const Orderpage = () => {
         //Fetch the user's information from server side
         async function fetchOrders() {
             try {
-                var userId = id;
-                const response = await api.get('/orders/' + userId);
+                const buyerId = id;
+                const response = await api.get('/orders/' + buyerId);
                 await new Promise(resolve => setTimeout(resolve, 1000));
                 // Get returned orders and update the state.
                 setOrders(response.data);
@@ -44,6 +45,38 @@ const Orderpage = () => {
         };
         fetchOrders();
     }, []);
+
+    const chatwithseller = async (seller_id) => {
+        /* to be done */
+    }
+
+    const manageOrder = async (o, i) => {
+        const id = o.id;
+        if(i == 1){
+            try {
+                const requestBody = JSON.stringify(id);
+                await api.put('/orders/' + id, requestBody);
+            } catch (error) {
+                alert(`Something went wrong during the modification of order: \n${handleError(error)}`);
+            }
+            for(let j = 0; j < orders.length; j++){
+                if(orders[j].id == o.id){
+                    orders[j].status = "RECEIVED";
+                }
+            }
+        }else if(i == 2){
+            try {
+                await api.delete('/orders/' + id);
+            }catch (e) {
+                alert(`Something went wrong during the cancellation: \n${handleError(e)}`);
+            }
+            for(let j = 0; j < orders.length; j++){
+                if(orders[j].id == o.id){
+                    orders.splice(j, 1);
+                }
+            }
+        }
+    }
 
     const Book_ = ({book}) => (
         <div className="book container">
@@ -76,8 +109,7 @@ const Orderpage = () => {
     }
 
     const viewBooks = async (book_list) => {
-        for (let bookId of book_list) {
-            var id = bookId;
+        for (let id of book_list) {
             const response = await api.get('/books/' + id);
             await new Promise(resolve => setTimeout(resolve, 1000));
             books.push(setBook(response.data));
@@ -86,18 +118,43 @@ const Orderpage = () => {
             {bookcontent}
         )
         setBooks([]);
-
     }
 
     const Order_ = ({order}) => (
         <div className="book container">
             <div>
-                <div className="book name"> Order ID: {order.id}</div>
+                <div className="book name"> Seller: {order.sellerId}</div>
+                <div className="book name"> Amount: {order.amount}</div>
+                <div className="book name"> Status: {order.status}</div>
                 <div>
                     {viewBooks(order.book_list)}
                 </div>
-                <div className="book publisher">Amount: {order.amount}</div>
-                <div className="book status">Order Status: {order.status.toString()}</div>
+                <div className="book seller">
+                    Chat with Seller:
+                    {'\u00A0u00A0'}
+                    <SmallButton
+                        width="50%"
+                        onClick={() => chatwithseller(order.sellerId)}>
+                        Chat
+                    </SmallButton>
+                    <br/>
+                </div>
+                <div className="book received">
+                    <SmallButton
+                        width="50%"
+                        onClick={() => manageOrder(order, 1)}>
+                        Receive
+                    </SmallButton>
+                    <br/>
+                </div>
+                <div className="book cancel">
+                    <SmallButton
+                        width="50%"
+                        onClick={() => manageOrder(order, 2)}>
+                        Cancel
+                    </SmallButton>
+                    <br/>
+                </div>
             </div>
         </div>
     );

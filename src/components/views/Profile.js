@@ -46,24 +46,28 @@ const Profile = () => {
     const {id} = useParams();
 
     //back to main page
-    const backToGame = async () => {
+    const backToGame = () => {
         history.push('/game');
     }
 
     //direct to edit page
-    const goToEdit = async () => {
+    const goToEdit = () => {
         history.push(`/edit/` + id);
     }
 
-    const goToUpload = async () => {
+    const goToUpload = () => {
         history.push(`/upload/` + id);
     }
 
-    const goToCart = async () => {
+    const goToCart = () => {
         history.push(`/cartpage/` + id);
     }
 
-    const viewOrder = async () => {
+    const viewSales = () => {
+        history.push(`/salespage/` + id)
+    }
+
+    const viewOrder = () => {
         history.push(`/orderpage/` + id);
     }
 
@@ -171,6 +175,14 @@ const Profile = () => {
                         onClick={() => goToUpload()}
                     >
                         Upload Books
+                    </SmallButton>
+                    <br/>
+                    <br/>
+                    <SmallButton
+                        width="80%"
+                        onClick={() => viewSales()}
+                    >
+                        My Sales
                     </SmallButton>
                     <br/>
                     <br/>

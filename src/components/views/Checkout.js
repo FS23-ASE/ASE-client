@@ -113,17 +113,31 @@ const Checkout = () => {
         let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
         date = date+' '+time;
         var userId = id;
-        let {amount} = 0.0;
         let {book_list} = [];
         for(let book of books){
-            amount += book.price;
-            book_list.push(book.id);
+            book_list.push([book.id, book.seller_id, book.price]);
         }
-        try {
-            const requestBody = JSON.stringify({userId, amount, book_list, date});
-            await api.post('/orders', requestBody);
-        } catch (error) {
-            alert(`Something went wrong during the order generation: \n${handleError(error)}`);
+        const map = book_list.reduce((result, item) => {
+            result[item[1]] = result[item[1]] || []
+            result[item[1]].push(item)
+            return result;
+        }, {})
+        const result = Object.values(map);
+        for(let b of result) {
+            try {
+                let amount = 0.0;
+                const buyerId = userId;
+                const sellerId = b[1];
+                var book_list = [];
+                for(let p of b){
+                    amount += p[2];
+                    book_list.push(p[0]);
+                }
+                const requestBody = JSON.stringify({buyerId, amount, sellerId, book_list, date});
+                await api.post('/orders', requestBody);
+            } catch (error) {
+                alert(`Something went wrong during the order generation: \n${handleError(error)}`);
+            }
         }
     }
     const check_out = async () => {

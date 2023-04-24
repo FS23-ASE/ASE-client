@@ -4,7 +4,8 @@
 class Order {
     constructor(data = {}) {
         this.id = null;
-        this.userId = null;
+        this.buyerId = null;
+        this.sellerId = null;
         this.book_list = null;
         this.amount = null;
         this.date = null;
