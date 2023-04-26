@@ -9,6 +9,7 @@ import "styles/views/Profile.scss";
 import User from "../../models/User";
 import Book from "../../models/Book";
 import Cart from "../../models/Cart";
+import Order from "../../models/Order";
 
 const Book_ = ({book}) => (
     <div className="book container">
@@ -32,9 +33,9 @@ const Checkout = () => {
     const history = useHistory();
     const [user, setUser] = useState(new User());
     const [cart, setCart] = useState(new Cart());
+    const [order, setOrder] = useState(new Order());
     const {id} = useParams();
     const [book, setBook] = useState(new Book());
-    const [book_list, setBook_list] = useState([]);
     const [books, setBooks] = useState([]);
 
     useEffect(() => {
@@ -106,12 +107,52 @@ const Checkout = () => {
         history.push('/cartpage/' + id);
     }
 
+    const generateOrder = async () => {
+        let today = new Date();
+        let date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+        let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+        date = date+' '+time;
+        var userId = id;
+        let {book_list} = [];
+        for(let book of books){
+            book_list.push([book.id, book.seller_id, book.price]);
+        }
+        const map = book_list.reduce((result, item) => {
+            result[item[1]] = result[item[1]] || []
+            result[item[1]].push(item)
+            return result;
+        }, {})
+        const result = Object.values(map);
+        for(let b of result) {
+            try {
+                let amount = 0.0;
+                const buyerId = userId;
+                const sellerId = b[1];
+                var book_list = [];
+                for(let p of b){
+                    amount += p[2];
+                    book_list.push(p[0]);
+                }
+                const requestBody = JSON.stringify({buyerId, amount, sellerId, book_list, date});
+                await api.post('/orders', requestBody);
+            } catch (error) {
+                alert(`Something went wrong during the order generation: \n${handleError(error)}`);
+            }
+        }
+    }
     const check_out = async () => {
         const response = await api.put('/cart/checkout/' + id);
         await new Promise(resolve => setTimeout(resolve, 1000));
         setCart(response.data);
         console.log(response);
         alert('Checkout Successfully!');
+        await generateOrder();
+        var buyerid = id;
+        for(let book of books){
+            var bookId = book.id;
+            const requestBody = JSON.stringify({buyerid});
+            await api.put('/books/' + bookId, requestBody);
+        }
     }
 
     let content = <Spinner/>;

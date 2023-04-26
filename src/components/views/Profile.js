@@ -46,21 +46,29 @@ const Profile = () => {
     const {id} = useParams();
 
     //back to main page
-    const backToGame = async () => {
+    const backToGame = () => {
         history.push('/game');
     }
 
     //direct to edit page
-    const goToEdit = async () => {
+    const goToEdit = () => {
         history.push(`/edit/` + id);
     }
 
-    const goToUpload = async () => {
+    const goToUpload = () => {
         history.push(`/upload/` + id);
     }
 
-    const goToCart = async () => {
-            history.push(`/cartpage/` + id);
+    const goToCart = () => {
+        history.push(`/cartpage/` + id);
+    }
+
+    const viewSales = () => {
+        history.push(`/salespage/` + id)
+    }
+
+    const viewOrder = () => {
+        history.push(`/orderpage/` + id);
     }
 
     useEffect(() => {
@@ -82,26 +90,7 @@ const Profile = () => {
                 console.error("Details:", error);
                 alert("Something went wrong while fetching the user! See the console for details.");
             }
-        }
-
-        //Fetch books' information from server side
-        // async function fetchBook() {
-        //     try {
-        //         var seller_id = id;
-        //         const response = await api.get('/books/seller/' + seller_id);
-        //
-        //         await new Promise(resolve => setTimeout(resolve, 1000));
-        //
-        //         // Get the returned books and update the state.
-        //         setBooks(response.data);
-        //         books.map(async book => (book.image = await api.get('/books/' + book.id+'/image')));
-        //         console.log(response);
-        //     } catch (error) {
-        //         console.error(`You have not uploaded any book.`);
-        //         console.error("Details:", error);
-        //         alert("You have not uploaded any book.");
-        //     }
-        // }
+        };
         const fetchBook = async () => {
             var seller_id = id;
             const response = await api.get('/books/seller/' + seller_id);
@@ -181,12 +170,27 @@ const Profile = () => {
                     </SmallButton>
                     <br/>
                     <br/>
-
                     <SmallButton
                         width="80%"
                         onClick={() => goToUpload()}
                     >
                         Upload Books
+                    </SmallButton>
+                    <br/>
+                    <br/>
+                    <SmallButton
+                        width="80%"
+                        onClick={() => viewSales()}
+                    >
+                        My Sales
+                    </SmallButton>
+                    <br/>
+                    <br/>
+                    <SmallButton
+                        width="80%"
+                        onClick={() => viewOrder()}
+                    >
+                        View Orders
                     </SmallButton>
                     <br/>
                     <br/>
@@ -213,9 +217,9 @@ const Profile = () => {
                     <div className="title">
                         Books For Sale
                     </div>
-                        {bookcontent}
-                        <br/>
-                        <br/>
+                    {bookcontent}
+                    <br/>
+                    <br/>
 
                 </div>
             </div>

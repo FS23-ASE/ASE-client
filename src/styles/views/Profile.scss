@@ -49,6 +49,10 @@
     text-align: center;
   }
 
+  &.seller {
+
+  }
+
 
   & p, h2 {
     margin: 0.5em 0;
@@ -129,6 +133,19 @@
   font-weight: 400;
   font-size: 18px;
 }}
+.ms-theme-white {
+  --ms-track-background:rgba(248, 248, 248, .76);
+  --ms-track-border-color: #dfdfdf;
+  --ms-thumb-color: rgba(0, 0, 0, .5);
+}
+.ms-track-box {
+  position: sticky;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  width: 0;
+  height: 0;
+}
 
 
 

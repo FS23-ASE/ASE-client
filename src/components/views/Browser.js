@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {api, handleError} from 'helpers/api';
 import {Spinner} from 'components/ui/Spinner';
-import {Button} from 'components/ui/Button';
+import {SmallButton} from 'components/ui/SmallButton';
 import {Link, useHistory, useParams} from 'react-router-dom';
 import BaseContainer from "components/ui/BaseContainer";
 import PropTypes from "prop-types";
@@ -35,15 +35,12 @@ FormField.propTypes = {
 const Browser = () => {
     const history = useHistory();
 
-    const [user, setUser] = useState(new User());
     const [books, setBooks] = useState([]);
     const {id} = useParams();
-    const [cart, setCart] = useState(new Cart());
-    //cart.userId = id;
 
     const [query, setQuery] = useState('');
     const [filter, setFilter] = useState('');
-    const search_parameters = Object.keys(Object.assign({}, ...books));
+    const [a, setA] = useState('');
     const filter_items = [...new Set(books.map((book) => book.category))];
     const [paginate, setPaginate] = useState(8);
 
@@ -70,7 +67,7 @@ const Browser = () => {
         fetchBooks();
     },[]);
 
-    const backToGame = async () => {
+    const backToGame = () => {
         localStorage.setItem('id', id)
         history.push('/game');}
 
@@ -89,7 +86,6 @@ const Browser = () => {
             const requestBody = JSON.stringify({userId, bookId});
             await api.post('/cart/' + userId + '/' + bookId, requestBody);
             alert('Add Successfully');
-
     }
 
     const load_more = () => {
@@ -102,16 +98,21 @@ const Browser = () => {
                 <label className="search-form">
                     <FormField
                         type="search"
-                        onChange={bs => setQuery(bs.target.value)}/>
+                        onChange={bs => setA(bs.target.value)}/>
+                    <SmallButton
+                        width="100%"
+                        onClick={() => setQuery(a)}>
+                        Search
+                    </SmallButton>
                     <span className="sr-only">Search books here</span>
                 </label>
             </div>
             <div className="cart">
                 <Link className="cart-link" to={`/cartpage/${id}`}>
-                    <Button
+                    <SmallButton
                         width="100%">
                         Cart
-                    </Button>
+                    </SmallButton>
                 </Link>
             </div>
             <div className="select">
@@ -146,9 +147,9 @@ const Browser = () => {
                                 <br/>
                                 <br/>
                                 <div className="book-purchase-button">
-                                    <Button
+                                    <SmallButton
                                         width="50%"
-                                        onclick={addCart(book)}>Add to Cart</Button>
+                                        onclick={addCart(book)}>Add to Cart</SmallButton>
                                 </div>
                             </article>
                         </li>
@@ -156,17 +157,17 @@ const Browser = () => {
             </ul>
             <br/>
             <br/>
-            <Button
+            <SmallButton
                 width="100%"
-                onClick={load_more}>Load More...</Button>
+                onClick={load_more}>Load More...</SmallButton>
             <br/>
             <br/>
-            <Button
+            <SmallButton
                 width="100%"
                 onClick={() => backToGame()}
             >
                 Back
-            </Button>
+            </SmallButton>
         </div>
     )
 }
