@@ -16,7 +16,7 @@ import Book from "../../models/Book";
 const Book_ = ({book}) => (
     <div className="book container">
         <div>
-            {book.image && <img src={book.image} alt="Book image" style={{ width: '200px', height: 'auto' }} />}
+            {" " && <img src={book.image} alt="Book image" style={{ width: '200px', height: 'auto' }} />}
             <div className="book name"> {book.name}</div>
             <div className="book author">Author: {book.author}</div>
             <div className="book publisher">Publisher: {book.publisher}</div>

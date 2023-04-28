@@ -35,7 +35,6 @@ const Checkout = () => {
     const [cart, setCart] = useState(new Cart());
     const [order, setOrder] = useState(new Order());
     const {id} = useParams();
-    const [book, setBook] = useState(new Book());
     const [books, setBooks] = useState([]);
 
     useEffect(() => {
@@ -141,17 +140,24 @@ const Checkout = () => {
         }
     }
     const check_out = async () => {
-        const response = await api.put('/cart/checkout/' + id);
-        await new Promise(resolve => setTimeout(resolve, 1000));
-        setCart(response.data);
-        console.log(response);
-        alert('Checkout Successfully!');
-        await generateOrder();
-        var buyerid = id;
-        for(let book of books){
-            var bookId = book.id;
-            const requestBody = JSON.stringify({buyerid});
-            await api.put('/books/' + bookId, requestBody);
+        try {
+            const response = await api.put('/cart/checkout/' + id);
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            setCart(response.data);
+            console.log(response);
+            alert('Checkout Successfully!');
+            var buyerid = id;
+            for (let book of books) {
+                var bookId = book.id;
+                const requestBody = JSON.stringify({buyerid});
+                await api.put('/books/' + bookId, requestBody);
+            }
+            await generateOrder();
+            history.push('/cartpage/' + id);
+        }
+        catch(error){
+            console.log(error);
+            alert("Something went wrong while checking out! See the console for details.");
         }
     }
 

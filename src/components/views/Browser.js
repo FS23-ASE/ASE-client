@@ -46,6 +46,7 @@ const Browser = () => {
 
     useEffect(() => {
         async function fetchBooks() {
+            try{
                 const response = await api.get('/books');
 
                 await new Promise(resolve => setTimeout(resolve, 1000));
@@ -53,6 +54,7 @@ const Browser = () => {
                 // Get the returned books and update the state.
                 if (response.data) {
                     const booksWithImagePromises = response.data.map(async book => {
+                        alert(book.sellerid);
                         const response = await api.get(`/books/${book.id}/image`, { responseType: 'arraybuffer' });
                         const blob = new Blob([response.data], { type: response.headers['content-type'] });
                         const url = URL.createObjectURL(blob);
@@ -64,6 +66,12 @@ const Browser = () => {
                     setBooks([]);
                 }
             }
+            catch(error){
+                console.error(`Something went wrong while updating the description: \n${handleError(error)}`);
+                console.log(error);
+            alert("Something went wrong when fetching books!")}
+        }
+
         fetchBooks();
     },[]);
 
@@ -136,7 +144,7 @@ const Browser = () => {
                         <li key={book.id}>
                             <article className="book">
                                 <div className="book-image">
-                                    {book.image && <img src={book.image} alt="Book image" style={{ width: '200px', height: 'auto' }} />}
+                                    {" " && <img src={book.image} alt="Book image" style={{ width: '200px', height: 'auto' }} />}
                                 </div>
                                 <div className="book-content">
                                     <h2 className="book-name">Book Name: {book.name}</h2>
