@@ -1,6 +1,4 @@
 import React, {Component} from "react";
-import MDSpinner from "react-md-spinner";
-import { CometChat } from "@cometchat-pro/chat";
 import {useParams} from "react-router-dom";
 import cls from "classnames";
 export const Chat = () => {

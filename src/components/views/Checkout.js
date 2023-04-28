@@ -113,11 +113,11 @@ const Checkout = () => {
         let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
         date = date+' '+time;
         var userId = id;
-        let {book_list} = [];
+        let {book_list_} = [];
         for(let book of books){
-            book_list.push([book.id, book.seller_id, book.price]);
+            book_list_.push([book.id, book.seller_id, book.price]);
         }
-        const map = book_list.reduce((result, item) => {
+        const map = book_list_.reduce((result, item) => {
             result[item[1]] = result[item[1]] || []
             result[item[1]].push(item)
             return result;

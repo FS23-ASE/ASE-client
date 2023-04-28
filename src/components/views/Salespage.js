@@ -36,7 +36,7 @@ const Salespage = () => {
             } catch (error) {
                 console.error(`Something went wrong while fetching orders: \n${handleError(error)}`);
                 console.error("Details:", error);
-                alert("Something went wrong while fetching orders! See the console for details.");
+                alert("Something went wrong while fetching sales! See the console for details.");
             }
         };
         fetchOrders();
