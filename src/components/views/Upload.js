@@ -84,14 +84,23 @@ const Upload = () => {
     const handleChange = (e) => {
         const selectedImage = e.target.files[0];
         if (selectedImage) {
+            const fileSizeInBytes = selectedImage.size;
+            const fileSizeInMB = fileSizeInBytes / (1024 * 1024);
+            if (fileSizeInMB > 1) {
+                alert('The size of uploaded images cannot exceed 1MB.');
+                e.target.value = null; // clear the input field
+                return;
+            }
             setImage(selectedImage);
             const reader = new FileReader();
-            reader.onload = () => {
-                //setPreview(reader.result);
-            };
+            reader.onload = (e) => {
+                document.getElementById('bi').src = e.target.result;
+            }
             reader.readAsDataURL(selectedImage);
         }
     };
+
+
 
     const handleSelect = eventKey => {
         setCategory(eventKey);

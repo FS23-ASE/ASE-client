@@ -54,7 +54,6 @@ const Browser = () => {
                 // Get the returned books and update the state.
                 if (response.data) {
                     const booksWithImagePromises = response.data.map(async book => {
-                        alert(book.sellerid);
                         const response = await api.get(`/books/${book.id}/image`, { responseType: 'arraybuffer' });
                         const blob = new Blob([response.data], { type: response.headers['content-type'] });
                         const url = URL.createObjectURL(blob);
@@ -88,12 +87,16 @@ const Browser = () => {
     }
 
     const addCart = async (addedbook) => {
+        try {
 
             let bookId = addedbook.id;
             let userId = id;
             const requestBody = JSON.stringify({userId, bookId});
             await api.post('/cart/' + userId + '/' + bookId, requestBody);
             alert('Add Successfully');
+        } catch (error) {
+            alert(`Something went wrong when adding to the cart: \n${handleError(error)}`);
+        }
     }
 
     const load_more = () => {
@@ -162,12 +165,13 @@ const Browser = () => {
                                 </div>
                                 <br/>
                                 <br/>
-                                <div className="book-purchase-button">
-                                    <SmallButton
-                                        width="50%"
-                                        onclick={addCart(book)}>Add to Cart</SmallButton>
-                                </div>
+
                             </article>
+                            <div className="book-purchase-button">
+                                <SmallButton
+                                    width="50%"
+                                    onClick={()=>addCart(book)}>Add to Cart</SmallButton>
+                            </div>
                         </li>
                     ))}
             </ul>
