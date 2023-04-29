@@ -8,22 +8,38 @@ import BaseContainer from "components/ui/BaseContainer";
 import PropTypes from "prop-types";
 import "styles/views/Profile.scss";
 import User from "../../models/User";
-import Book from "../../models/Book";
 
 
 
 //Present book information
-const Book_ = ({book}) => (
-    <div className="book container">
-        <div>
-            {" " && <img src={book.image} alt="Book image" style={{ width: '200px', height: 'auto' }} />}
-            <div className="book name"> {book.name}</div>
-            <div className="book author">Author: {book.author}</div>
-            <div className="book publisher">Publisher: {book.publisher}</div>
-            <div className="book status">Book Status: {book.status.toString()}</div>
+const Book_ = ({ book }) => {
+    const history = useHistory();
+
+    const handleClick = () => {
+        var path={
+            pathname:`/book/${book.id}`,
+        }
+        history.push(path);
+    }
+
+    return (
+        <div className="book container" onClick={handleClick}>
+            <div>
+                {" " && (
+                    <img
+                        src={book.image}
+                        alt="Book image"
+                        style={{ width: "200px", height: "auto" }}
+                    />
+                )}
+                <div className="book name"> {book.name}</div>
+                <div className="book author">Author: {book.author}</div>
+                <div className="book publisher">Publisher: {book.publisher}</div>
+                <div className="book status">Book Status: {book.status.toString()}</div>
+            </div>
         </div>
-    </div>
-);
+    );
+};
 
 
 const Header = props => (
@@ -92,20 +108,27 @@ const Profile = () => {
             }
         };
         const fetchBook = async () => {
-            var seller_id = id;
-            const response = await api.get('/books/seller/' + seller_id);
-            await new Promise(resolve => setTimeout(resolve, 1000));
-            if (response.data) {
-                const booksWithImagePromises = response.data.map(async book => {
-                    const response = await api.get(`/books/${book.id}/image`, { responseType: 'arraybuffer' });
-                    const blob = new Blob([response.data], { type: response.headers['content-type'] });
-                    const url = URL.createObjectURL(blob);
-                    return { ...book, image: url };
-                });
-                const booksWithImage = await Promise.all(booksWithImagePromises);
-                setBooks(booksWithImage);
-            } else {
-                setBooks([]);
+            try {
+                var seller_id = id;
+                const response = await api.get('/books/seller/' + seller_id);
+                await new Promise(resolve => setTimeout(resolve, 1000));
+                if (response.data) {
+                    const booksWithImagePromises = response.data.map(async book => {
+                        const response = await api.get(`/books/${book.id}/image`, {responseType: 'arraybuffer'});
+                        const blob = new Blob([response.data], {type: response.headers['content-type']});
+                        const url = URL.createObjectURL(blob);
+                        return {...book, image: url};
+                    });
+                    const booksWithImage = await Promise.all(booksWithImagePromises);
+                    setBooks(booksWithImage);
+                } else {
+                    setBooks([]);
+                }
+            }
+            catch(error){
+                console.error(`Something went wrong while fetching the book: \n${handleError(error)}`);
+                console.error("Details:", error);
+                alert("Something went wrong while fetching the book! See the console for details.");
             }
         };
 

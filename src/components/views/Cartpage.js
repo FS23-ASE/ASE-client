@@ -9,22 +9,31 @@ import User from "../../models/User";
 import Book from "../../models/Book";
 import Cart from "../../models/Cart";
 
-const Book_ = ({book}) => (
-    <div className="book container">
-        <div>
-            <div className="book name"> {book.name}</div>
-            <div className="book author">Author: {book.author}</div>
-            <div className="book publisher">Publisher: {book.publisher}</div>
-            <div className="book status">Book Status: {book.status.toString()}</div>
+const Book_ = ({book}) => {
+    const history = useHistory();
+    const handleClick = () => {
+        var path = {
+            pathname: `/book/${book.id}`,
+        }
+        history.push(path);
+    }
+    return (
+        <div className="book container" onClick={handleClick}>
+            <div>
+                <div className="book name"> {book.name}</div>
+                <div className="book author">Author: {book.author}</div>
+                <div className="book publisher">Publisher: {book.publisher}</div>
+                <div className="book status">Book Status: {book.status.toString()}</div>
+            </div>
         </div>
-    </div>
-);
+    );
+}
 
 Book_.propTypes = {
     book: PropTypes.object
 };
 
-const Cartpage =() => {
+const Cartpage = () => {
 
     const history = useHistory();
 
@@ -87,44 +96,44 @@ const Cartpage =() => {
 
     let bookcontent = <Spinner/>;
 
-    if(books){
+    if (books) {
         bookcontent = (
-                    <div className="book">
-                            {books.map(book => (
-                                <Book_ book={book} key={book.id}/>
-                            ))}
-                    </div>
-                )
+            <div className="book">
+                {books.map(book => (
+                    <Book_ book={book} key={book.id}/>
+                ))}
+            </div>
+        )
     }
 
-    return(
-          <div>
+    return (
+        <div>
             <h1>Cart information</h1>
             <h2>CartId:{cart.id}</h2>
             <h2>Total Price:{cart.prices}</h2>
             {bookcontent}
             <br/>
             <br/>
-          <SmallButton
-              width="80%"
-              onClick={() => gotocheckout()}
-          >
-              Go to Checkout
-          </SmallButton>
-          <br/>
+            <SmallButton
+                width="80%"
+                onClick={() => gotocheckout()}
+            >
+                Go to Checkout
+            </SmallButton>
+            <br/>
             <SmallButton
                 width="80%"
                 onClick={() => backToProfile()}
             >
                 Profile
             </SmallButton>
-          <br/>
-          <SmallButton
-              width="80%"
-              onClick={() => backToGame()}
-          >
-              Back to Main Page
-          </SmallButton>
+            <br/>
+            <SmallButton
+                width="80%"
+                onClick={() => backToGame()}
+            >
+                Back to Main Page
+            </SmallButton>
         </div>
 
     );

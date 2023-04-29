@@ -11,8 +11,15 @@ import Book from "../../models/Book";
 import Cart from "../../models/Cart";
 import Order from "../../models/Order";
 
-const Book_ = ({book}) => (
-    <div className="book container">
+const Book_ = ({book}) => {
+    const history = useHistory();
+    const handleClick = () => {
+        var path={
+            pathname:`/book/${book.id}`,
+        }
+        history.push(path);
+    }
+    return (<div className="book container" onClick={handleClick}>
         <div>
             {/*{book.image && <img src={book.image} alt="Book image" style={{ width: '100px', height: 'auto' }} />}*/}
             <div className="book name"> {book.name}</div>
@@ -20,6 +27,7 @@ const Book_ = ({book}) => (
         </div>
     </div>
 );
+}
 Book_.propTypes = {
     book: PropTypes.object
 };

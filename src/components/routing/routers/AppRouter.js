@@ -12,6 +12,7 @@ import Browser from "../../views/Browser";
 import Checkout from "../../views/Checkout";
 import Orderpage from "../../views/Orderpage";
 import Salespage from "../../views/Salespage";
+import BookDetail from "../../views/BookDetail";
 
 const AppRouter = () => {
   return (
@@ -35,6 +36,8 @@ const AppRouter = () => {
           <Route exact path={`/upload/:id`}> <Upload /> </Route>
 
           <Route exact path={`/profile/:id`}> <Profile /> </Route>
+          <Route exact path={`/book/:id`}> <BookDetail /> </Route>
+
 
           <Route exact path={`/cartpage/:id`}> <Cartpage /> </Route>
 

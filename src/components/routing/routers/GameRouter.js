@@ -5,6 +5,7 @@ import Profile from "../../views/Profile";
 import Edit from "../../views/Edit";
 import Upload from "../../views/Upload";
 import Cartpage from "../../views/Cartpage";
+import BookDetail from "../../views/BookDetail";
 
 
 const GameRouter = props => {
@@ -23,6 +24,8 @@ const GameRouter = props => {
         <Route exact path={`${props.base}/edit/:id`}> <Edit />}> </Route>
         <Route exact path={`${props.base}/upload/:id`}> <Upload />}> </Route>
         <Route exact path={`${props.base}/cartpage/:id`}> <Cartpage />}> </Route>
+        <Route exact path={`${props.base}/book/:id`}> <BookDetail />}> </Route>
+
     </div>
   );
 };

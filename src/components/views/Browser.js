@@ -100,6 +100,14 @@ const Browser = () => {
         setPaginate((preValue) => preValue + 8);
     }
 
+
+    const handleClick = (id) => {
+        var path={
+            pathname:`/book/${id}`,
+        }
+        history.push(path);
+    }
+
     return(
         <div className="mainpage-wrapper">
             <div className="mainpage-search-wrapper">
@@ -142,7 +150,7 @@ const Browser = () => {
                     .slice(0, paginate)
                     .map((book) =>(
                         <li key={book.id}>
-                            <article className="book">
+                            <article className="book" onClick={()=>handleClick(book.id)}>
                                 <div className="book-image">
                                     {" " && <img src={book.image} alt="Book image" style={{ width: '200px', height: 'auto' }} />}
                                 </div>
