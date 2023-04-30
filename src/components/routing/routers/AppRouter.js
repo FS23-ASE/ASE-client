@@ -6,6 +6,8 @@ import Login from "components/views/Login";
 import Edit from "../../views/Edit";
 import Upload from "../../views/Upload";
 import Profile from "../../views/Profile";
+import PublicProfile from "../../views/PublicProfile";
+
 import Cartpage from "../../views/Cartpage";
 import Register from "../../views/Register";
 import Browser from "../../views/Browser";
@@ -36,6 +38,8 @@ const AppRouter = () => {
           <Route exact path={`/upload/:id`}> <Upload /> </Route>
 
           <Route exact path={`/profile/:id`}> <Profile /> </Route>
+          <Route exact path={`/publicprofile/:id`}> <PublicProfile /> </Route>
+
           <Route exact path={`/book/:id`}> <BookDetail /> </Route>
 
 

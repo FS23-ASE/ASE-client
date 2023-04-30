@@ -197,8 +197,8 @@ const Checkout = () => {
     //present user information
     if (user) {
         content = (
-            <div className="main">
-                <ul className="main user-list">
+            <div className="profile">
+                <ul className="profile user-list">
                     <br/>
                     <div>
                         <div className="player container">
@@ -210,7 +210,7 @@ const Checkout = () => {
                             <div className="player content">{user.address}</div>
                         </div>
                         <div className="player container">
-                            <div className="price">Price:</div>
+                            <div className="player name">Price:</div>
                             <div className="player content">{cart.prices}</div>
                         </div>
                     </div>
@@ -232,6 +232,7 @@ const Checkout = () => {
                     >
                         Checkout
                     </SmallButton>
+                    <br/>
                     <br/>
                     <SmallButton
                         width="80%"

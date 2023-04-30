@@ -12,11 +12,9 @@ import {useLocation} from "react-router";
 import {Dropdown} from "rsuite";
 
 
-
-
 const Header = props => (
     <div className="headertitle container" style={{height: props.height}}>
-        <h1 className="headertitle title">Personal Homepage</h1>
+        <h1 className="headertitle title">Detail</h1>
     </div>
 );
 
@@ -24,7 +22,7 @@ const Header = props => (
 const BookDetail = () => {
 
     const history = useHistory();
-    const { id } = useParams();
+    const {id} = useParams();
     const [book, setBook] = useState(null);
 
     //back to main page
@@ -32,43 +30,67 @@ const BookDetail = () => {
         history.goBack();
     }
 
+    const gotoProfile = (userid) => {
+        if (localStorage.getItem('id') != userid) {
+            var path = {
+                pathname: `/publicprofile/${userid}`,
+            }
+            history.push(path);
+        } else {
+            history.push(`/profile/${userid}`);
+        }
+    }
 
 
     useEffect(() => {
 
-        //Fetch the user's information from server side
-        async function fetchData() {
-            try {
-                const response = await api.get('/books/' + id);
-                await new Promise(resolve => setTimeout(resolve, 1000));
-                // Get the returned user and update the state.
-                const book = new Book(response.data);
-                setBook(book);
-                console.log(response);
-                if (response.data) {
+            //Fetch the user's information from server side
+            async function fetchData() {
+                try {
+                    const response = await api.get('/books/' + id);
+                    await new Promise(resolve => setTimeout(resolve, 1000));
+                    // Get the returned user and update the state.
+                    const book = new Book(response.data);
+                    setBook(book);
+                    console.log(response);
+                    if (response.data) {
                         const imageresponse = await api.get(`/books/${id}/image`, {responseType: 'arraybuffer'});
                         const blob = new Blob([imageresponse.data], {type: imageresponse.headers['content-type']});
                         const url = URL.createObjectURL(blob);
-                    const updatedbook={...book, image: url}
-                    console.log(imageresponse);
-                    setBook(updatedbook);
+                        const updatedbook = {...book, image: url}
+                        console.log(imageresponse);
+                        setBook(updatedbook);
                     }
-
-            } catch (error) {
-                console.error(`Something went wrong while fetching the book: \n${handleError(error)}`);
-                console.error("Details:", error);
-                alert("Something went wrong while fetching the book! See the console for details.");
+                } catch
+                    (error) {
+                    console.error(`Something went wrong while fetching the book: \n${handleError(error)}`);
+                    console.error("Details:", error);
+                    alert("Something went wrong while fetching the book! See the console for details.");
+                }
             }
-        };
+            ;
 
-        fetchData();
-    }, []);
+            fetchData();
+        },
+        []
+    )
+    ;
 
     let content = <Spinner/>;
 
-    if(book){
-        content=(
-            <div className="update form">
+    if (book) {
+        content = (
+            <div className="update detail" style={{
+                "font-size": "1.5vw",
+            }}>
+                <br/>
+                {" " && (
+                    <img
+                        src={book.image}
+                        alt="Book image"
+                        style={{width: "32vw", height: "auto"}}
+                    />
+                )}
                 <br/>
                 Book Name: {book.name}
                 <br/>
@@ -80,19 +102,15 @@ const BookDetail = () => {
                 <br/>
                 Description: {book.description}
                 <br/>
-                Price(CHF): {book.price}
+                Price: {book.price} CHF
                 <br/>
-                Image:
                 <br/>
-                {" " && (
-                    <img
-                        src={book.image}
-                        alt="Book image"
-                        style={{ width: "200px", height: "auto" }}
-                    />
-                )}
-                <br/>
-
+                <Button
+                    width="100%"
+                    onClick={() => gotoProfile(book.sellerid)}
+                >
+                    Go to Seller's Personal Page
+                </Button>
                 <br/>
                 <br/>
             </div>
@@ -100,8 +118,6 @@ const BookDetail = () => {
 
         )
     }
-
-
 
 
     return (
@@ -116,9 +132,13 @@ const BookDetail = () => {
                     >
                         Back
                     </Button>
-                    </div>
                 </div>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
             </div>
+        </div>
 
     );
 }
