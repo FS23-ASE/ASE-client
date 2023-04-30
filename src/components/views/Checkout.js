@@ -43,7 +43,7 @@ const Checkout = () => {
     const [cart, setCart] = useState(new Cart());
     const [order, setOrder] = useState(new Order());
     const {id} = useParams();
-    const [books, setBooks] = useState([]);
+    const [books_, setBooks_] = useState([]);
 
     useEffect(() => {
         async function fetchData() {
@@ -85,7 +85,7 @@ const Checkout = () => {
             await new Promise(resolve => setTimeout(resolve, 1000));
 
             // Get the returned books and update the state.
-            setBooks(response.data);
+            setBooks_(response.data);
 
             // var id = bookid;
             // const response = await api.get('/books/' + id);
@@ -119,14 +119,15 @@ const Checkout = () => {
         let date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
         let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
         date = date + ' ' + time;
-        var userId = id;
+        const userId = id;
         let book_list_ = [];
         for (let book of books) {
             book_list_.push({Id: book.id, sellerid: book.seller_id, Price: book.price});
         }
         let c = [];
         let d = {};
-        for (const element of book_list_) {
+        for (let i = 0; i < book_list_.length; i++) {
+            let element = book_list_[i];
             if (!d[element.sellerid]) {
                 c.push({
                     seller: element.sellerid,
@@ -141,18 +142,20 @@ const Checkout = () => {
                 };
             }
         };
-        for (const c1 of c) {
+        for (let i = 0; i < c.length; i++) {
+            let c1 = c[i];
             let amount = 0.0;
             const buyerId = userId;
             const sellerId = c1.seller;
-            var book_list = [];
+            let books = [];
             const status = 'PAID';
-            for (const c2 of c1.list) {
+            for (let j = 0; j < c1.list.length; j++) {
+                let c2 = c1.list[j];
                 amount += c2.Price;
-                book_list.push(c2.Id);
+                books.push(c2.Id);
             }
             try {
-                const requestBody = JSON.stringify({buyerId, amount, sellerId, book_list, date, status});
+                const requestBody = JSON.stringify({buyerId, amount, sellerId, books, date, status});
                 await api.post('/order', requestBody);
             } catch (error) {
                 alert(`Something went wrong during the order generation: \n${handleError(error)}`);
