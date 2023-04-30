@@ -54,7 +54,8 @@ const Orderpage = () => {
         const id = o.id;
         if(i == 1){
             try {
-                const requestBody = JSON.stringify(id);
+                const status = 'RECEIVED';
+                const requestBody = JSON.stringify(status);
                 await api.put('/order/' + id, requestBody);
             } catch (error) {
                 alert(`Something went wrong during the modification of order: \n${handleError(error)}`);

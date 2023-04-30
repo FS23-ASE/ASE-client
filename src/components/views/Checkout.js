@@ -130,7 +130,7 @@ const Checkout = () => {
             if (!d[element.sellerid]) {
                 c.push({
                     seller: element.sellerid,
-                    list: [element]
+                    list: element
                 });
                 d[element.sellerid] = element;
             } else {
@@ -146,12 +146,13 @@ const Checkout = () => {
             const buyerId = userId;
             const sellerId = c1.seller;
             var book_list = [];
+            const status = 'PAID';
             for (const c2 of c1.list) {
                 amount += c2.Price;
                 book_list.push(c2.Id);
             }
             try {
-                const requestBody = JSON.stringify({buyerId, amount, sellerId, book_list, date});
+                const requestBody = JSON.stringify({buyerId, amount, sellerId, book_list, date, status});
                 await api.post('/order', requestBody);
             } catch (error) {
                 alert(`Something went wrong during the order generation: \n${handleError(error)}`);
