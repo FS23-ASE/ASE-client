@@ -131,7 +131,7 @@ const Checkout = () => {
             if (!d[element.sellerid]) {
                 c.push({
                     seller: element.sellerid,
-                    list: element
+                    list: [element]
                 });
                 d[element.sellerid] = element;
             } else {
