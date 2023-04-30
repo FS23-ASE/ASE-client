@@ -32,7 +32,7 @@ const Orderpage = () => {
         async function fetchOrders() {
             try {
                 const buyerId = id;
-                const response = await api.get('/orders/' + buyerId);
+                const response = await api.get('/order/' + buyerId);
                 await new Promise(resolve => setTimeout(resolve, 1000));
                 // Get returned orders and update the state.
                 setOrders(response.data);
@@ -55,7 +55,7 @@ const Orderpage = () => {
         if(i == 1){
             try {
                 const requestBody = JSON.stringify(id);
-                await api.put('/orders/' + id, requestBody);
+                await api.put('/order/' + id, requestBody);
             } catch (error) {
                 alert(`Something went wrong during the modification of order: \n${handleError(error)}`);
             }
@@ -66,7 +66,7 @@ const Orderpage = () => {
             }
         }else if(i == 2){
             try {
-                await api.delete('/orders/' + id);
+                await api.delete('/order/' + id);
             }catch (e) {
                 alert(`Something went wrong during the cancellation: \n${handleError(e)}`);
             }

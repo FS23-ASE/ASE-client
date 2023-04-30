@@ -151,7 +151,7 @@ const Checkout = () => {
                 book_list.push(c2.Id);})
             try{
                 const requestBody = JSON.stringify({buyerId, amount, sellerId, book_list, date});
-                await api.post('/orders', requestBody);
+                await api.post('/order', requestBody);
             }catch (error) {
                 alert(`Something went wrong during the order generation: \n${handleError(error)}`);
             }
