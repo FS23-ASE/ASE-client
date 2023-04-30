@@ -6,7 +6,7 @@ class Order {
         this.id = null;
         this.buyerId = null;
         this.sellerId = null;
-        this.book_list = null;
+        this.books = null;
         this.amount = null;
         this.date = null;
         this.status = null;

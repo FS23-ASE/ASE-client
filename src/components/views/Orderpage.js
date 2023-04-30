@@ -128,7 +128,7 @@ const Orderpage = () => {
                 <div className="book name"> Amount: {order.amount}</div>
                 <div className="book name"> Status: {order.status}</div>
                 <div>
-                    {viewBooks(order.book_list)}
+                    {viewBooks(order.books)}
                 </div>
                 <div className="book seller">
                     Chat with Seller:

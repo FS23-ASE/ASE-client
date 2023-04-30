@@ -121,7 +121,7 @@ const Checkout = () => {
         date = date + ' ' + time;
         const userId = id;
         let book_list_ = [];
-        for (let book of books) {
+        for (let book of books_) {
             book_list_.push({Id: book.id, sellerid: book.seller_id, Price: book.price});
         }
         let c = [];
@@ -170,7 +170,7 @@ const Checkout = () => {
             console.log(response);
             alert('Checkout Successfully!');
             var buyerid = id;
-            for (let book of books) {
+            for (let book of books_) {
                 var bookId = book.id;
                 const requestBody = JSON.stringify(buyerid);
                 await api.put('/books/' + bookId, requestBody);
@@ -188,10 +188,10 @@ const Checkout = () => {
     let bookcontent = <Spinner/>;
 
     //present book list
-    if (books) {
+    if (books_) {
         bookcontent = (
             <div className="book">
-                {books.map(book => (
+                {books_.map(book => (
                     <Book_ book={book} key={book.id}/>
                 ))}
             </div>
