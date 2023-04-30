@@ -28,7 +28,7 @@ const Salespage = () => {
         async function fetchOrders() {
             try {
                 const sellerId = id;
-                const response = await api.get('/orders/' + sellerId);
+                const response = await api.get('/orders/seller/' + sellerId);
                 await new Promise(resolve => setTimeout(resolve, 1000));
                 // Get returned orders and update the state.
                 setOrders(response.data);
