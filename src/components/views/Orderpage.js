@@ -32,7 +32,7 @@ const Orderpage = () => {
         async function fetchOrders() {
             try {
                 const buyerId = id;
-                const response = await api.get('/order/' + buyerId);
+                const response = await api.get('/order/buyer/' + buyerId);
                 await new Promise(resolve => setTimeout(resolve, 1000));
                 // Get returned orders and update the state.
                 setOrders(response.data);
