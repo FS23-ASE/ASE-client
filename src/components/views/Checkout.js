@@ -122,27 +122,36 @@ const Checkout = () => {
         var userId = id;
         let {book_list_} = [];
         for(let book of books){
-            book_list_.push([book.id, book.seller_id, book.price]);
-        }
-        const map = book_list_.reduce((result, item) => {
-            result[item[1]] = result[item[1]] || []
-            result[item[1]].push(item)
-            return result;
-        }, {})
-        const result = Object.values(map);
-        for(let b of result) {
-            try {
-                let amount = 0.0;
-                const buyerId = userId;
-                const sellerId = b[1];
-                var book_list = [];
-                for(let p of b){
-                    amount += p[2];
-                    book_list.push(p[0]);
-                }
+            book_list_.push({Id: book.id, sellerid: book.seller_id, Price: book.price});}
+        let c =[]
+        let d = {}
+        book_list_.forEach(element => {
+            if (!d[element.sellerid]) {
+                c.push({
+                    seller: element.sellerid,
+                    list: [element]
+                });
+                d[element.sellerid] = element;
+            } else {
+                c.forEach(ele => {
+                    if (ele.seller == element.sellerid) {
+                        ele.list.push(element);
+                    }
+                });
+            }
+        });
+        for (const c1 of c) {
+            let amount = 0.0;
+            const buyerId = userId;
+            const sellerId = c1.seller;
+            var book_list = [];
+            c1.list.forEach(c2 => {
+                amount += c2.Price;
+                book_list.push(c2.Id);})
+            try{
                 const requestBody = JSON.stringify({buyerId, amount, sellerId, book_list, date});
                 await api.post('/orders', requestBody);
-            } catch (error) {
+            }catch (error) {
                 alert(`Something went wrong during the order generation: \n${handleError(error)}`);
             }
         }
