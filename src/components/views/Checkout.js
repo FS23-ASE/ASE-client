@@ -120,11 +120,12 @@ const Checkout = () => {
         let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
         date = date+' '+time;
         var userId = id;
-        let {book_list_} = [];
+        let book_list_ = [];
         for(let book of books){
-            book_list_.push({Id: book.id, sellerid: book.seller_id, Price: book.price});}
-        let c =[]
-        let d = {}
+            book_list_.push({Id: book.id, sellerid: book.seller_id, Price: book.price});
+        }
+        let c =[];
+        let d = {};
         book_list_.forEach(element => {
             if (!d[element.sellerid]) {
                 c.push({
