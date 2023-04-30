@@ -14,8 +14,7 @@ import {Chat} from "../ui/Chat";
 
 const Header = props => (
     <div className="headertitle container" style={{height: props.height}}>
-        <h1 className="headertitle title">Personal Orderpage</h1>
-        <h2 className="headertitle subtitle">Order History:</h2>
+        <h1 className="headertitle title">Order History</h1>
     </div>
 );
 const Orderpage = () => {

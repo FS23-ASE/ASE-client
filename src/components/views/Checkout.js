@@ -122,21 +122,21 @@ const Checkout = () => {
         const userId = id;
         let book_list_ = [];
         for (let book of books_) {
-            book_list_.push({Id: book.id, sellerid: book.seller_id, Price: book.price});
+            book_list_.push({Id: book.id, sellerId: book.sellerId, Price: book.price});
         }
         let c = [];
         let d = {};
         for (let i = 0; i < book_list_.length; i++) {
             let element = book_list_[i];
-            if (!d[element.sellerid]) {
+            if (!d[element.sellerId]) {
                 c.push({
-                    seller: element.sellerid,
+                    seller: element.sellerId,
                     list: [element]
                 });
-                d[element.sellerid] = element;
+                d[element.sellerId] = element;
             } else {
                 for (const ele of c) {
-                    if (ele.seller == element.sellerid) {
+                    if (ele.seller == element.sellerId) {
                         ele.list.push(element);
                     }
                 };
@@ -156,6 +156,7 @@ const Checkout = () => {
             }
             try {
                 const requestBody = JSON.stringify({buyerId, amount, sellerId, books, date, status});
+                console.log(requestBody);
                 await api.post('/order', requestBody);
             } catch (error) {
                 alert(`Something went wrong during the order generation: \n${handleError(error)}`);
