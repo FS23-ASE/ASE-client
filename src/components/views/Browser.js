@@ -129,12 +129,13 @@ const Browser = () => {
         <Header height="250"/>
         <div className="mainpage container">
                 <div className="search select" style={{ display: "inline-block" }}>
+                    Filter by Category:
+                    <br/>
                     <select
                         onChange={(ft) => setFilter(ft.target.value)}
                         className="book-select"
                         aria-label="Filter Books by Category"
                     >
-                        <option value="">Filter by Category</option>
                         {filter_items.map((item) => (
                             <option key={item} value={item}>
                                 Filter by {item}
@@ -143,9 +144,10 @@ const Browser = () => {
                     </select>
                 </div>
                 <label className="search form">
-                    <FormField
+                    <input
+
                         type="search"
-                        onChange={bs => setA(bs.target.value)}/>
+                        onChange={(bs) => setA(bs.target.value)}/>
                 </label>
                     <SmallButton
                         display="inline-block"
