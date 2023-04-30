@@ -187,8 +187,8 @@ const Checkout = () => {
     //present user information
     if (user) {
         content = (
-            <div className="game">
-                <ul className="game user-list">
+            <div className="main">
+                <ul className="main user-list">
                     <br/>
                     <div>
                         <div className="player container">

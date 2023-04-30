@@ -8,17 +8,17 @@ import Cartpage from "../../views/Cartpage";
 import BookDetail from "../../views/BookDetail";
 
 
-const GameRouter = props => {
+const MainRouter = props => {
   /**
-   * "this.props.base" is "/app" because as been passed as a prop in the parent of GameRouter, i.e., App.js
+   * "this.props.base" is "/app" because as been passed as a prop in the parent of MainRouter, i.e., App.js
    */
   return (
     <div style={{display: 'flex', flexDirection: 'column'}}>
-      <Route exact path={`${props.base}/dashboard`}>
+      <Route exact path={`${props.base}/browser`}>
         <Main/>
       </Route>
       <Route exact path={`${props.base}`}>
-        <Redirect to={`${props.base}/dashboard`}/>
+        <Redirect to={`${props.base}/browser`}/>
       </Route>
         <Route exact path={`${props.base}/profile/:id`}> <Profile />}> </Route>
         <Route exact path={`${props.base}/edit/:id`}> <Edit />}> </Route>
@@ -33,8 +33,8 @@ const GameRouter = props => {
 * Don't forget to export your component!
  */
 
-GameRouter.propTypes = {
+MainRouter.propTypes = {
   base: PropTypes.string
 }
 
-export default GameRouter;
+export default MainRouter;

@@ -1,6 +1,6 @@
 import {BrowserRouter, Redirect, Route, Switch} from "react-router-dom";
-import {GameGuard} from "components/routing/routeProtectors/GameGuard";
-import GameRouter from "components/routing/routers/GameRouter";
+import {MainGuard} from "components/routing/routeProtectors/MainGuard";
+import MainRouter from "components/routing/routers/MainRouter";
 import {LoginGuard} from "components/routing/routeProtectors/LoginGuard";
 import Login from "components/views/Login";
 import Edit from "../../views/Edit";
@@ -18,18 +18,18 @@ const AppRouter = () => {
   return (
       <BrowserRouter>
         <Switch>
-          <Route path="/game">
-            <GameGuard>
-              <GameRouter base="/game"/>
-            </GameGuard>
-          </Route>
+          {/*<Route path="/browser">*/}
+          {/*  <MainGuard>*/}
+          {/*    <MainRouter base="/browser"/>*/}
+          {/*  </MainGuard>*/}
+          {/*</Route>*/}
           <Route exact path="/login">
             <LoginGuard>
               <Login/>
             </LoginGuard>
           </Route>
           <Route exact path="/">
-            <Redirect to="/game"/>
+            <Redirect to="/browser"/>
           </Route>
           <Route exact path={`/register`}> <Register /> </Route>
           <Route exact path={`/edit/:id`}> <Edit /> </Route>
@@ -41,7 +41,7 @@ const AppRouter = () => {
 
           <Route exact path={`/cartpage/:id`}> <Cartpage /> </Route>
 
-          <Route exact path={`/browser/:id`}> <Browser /> </Route>
+          <Route exact path={`/browser`}> <Browser /> </Route>
 
           <Route exact path={`/checkout/:id`}> <Checkout /> </Route>
 

@@ -68,7 +68,7 @@ const Register = () => {
             const response1 = await api.post('/cart', requestBody1);
             const cart = new Cart(response1.data);
             alert('Create Cart Successfully!');
-            // Login successfully worked --> navigate to the route /game in the GameRouter
+            // Login successfully worked --> navigate to the route /main in the MainRouter
             history.push(`/login`);
         } catch (error) {
             alert(`Something went wrong during the Registration: \n${handleError(error)}`);

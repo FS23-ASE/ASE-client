@@ -62,8 +62,8 @@ const Profile = () => {
     const {id} = useParams();
 
     //back to main page
-    const backToGame = () => {
-        history.push('/game');
+    const backToMain = () => {
+        history.push('/browser');
     }
 
     //direct to edit page
@@ -155,8 +155,8 @@ const Profile = () => {
     //present user information
     if (user) {
         content = (
-            <div className="game">
-                <ul className="game user-list">
+            <div className="profile">
+                <ul className="profile user-list">
                     <br/>
                     <div>
                         <div className="player container">
@@ -219,7 +219,7 @@ const Profile = () => {
                     <br/>
                     <SmallButton
                         width="80%"
-                        onClick={() => backToGame()}
+                        onClick={() => backToMain()}
                     >
                         Back
                     </SmallButton>

@@ -42,9 +42,9 @@ const Cartpage = () => {
     const {id} = useParams();
 
     //back to main page
-    const backToGame = () => {
+    const backToMain = () => {
         localStorage.setItem('id', id);
-        history.push('/game');
+        history.push('/browser');
     }
 
     const backToProfile = () => {
@@ -130,7 +130,7 @@ const Cartpage = () => {
             <br/>
             <SmallButton
                 width="80%"
-                onClick={() => backToGame()}
+                onClick={() => backToMain()}
             >
                 Back to Main Page
             </SmallButton>
