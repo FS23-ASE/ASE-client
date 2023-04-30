@@ -9,6 +9,11 @@ import User from "../../models/User";
 import Book from "../../models/Book";
 import Cart from "../../models/Cart";
 
+const Header = props => (
+    <div className="headertitle container" style={{height: props.height}}>
+        <h1 className="headertitle title">Cart</h1>
+    </div>
+);
 const Book_ = ({book}) => {
     const history = useHistory();
     const handleClick = () => {
@@ -107,32 +112,26 @@ const Cartpage = () => {
     }
 
     return (
-        <div>
-            <h1>Cart information</h1>
-            <h2>CartId:{cart.id}</h2>
-            <h2>Total Price:{cart.prices}</h2>
+        <div style={{"margin-left":"30vw","margin-right":"30vw"}}>
+            <Header height="250"/>
+
             {bookcontent}
+            <h2 style={{"margin-left":"1vw"}}>Total Price:{cart.prices} CHF</h2>
             <br/>
             <br/>
             <SmallButton
-                width="80%"
+                width="100%"
                 onClick={() => gotocheckout()}
             >
                 Go to Checkout
             </SmallButton>
             <br/>
-            <SmallButton
-                width="80%"
-                onClick={() => backToProfile()}
-            >
-                Profile
-            </SmallButton>
             <br/>
             <SmallButton
-                width="80%"
+                width="100%"
                 onClick={() => backToMain()}
             >
-                Back to Main Page
+                Back
             </SmallButton>
         </div>
 

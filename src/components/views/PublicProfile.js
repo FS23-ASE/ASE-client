@@ -53,7 +53,7 @@ Book_.propTypes = {
     book: PropTypes.object
 };
 
-const Profile = () => {
+const PublicProfile = () => {
 
     const history = useHistory();
 
@@ -167,10 +167,6 @@ const Profile = () => {
                             <div className="player name">Username:</div>
                             <div className="player content">{user.username}</div>
                         </div>
-                        <div className="player container">
-                            <div className="player name">Address:</div>
-                            <div className="player content">{user.address}</div>
-                        </div>
                     </div>
                 </ul>
 
@@ -187,42 +183,9 @@ const Profile = () => {
                     {content}
                     <SmallButton
                         width="80%"
-                        onClick={() => goToEdit()}
+                        // onClick={() => goToUpload()}
                     >
-                        Edit Profile
-                    </SmallButton>
-                    <br/>
-                    <br/>
-                    <SmallButton
-                        width="80%"
-                        onClick={() => goToUpload()}
-                    >
-                        Upload Books
-                    </SmallButton>
-                    <br/>
-                    <br/>
-                    <SmallButton
-                        width="80%"
-                        onClick={() => viewSales()}
-                    >
-                        My Sales
-                    </SmallButton>
-                    <br/>
-                    <br/>
-                    <SmallButton
-                        width="80%"
-                        onClick={() => viewOrder()}
-                    >
-                        View Orders
-                    </SmallButton>
-                    <br/>
-                    <br/>
-
-                    <SmallButton
-                        width="80%"
-                        onClick={() => goToCart()}
-                    >
-                        Cart
+                        Contact Seller
                     </SmallButton>
                     <br/>
                     <br/>
@@ -252,4 +215,4 @@ const Profile = () => {
 }
 
 
-export default Profile;
+export default PublicProfile;

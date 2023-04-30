@@ -129,12 +129,12 @@ const Browser = () => {
         <Header height="250"/>
         <div className="mainpage container">
                 <div className="search select" style={{ display: "inline-block" }}>
-                    Filter by Category:
                     <br/>
                     <select
                         onChange={(ft) => setFilter(ft.target.value)}
                         className="book-select"
                         aria-label="Filter Books by Category"
+
                     >
                         {filter_items.map((item) => (
                             <option key={item} value={item}>
@@ -145,7 +145,17 @@ const Browser = () => {
                 </div>
                 <label className="search form">
                     <input
-
+                        style={{
+                            'height': '50px',
+                            'padding-left': '15px',
+                            'width' :'13vw',
+                            'margin-left': '3vw',
+                            'border':'1px solid #D36B00',
+                            'border-radius': '0.75em',
+                            'margin-bottom': '20px',
+                            'background': 'transparentize(#f1efdc, 1)',
+                            'color': '#D36B00'
+                        }}
                         type="search"
                         onChange={(bs) => setA(bs.target.value)}/>
                 </label>
@@ -188,9 +198,10 @@ const Browser = () => {
                 {SearchBook(books)
                     .slice(0, paginate)
                     .map((book) =>(
+                        book.status &&
                             <div className="book" style={{"display":"inline-block"}}>
-                                <div className="book container" onClick={()=>handleClick(book.id)}>
-                                    <div>
+                                <div className="book container" >
+                                    <div onClick={()=>handleClick(book.id)}>
                                         {" " && (
                                             <img
                                                 src={book.image}

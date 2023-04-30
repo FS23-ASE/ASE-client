@@ -10,6 +10,12 @@ import User from 'models/User';
 import 'styles/views/Login.scss';
 import Cart from "../../models/Cart";
 
+const Header = props => (
+    <div className="headertitle container" style={{height: props.height}}>
+        <h1 className="headertitle title">Register</h1>
+    </div>
+);
+
 const FormField = props => {
     return (
         <div className="login field">
@@ -82,7 +88,10 @@ const Register = () => {
     return (
         <BaseContainer>
             <div className="login container">
-                <p>REGISTER</p>
+                <Header height="250"/>
+                <br/>
+                <br/>
+                <br/>
                 <div className="login form">
                     <FormField
                         label="Username"
@@ -102,7 +111,7 @@ const Register = () => {
                     <div className="login registration-button-container">
                         <Button
                             disabled={!username || !password || !email}
-                            width="50%"
+                            width="100%"
                             onClick={() => doRegistration()}
                         >
                             Register
@@ -110,7 +119,7 @@ const Register = () => {
                     </div>
                     <div className="login button-container">
                         <Button
-                            width="50%"
+                            width="100%"
                             onClick={() => backtologin()}
                         >
                             Back
