@@ -11,8 +11,15 @@ import Book from "../../models/Book";
 import Cart from "../../models/Cart";
 import Order from "../../models/Order";
 
-const Book_ = ({book}) => (
-    <div className="book container">
+const Book_ = ({book}) => {
+    const history = useHistory();
+    const handleClick = () => {
+        var path={
+            pathname:`/book/${book.id}`,
+        }
+        history.push(path);
+    }
+    return (<div className="book container" onClick={handleClick}>
         <div>
             {/*{book.image && <img src={book.image} alt="Book image" style={{ width: '100px', height: 'auto' }} />}*/}
             <div className="book name"> {book.name}</div>
@@ -20,6 +27,7 @@ const Book_ = ({book}) => (
         </div>
     </div>
 );
+}
 Book_.propTypes = {
     book: PropTypes.object
 };
@@ -35,8 +43,7 @@ const Checkout = () => {
     const [cart, setCart] = useState(new Cart());
     const [order, setOrder] = useState(new Order());
     const {id} = useParams();
-    const [book, setBook] = useState(new Book());
-    const [books, setBooks] = useState([]);
+    const [books_, setBooks_] = useState([]);
 
     useEffect(() => {
         async function fetchData() {
@@ -78,7 +85,7 @@ const Checkout = () => {
             await new Promise(resolve => setTimeout(resolve, 1000));
 
             // Get the returned books and update the state.
-            setBooks(response.data);
+            setBooks_(response.data);
 
             // var id = bookid;
             // const response = await api.get('/books/' + id);
@@ -109,49 +116,72 @@ const Checkout = () => {
 
     const generateOrder = async () => {
         let today = new Date();
-        let date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+        let date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
         let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-        date = date+' '+time;
-        var userId = id;
-        let {book_list} = [];
-        for(let book of books){
-            book_list.push([book.id, book.seller_id, book.price]);
+        date = date + ' ' + time;
+        const userId = id;
+        let book_list_ = [];
+        for (let book of books_) {
+            book_list_.push({Id: book.id, sellerId: book.sellerId, Price: book.price});
         }
-        const map = book_list.reduce((result, item) => {
-            result[item[1]] = result[item[1]] || []
-            result[item[1]].push(item)
-            return result;
-        }, {})
-        const result = Object.values(map);
-        for(let b of result) {
+        let c = [];
+        let d = {};
+        for (let i = 0; i < book_list_.length; i++) {
+            let element = book_list_[i];
+            if (!d[element.sellerId]) {
+                c.push({
+                    seller: element.sellerId,
+                    list: [element]
+                });
+                d[element.sellerId] = element;
+            } else {
+                for (const ele of c) {
+                    if (ele.seller == element.sellerId) {
+                        ele.list.push(element);
+                    }
+                };
+            }
+        };
+        for (let i = 0; i < c.length; i++) {
+            let c1 = c[i];
+            let amount = 0.0;
+            const buyerId = userId;
+            const sellerId = c1.seller;
+            let books = [];
+            const status = 'PAID';
+            for (let j = 0; j < c1.list.length; j++) {
+                let c2 = c1.list[j];
+                amount += c2.Price;
+                books.push(c2.Id);
+            }
             try {
-                let amount = 0.0;
-                const buyerId = userId;
-                const sellerId = b[1];
-                var book_list = [];
-                for(let p of b){
-                    amount += p[2];
-                    book_list.push(p[0]);
-                }
-                const requestBody = JSON.stringify({buyerId, amount, sellerId, book_list, date});
-                await api.post('/orders', requestBody);
+                const requestBody = JSON.stringify({buyerId, amount, sellerId, books, date, status});
+                console.log(requestBody);
+                await api.post('/order', requestBody);
             } catch (error) {
                 alert(`Something went wrong during the order generation: \n${handleError(error)}`);
             }
         }
     }
     const check_out = async () => {
-        const response = await api.put('/cart/checkout/' + id);
-        await new Promise(resolve => setTimeout(resolve, 1000));
-        setCart(response.data);
-        console.log(response);
-        alert('Checkout Successfully!');
-        await generateOrder();
-        var buyerid = id;
-        for(let book of books){
-            var bookId = book.id;
-            const requestBody = JSON.stringify({buyerid});
-            await api.put('/books/' + bookId, requestBody);
+        try {
+            const response = await api.put('/cart/checkout/' + id);
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            setCart(response.data);
+            console.log(response);
+            alert('Checkout Successfully!');
+            var buyerid = id;
+            for (let book of books_) {
+                var bookId = book.id;
+                const requestBody = JSON.stringify(buyerid);
+                await api.put('/books/' + bookId, requestBody);
+            }
+            await generateOrder();
+            history.push('/browser');
+        }
+        catch(error){
+            console.log(error);
+            alert("Something went wrong while checking out! See the console for details.");
         }
     }
 
@@ -159,10 +189,10 @@ const Checkout = () => {
     let bookcontent = <Spinner/>;
 
     //present book list
-    if (books) {
+    if (books_) {
         bookcontent = (
             <div className="book">
-                {books.map(book => (
+                {books_.map(book => (
                     <Book_ book={book} key={book.id}/>
                 ))}
             </div>
@@ -173,8 +203,8 @@ const Checkout = () => {
     //present user information
     if (user) {
         content = (
-            <div className="game">
-                <ul className="game user-list">
+            <div className="profile">
+                <ul className="profile user-list">
                     <br/>
                     <div>
                         <div className="player container">
@@ -186,7 +216,7 @@ const Checkout = () => {
                             <div className="player content">{user.address}</div>
                         </div>
                         <div className="player container">
-                            <div className="price">Price:</div>
+                            <div className="player name">Price:</div>
                             <div className="player content">{cart.prices}</div>
                         </div>
                     </div>
@@ -208,6 +238,7 @@ const Checkout = () => {
                     >
                         Checkout
                     </SmallButton>
+                    <br/>
                     <br/>
                     <SmallButton
                         width="80%"

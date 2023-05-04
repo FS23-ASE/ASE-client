@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {api, handleError} from 'helpers/api';
 import User from 'models/User';
-import {useHistory} from 'react-router-dom';
+import {Link,useHistory} from 'react-router-dom';
 import {Button} from 'components/ui/Button';
 import 'styles/views/Login.scss';
 import BaseContainer from "components/ui/BaseContainer";
@@ -58,8 +58,8 @@ const Login = props => {
       localStorage.setItem('token', user.token);
       localStorage.setItem('id', user.id);
 
-      // Login successfully worked --> navigate to the route /game in the GameRouter
-      history.push(`/game`);
+      // Login successfully worked --> navigate to the route /main in the MainRouter
+      history.push(`/browser`);
     } catch (error) {
       alert(`Something went wrong during the login: \n${handleError(error)}`);
     }
@@ -97,6 +97,15 @@ const Login = props => {
             >
               Login
             </Button>
+          </div>
+          <div className="login button-container">
+            <Link className="linkStyle" to={`/browser`}>
+            <Button
+                width="100%"
+            >
+              Main Page
+            </Button>
+            </Link>
           </div>
         </div>
       </div>

@@ -15,8 +15,6 @@ J
 src/styles/ui/Spinner.scss,4/e/4ed7459aeea66e0a1509d371554dcf3b17ee88a8
 N
 src/components/views/Header.js,c/1/c1b536fac841a5c9478da338e1fc19daa1005e67
-M
-src/components/views/Login.js,6/2/629e2775f16b82380f52def83e7e69fce0c61601
 B
 src/models/Cart.js,5/b/5bba0e8c5ccf4d7a1f7a39eaac5dda43ae44b866
 N

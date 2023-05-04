@@ -9,22 +9,36 @@ import User from "../../models/User";
 import Book from "../../models/Book";
 import Cart from "../../models/Cart";
 
-const Book_ = ({book}) => (
-    <div className="book container">
-        <div>
-            <div className="book name"> {book.name}</div>
-            <div className="book author">Author: {book.author}</div>
-            <div className="book publisher">Publisher: {book.publisher}</div>
-            <div className="book status">Book Status: {book.status.toString()}</div>
-        </div>
+const Header = props => (
+    <div className="headertitle container" style={{height: props.height}}>
+        <h1 className="headertitle title">Cart</h1>
     </div>
 );
+const Book_ = ({book}) => {
+    const history = useHistory();
+    const handleClick = () => {
+        var path = {
+            pathname: `/book/${book.id}`,
+        }
+        history.push(path);
+    }
+    return (
+        <div className="book container" onClick={handleClick}>
+            <div>
+                <div className="book name"> {book.name}</div>
+                <div className="book author">Author: {book.author}</div>
+                <div className="book publisher">Publisher: {book.publisher}</div>
+                <div className="book status">Book Status: {book.status.toString()}</div>
+            </div>
+        </div>
+    );
+}
 
 Book_.propTypes = {
     book: PropTypes.object
 };
 
-const Cartpage =() => {
+const Cartpage = () => {
 
     const history = useHistory();
 
@@ -33,9 +47,9 @@ const Cartpage =() => {
     const {id} = useParams();
 
     //back to main page
-    const backToGame = () => {
+    const backToMain = () => {
         localStorage.setItem('id', id);
-        history.push('/game');
+        history.push('/browser');
     }
 
     const backToProfile = () => {
@@ -87,44 +101,38 @@ const Cartpage =() => {
 
     let bookcontent = <Spinner/>;
 
-    if(books){
+    if (books) {
         bookcontent = (
-                    <div className="book">
-                            {books.map(book => (
-                                <Book_ book={book} key={book.id}/>
-                            ))}
-                    </div>
-                )
+            <div className="book">
+                {books.map(book => (
+                    <Book_ book={book} key={book.id}/>
+                ))}
+            </div>
+        )
     }
 
-    return(
-          <div>
-            <h1>Cart information</h1>
-            <h2>CartId:{cart.id}</h2>
-            <h2>Total Price:{cart.prices}</h2>
+    return (
+        <div style={{"margin-left":"30vw","margin-right":"30vw"}}>
+            <Header height="250"/>
+
             {bookcontent}
+            <h2 style={{"margin-left":"1vw"}}>Total Price:{cart.prices} CHF</h2>
             <br/>
             <br/>
-          <SmallButton
-              width="80%"
-              onClick={() => gotocheckout()}
-          >
-              Go to Checkout
-          </SmallButton>
-          <br/>
             <SmallButton
-                width="80%"
-                onClick={() => backToProfile()}
+                width="100%"
+                onClick={() => gotocheckout()}
             >
-                Profile
+                Go to Checkout
             </SmallButton>
-          <br/>
-          <SmallButton
-              width="80%"
-              onClick={() => backToGame()}
-          >
-              Back to Main Page
-          </SmallButton>
+            <br/>
+            <br/>
+            <SmallButton
+                width="100%"
+                onClick={() => backToMain()}
+            >
+                Back
+            </SmallButton>
         </div>
 
     );

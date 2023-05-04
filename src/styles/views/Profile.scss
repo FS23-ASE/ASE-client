@@ -73,19 +73,24 @@
     border-radius: $borderRadius;
     background: $accentDark;
     max-height: 30px;
-    margin-left: 25px;
-    margin-right: 25px;
+    margin-left: 50px;
+    margin-right: 50px;
+    text-align: left;
 
   }
 
   &.name {
     font-weight: 700;
+    display: inline-block;
     color: $textColor;
     margin-left: 2px;
     font-size: 20px;
+    text-align: left;
   }
 
   &.content {
+    display: inline-block;
+    text-align: left;
     font-weight: 400;
     color: $textColor;
     margin-left: 4px;

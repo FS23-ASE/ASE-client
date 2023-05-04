@@ -2,26 +2,30 @@ import React, {useEffect, useState} from 'react';
 import {api, handleError} from 'helpers/api';
 import {Spinner} from 'components/ui/Spinner';
 import {SmallButton} from 'components/ui/SmallButton';
+import {RightButton} from 'components/ui/RightButton';
+
 import {Link, useHistory, useParams} from 'react-router-dom';
-import BaseContainer from "components/ui/BaseContainer";
 import PropTypes from "prop-types";
-import User from "../../models/User";
-import Book from "../../models/Book";
-import Cart from "../../models/Cart";
 import "styles/views/Browser.scss";
 import 'styles/views/Login.scss';
+import {Button} from "../ui/Button";
+
+const Header = props => (
+    <div className="headertitle container" style={{height: props.height}}>
+        <h1 className="headertitle title">ASE BookMarket</h1>
+    </div>
+);
 
 const FormField = props => {
     return (
-        <div className="login field">
-            <label className="login label">
+        <div className="search field">
+            <label className="search label">
                 {props.label}
             </label>
             <input
-                className="login input"
+                className="search input"
                 placeholder="Search for.."
                 value={props.value}
-                width="60%"
             />
         </div>
     );
@@ -36,7 +40,6 @@ const Browser = () => {
     const history = useHistory();
 
     const [books, setBooks] = useState([]);
-    const {id} = useParams();
 
     const [query, setQuery] = useState('');
     const [filter, setFilter] = useState('');
@@ -46,6 +49,7 @@ const Browser = () => {
 
     useEffect(() => {
         async function fetchBooks() {
+            try{
                 const response = await api.get('/books');
 
                 await new Promise(resolve => setTimeout(resolve, 1000));
@@ -64,12 +68,28 @@ const Browser = () => {
                     setBooks([]);
                 }
             }
+            catch(error){
+                console.error(`Something went wrong while updating the description: \n${handleError(error)}`);
+                console.log(error);
+            alert("Something went wrong when fetching books!")}
+        }
+
         fetchBooks();
     },[]);
 
-    const backToGame = () => {
-        localStorage.setItem('id', id)
-        history.push('/game');}
+    const logout = async () => {
+        try {
+            // await api.put('/users/'+localStorage.getItem("id")+"/logout");
+
+            history.push('/login');}
+        catch (error) {
+            alert(`Something went wrong during the logout: \n${handleError(error)}`);
+        }
+        localStorage.removeItem('token');
+        localStorage.removeItem('id');
+        history.push('/login');
+
+    }
 
     const SearchBook = (bs) => {
         return bs.filter(
@@ -80,95 +100,141 @@ const Browser = () => {
     }
 
     const addCart = async (addedbook) => {
+        try {
 
             let bookId = addedbook.id;
-            let userId = id;
+            let userId = localStorage.getItem('id');
             const requestBody = JSON.stringify({userId, bookId});
             await api.post('/cart/' + userId + '/' + bookId, requestBody);
             alert('Add Successfully');
+        } catch (error) {
+            alert(`Something went wrong when adding to the cart: \n${handleError(error)}`);
+        }
     }
 
     const load_more = () => {
         setPaginate((preValue) => preValue + 8);
     }
 
+
+    const handleClick = (id) => {
+        var path={
+            pathname:`/book/${id}`,
+        }
+        history.push(path);
+    }
+
     return(
-        <div className="mainpage-wrapper">
-            <div className="mainpage-search-wrapper">
-                <label className="search-form">
-                    <FormField
+        <div>
+        <Header height="250"/>
+        <div className="mainpage container">
+                <div className="search select" style={{ display: "inline-block" }}>
+                    <br/>
+                    <select
+                        onChange={(ft) => setFilter(ft.target.value)}
+                        className="book-select"
+                        aria-label="Filter Books by Category"
+
+                    >
+                        {filter_items.map((item) => (
+                            <option key={item} value={item}>
+                                Filter by {item}
+                            </option>
+                        ))}
+                    </select>
+                </div>
+                <label className="search form">
+                    <input
+                        style={{
+                            'height': '50px',
+                            'padding-left': '15px',
+                            'width' :'13vw',
+                            'margin-left': '3vw',
+                            'border':'1px solid #D36B00',
+                            'border-radius': '0.75em',
+                            'margin-bottom': '20px',
+                            'background': 'transparentize(#f1efdc, 1)',
+                            'color': '#D36B00'
+                        }}
                         type="search"
-                        onChange={bs => setA(bs.target.value)}/>
+                        onChange={(bs) => setA(bs.target.value)}/>
+                </label>
                     <SmallButton
-                        width="100%"
+                        display="inline-block"
+                        width="10%"
                         onClick={() => setQuery(a)}>
                         Search
                     </SmallButton>
-                    <span className="sr-only">Search books here</span>
-                </label>
-            </div>
-            <div className="cart">
-                <Link className="cart-link" to={`/cartpage/${id}`}>
-                    <SmallButton
-                        width="100%">
-                        Cart
-                    </SmallButton>
+                    <Link className="cart-link" to={`/cartpage/${localStorage.getItem('id')}`}>
+                        <RightButton
+                            display="inline-block"
+                            disabled={localStorage.getItem('id')==null}
+                            width="10%">
+                            Cart
+                        </RightButton>
+                    </Link>
+            <Link className="linkStyle" to={`/profile/${localStorage.getItem('id')}`}>
+                <SmallButton
+                    width="10%"
+                    display="inline-block"
+                    disabled={localStorage.getItem('id')==null}
+                >
+                    profile
+                </SmallButton>
+            </Link>
+            {localStorage.getItem('id') !=null ? (
+                <SmallButton width="10%" onClick={() => logout()}>
+                    Logout
+                </SmallButton>
+            ) : (
+                <Link className="linkStyle" to={`/login`}>
+                <SmallButton width="10%" >
+                    Login
+                </SmallButton>
                 </Link>
-            </div>
-            <div className="select">
-                <select
-                    onChange={(ft) => setFilter(ft.target.value)}
-                    className="book-select"
-                    aria-label="Filter Books by Category">
-                    <option value="">Filter by Category</option>
-                    {filter_items.map((item) => (
-                        <option value={item}>Filter by {item}</option>
-                    ))}
-                </select>
-                <span className="focus"></span>
-            </div>
-            <br/>
-            <br/>
-            <ul className="book-grid">
+            )}
+
+            <div className="book-grid" >
                 {SearchBook(books)
                     .slice(0, paginate)
                     .map((book) =>(
-                        <li key={book.id}>
-                            <article className="book">
-                                <div className="book-image">
-                                    {book.image && <img src={book.image} alt="Book image" style={{ width: '200px', height: 'auto' }} />}
-                                </div>
-                                <div className="book-content">
-                                    <h2 className="book-name">Book Name: {book.name}</h2>
-                                    <h2 className="book-category">Category: {book.category}</h2>
-                                    <h2 className="book-sellerid">Seller: {book.sellerid}</h2>
-                                    <h2 className="book-price">Seller: {book.price}</h2>
-                                </div>
-                                <br/>
-                                <br/>
-                                <div className="book-purchase-button">
+                        book.status &&
+                            <div className="book" style={{"display":"inline-block"}}>
+                                <div className="book container" >
+                                    <div onClick={()=>handleClick(book.id)}>
+                                        {" " && (
+                                            <img
+                                                src={book.image}
+                                                alt="Book image"
+                                                style={{ width: "200px", height: "auto" }}
+                                            />
+                                        )}
+                                        <div className="book name"> {book.name}</div>
+                                        <div className="book author">Author: {book.author}</div>
+                                        <div className="book publisher">Publisher: {book.publisher}</div>
+                                        <br/>
+                                    </div>
                                     <SmallButton
-                                        width="50%"
-                                        onclick={addCart(book)}>Add to Cart</SmallButton>
+                                        width="60%"
+                                        disabled={localStorage.getItem('id')==null}
+                                        onClick={()=>addCart(book)}>+ Cart
+                                    </SmallButton>
                                 </div>
-                            </article>
-                        </li>
+
+                            </div>
+
                     ))}
-            </ul>
+            </div>
             <br/>
             <br/>
-            <SmallButton
-                width="100%"
-                onClick={load_more}>Load More...</SmallButton>
+            {/*<SmallButton*/}
+            {/*    width="50%"*/}
+            {/*    onClick={load_more}>Load More...</SmallButton>*/}
             <br/>
             <br/>
-            <SmallButton
-                width="100%"
-                onClick={() => backToGame()}
-            >
-                Back
-            </SmallButton>
+
         </div>
+            </div>
     )
 }
 export default Browser;

@@ -14,8 +14,7 @@ import {Chat} from "../ui/Chat";
 
 const Header = props => (
     <div className="headertitle container" style={{height: props.height}}>
-        <h1 className="headertitle title">Personal Orderpage</h1>
-        <h2 className="headertitle subtitle">Order History:</h2>
+        <h1 className="headertitle title">Order History</h1>
     </div>
 );
 const Orderpage = () => {
@@ -32,7 +31,7 @@ const Orderpage = () => {
         async function fetchOrders() {
             try {
                 const buyerId = id;
-                const response = await api.get('/orders/' + buyerId);
+                const response = await api.get('/order/buyer/' + buyerId);
                 await new Promise(resolve => setTimeout(resolve, 1000));
                 // Get returned orders and update the state.
                 setOrders(response.data);
@@ -54,8 +53,9 @@ const Orderpage = () => {
         const id = o.id;
         if(i == 1){
             try {
-                const requestBody = JSON.stringify(id);
-                await api.put('/orders/' + id, requestBody);
+                const status = 'RECEIVED';
+                const requestBody = JSON.stringify(status);
+                await api.put('/order/' + id, requestBody);
             } catch (error) {
                 alert(`Something went wrong during the modification of order: \n${handleError(error)}`);
             }
@@ -66,7 +66,7 @@ const Orderpage = () => {
             }
         }else if(i == 2){
             try {
-                await api.delete('/orders/' + id);
+                await api.delete('/order/' + id);
             }catch (e) {
                 alert(`Something went wrong during the cancellation: \n${handleError(e)}`);
             }
@@ -127,7 +127,7 @@ const Orderpage = () => {
                 <div className="book name"> Amount: {order.amount}</div>
                 <div className="book name"> Status: {order.status}</div>
                 <div>
-                    {viewBooks(order.book_list)}
+                    {viewBooks(order.books)}
                 </div>
                 <div className="book seller">
                     Chat with Seller:

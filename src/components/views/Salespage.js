@@ -28,7 +28,7 @@ const Salespage = () => {
         async function fetchOrders() {
             try {
                 const sellerId = id;
-                const response = await api.get('/orders/' + sellerId);
+                const response = await api.get('/orders/seller/' + sellerId);
                 await new Promise(resolve => setTimeout(resolve, 1000));
                 // Get returned orders and update the state.
                 setOrders(response.data);
@@ -36,7 +36,7 @@ const Salespage = () => {
             } catch (error) {
                 console.error(`Something went wrong while fetching orders: \n${handleError(error)}`);
                 console.error("Details:", error);
-                alert("Something went wrong while fetching orders! See the console for details.");
+                alert("Something went wrong while fetching sales! See the console for details.");
             }
         };
         fetchOrders();
@@ -50,7 +50,8 @@ const Salespage = () => {
         const id = o.id;
         if(i == 1){
             try {
-                const requestBody = JSON.stringify(id);
+                const status = 'SHIPPED';
+                const requestBody = JSON.stringify(status);
                 await api.put('/orders/' + id, requestBody);
             } catch (error) {
                 alert(`Something went wrong during the modification of order: \n${handleError(error)}`);
@@ -123,7 +124,7 @@ const Salespage = () => {
                 <div className="book name"> Amount: {order.amount}</div>
                 <div className="book name"> Status: {order.status}</div>
                 <div>
-                    {viewBooks(order.book_list)}
+                    {viewBooks(order.books)}
                 </div>
                 <div className="book seller">
                     Chat with Buyer:
