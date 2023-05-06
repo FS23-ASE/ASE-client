@@ -7,6 +7,7 @@ import {Link, useHistory, useParams} from 'react-router-dom';
 import BaseContainer from "components/ui/BaseContainer";
 import PropTypes from "prop-types";
 import "styles/views/Profile.scss";
+import Contact from "../../models/Contact";
 
 const Header = props => (
     <div className="headertitle container" style={{height: props.height}}>
@@ -42,8 +43,10 @@ const Salespage = () => {
         fetchOrders();
     }, []);
 
-    const chatwithbuyer = async (buyer_id) => {
-        /* to be done */
+    const contactwithbuyer = async (buyer_id, orderId) => {
+        const sender = id;
+        const accepter = buyer_id;
+        history.push('/contactform/' + {sender, accepter, orderId});
     }
 
     const manageOrder = async (o, i) => {
@@ -131,8 +134,8 @@ const Salespage = () => {
                     {'\u00A0u00A0'}
                     <SmallButton
                         width="50%"
-                        onClick={() => chatwithbuyer(order.buyerId)}>
-                        Chat
+                        onClick={() => contactwithbuyer(order.buyerId, order.id)}>
+                        Contact
                     </SmallButton>
                     <br/>
                 </div>

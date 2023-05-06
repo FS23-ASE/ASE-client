@@ -10,7 +10,8 @@ import "styles/views/Profile.scss";
 import User from "../../models/User";
 import Book from "../../models/Book";
 import Order from "../../models/Order";
-import {Chat} from "../ui/Chat";
+import Contact from "../../models/Contact";
+
 
 const Header = props => (
     <div className="headertitle container" style={{height: props.height}}>
@@ -45,8 +46,10 @@ const Orderpage = () => {
         fetchOrders();
     }, []);
 
-    const chatwithseller = async (seller_id) => {
-        /* to be done */
+    const contactwithseller = async (seller_id, orderId) => {
+        const sender = id;
+        const accepter = seller_id;
+        history.push('/contactform/' + {sender, accepter, orderId});
     }
 
     const manageOrder = async (o, i) => {
@@ -134,8 +137,8 @@ const Orderpage = () => {
                     {'\u00A0u00A0'}
                     <SmallButton
                         width="50%"
-                        onClick={() => chatwithseller(order.sellerId)}>
-                        Chat
+                        onClick={() => contactwithseller(order.sellerId, order.id)}>
+                        Contact
                     </SmallButton>
                     <br/>
                 </div>
@@ -175,27 +178,27 @@ const Orderpage = () => {
     return (
         <div>
             <Header height="250"/>
-                <div className={`part-container`}>
-                        <div className={`left`}>
-                            <SmallButton
-                                width="80%"
-                                onClick={() => backtoOverview()}
-                            >
-                                Back to User Overview
-                            </SmallButton>
-                            <br/>
-                        </div>
-                        <div className={`right`}>
-                            <div className="title">
-                                Order Detail
-                            </div>
-                            <MacScrollbar>
-                                <div>
-                                    {ordercontent}
-                                </div>
-                            </MacScrollbar>
-                        </div>
+            <div className={`part-container`}>
+                <div className={`left`}>
+                    <SmallButton
+                        width="80%"
+                        onClick={() => backtoOverview()}
+                    >
+                        Back to User Overview
+                    </SmallButton>
+                    <br/>
                 </div>
+                <div className={`right`}>
+                    <div className="title">
+                        Order Detail
+                    </div>
+                    <MacScrollbar>
+                        <div>
+                            {ordercontent}
+                        </div>
+                    </MacScrollbar>
+                </div>
+            </div>
         </div>
     )
 }
