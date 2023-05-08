@@ -39,8 +39,6 @@ B
 src/models/Book.js,8/2/828ad685cfa57d9cf678c2afc7370109e4981e91
 P
  src/components/views/Checkout.js,3/1/31c06ded3ec04cb495b83badbd439edb7f2a7bc0
-S
-#src/components/views/Contactform.js,c/e/ce81a37a95449cbc4f4433b5bb7e8d550a51b842
 R
 "src/components/views/MessageBox.js,3/b/3b66abb87e4d0a3a3bad41c3b72c59e2b33bbf8b
 [

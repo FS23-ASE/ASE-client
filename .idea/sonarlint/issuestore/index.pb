@@ -39,8 +39,6 @@ P
  src/components/views/Checkout.js,3/1/31c06ded3ec04cb495b83badbd439edb7f2a7bc0
 P
  src/components/views/Cartpage.js,b/4/b499ea93c63d62235b1db4d961a341b485143ff7
-S
-#src/components/views/Contactform.js,c/e/ce81a37a95449cbc4f4433b5bb7e8d550a51b842
 R
 "src/components/views/MessageBox.js,3/b/3b66abb87e4d0a3a3bad41c3b72c59e2b33bbf8b
 [
