@@ -115,6 +115,7 @@ const Checkout = () => {
     }
 
     const generateOrder = async () => {
+        /*
         let today = new Date();
         let date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
         let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
@@ -161,6 +162,14 @@ const Checkout = () => {
             } catch (error) {
                 alert(`Something went wrong during the order generation: \n${handleError(error)}`);
             }
+        }*/
+        let userId = id;
+        try {
+            const requestBody = JSON.stringify({userId});
+            console.log(requestBody);
+            await api.post('/cart/order', requestBody);
+        } catch (error) {
+            alert(`Something went wrong during the order generation: \n${handleError(error)}`);
         }
     }
     const check_out = async () => {

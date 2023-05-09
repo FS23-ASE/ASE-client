@@ -83,6 +83,10 @@ const Profile = () => {
         history.push(`/salespage/` + id)
     }
 
+    const viewMessages = () => {
+        history.push('/messagebox/' + id)
+    }
+
     const viewOrder = () => {
         history.push(`/orderpage/` + id);
     }
@@ -217,7 +221,14 @@ const Profile = () => {
                     </SmallButton>
                     <br/>
                     <br/>
-
+                    <SmallButton
+                        width="80%"
+                        onClick={() => viewMessages()}
+                    >
+                        View Messages
+                    </SmallButton>
+                    <br/>
+                    <br/>
                     <SmallButton
                         width="80%"
                         onClick={() => goToCart()}

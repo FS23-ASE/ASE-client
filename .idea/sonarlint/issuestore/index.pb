@@ -27,16 +27,12 @@ N
 src/components/views/Upload.js,e/e/eedeef0f1b030b362df9b89a8da887e9264a5774
 M
 src/styles/views/Profile.scss,4/e/4e2f14377462380fb249fcf6a54662583bb39013
-O
-src/components/views/Profile.js,f/4/f47d92c2e2815b868fe59886ea263a67229ba44a
 P
  src/components/views/Register.js,8/8/88b5660670909825a45ef1b8bd97776a971ca9d1
 <
 package.json,7/0/7030d0b2f71b999ff89a343de08c414af32fc93a
 B
 src/models/Book.js,8/2/828ad685cfa57d9cf678c2afc7370109e4981e91
-P
- src/components/views/Checkout.js,3/1/31c06ded3ec04cb495b83badbd439edb7f2a7bc0
 P
  src/components/views/Cartpage.js,b/4/b499ea93c63d62235b1db4d961a341b485143ff7
 R
