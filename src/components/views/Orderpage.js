@@ -18,13 +18,13 @@ const Header = props => (
         <h1 className="headertitle title">Order History</h1>
     </div>
 );
-const Orderpage = () => {
+const Orderpage = async () => {
     const history = useHistory();
     const {id} = useParams();
     const [order, setOrder] = useState();
-    const [orders, setOrders] = useState([]);
-    const [book, setBook] = useState([]);
-    const [books, setBooks] = useState([]);
+    const [orders, setOrders] = useState(null);
+    const [book, setBook] = useState(new Book());
+    const [books, setBooks] = useState(null);
 
     useEffect(() => {
 
@@ -35,8 +35,13 @@ const Orderpage = () => {
                 const response = await api.get('/order/buyer/' + buyerId);
                 await new Promise(resolve => setTimeout(resolve, 1000));
                 // Get returned orders and update the state.
-                setOrders(response.data);
+                if (response.data) {
+                    setOrders(response.data);
+                } else {
+                    setOrders([]);
+                }
                 console.log(response);
+                console.log(Array.isArray(orders));
             } catch (error) {
                 console.error(`Something went wrong while fetching orders: \n${handleError(error)}`);
                 console.error("Details:", error);
@@ -54,7 +59,7 @@ const Orderpage = () => {
 
     const manageOrder = async (o, i) => {
         const id = o.id;
-        if(i == 1){
+        if (i == 1) {
             try {
                 const status = 'RECEIVED';
                 const requestBody = JSON.stringify(status);
@@ -62,19 +67,19 @@ const Orderpage = () => {
             } catch (error) {
                 alert(`Something went wrong during the modification of order: \n${handleError(error)}`);
             }
-            for(let j = 0; j < orders.length; j++){
-                if(orders[j].id == o.id){
+            for (let j = 0; j < orders.length; j++) {
+                if (orders[j].id == o.id) {
                     orders[j].status = "RECEIVED";
                 }
             }
-        }else if(i == 2){
+        } else if (i == 2) {
             try {
                 await api.delete('/order/' + id);
-            }catch (e) {
+            } catch (e) {
                 alert(`Something went wrong during the cancellation: \n${handleError(e)}`);
             }
-            for(let j = 0; j < orders.length; j++){
-                if(orders[j].id == o.id){
+            for (let j = 0; j < orders.length; j++) {
+                if (orders[j].id == o.id) {
                     orders.splice(j, 1);
                 }
             }
@@ -97,7 +102,7 @@ const Orderpage = () => {
     let ordercontent = <Spinner/>;
     let bookcontent = <Spinner/>;
 
-    if(books){
+    if (books) {
         bookcontent = (
             <div className="book">
                 {books.map(book => (
@@ -111,16 +116,21 @@ const Orderpage = () => {
         history.push(`/profile/` + id);
     }
 
-    const viewBooks = async (book_list) => {
-        for (let id of book_list) {
-            const response = await api.get('/books/' + id);
+    const viewBooks = async (id) => {
+        try {
+            const response = await api.get('/order/books/' + id);
+
             await new Promise(resolve => setTimeout(resolve, 1000));
-            books.push(setBook(response.data));
+
+            // Get the returned books and update the state.
+            setBooks(response.data);
+            //books.map(async book => (book.image = await api.get('/books/' + book.id+'/image')));
+            console.log(response);
+        } catch (error) {
+            console.error(`Something wrong when getting books.`);
+            console.error("Details:", error);
+            alert("Something wrong when getting books.");
         }
-        return (
-            {bookcontent}
-        )
-        setBooks([]);
     }
 
     const Order_ = ({order}) => (
@@ -130,7 +140,8 @@ const Orderpage = () => {
                 <div className="book name"> Amount: {order.amount}</div>
                 <div className="book name"> Status: {order.status}</div>
                 <div>
-                    {viewBooks(order.books)}
+                    {viewBooks(order.id)}
+                    {bookcontent}
                 </div>
                 <div className="book seller">
                     Chat with Seller:

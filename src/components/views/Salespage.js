@@ -29,11 +29,12 @@ const Salespage = () => {
         async function fetchOrders() {
             try {
                 const sellerId = id;
-                const response = await api.get('/orders/seller/' + sellerId);
+                const response = await api.get('/order/seller/' + sellerId);
                 await new Promise(resolve => setTimeout(resolve, 1000));
                 // Get returned orders and update the state.
                 setOrders(response.data);
                 console.log(response);
+                console.log(Array.isArray(orders));
             } catch (error) {
                 console.error(`Something went wrong while fetching orders: \n${handleError(error)}`);
                 console.error("Details:", error);
@@ -165,9 +166,11 @@ const Salespage = () => {
     if (orders) {
         ordercontent = (
             <div className="book">
-                {orders.map(order => (
-                    <Order_ order={order} key={order.id}/>
-                ))}
+                {Array.isArray(orders)
+                    ? orders.map(order => (
+                        <Order_ order={order} key={order.id}/>
+                    ))
+                    : null}
             </div>
         )
     }
