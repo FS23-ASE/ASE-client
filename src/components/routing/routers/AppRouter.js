@@ -55,7 +55,7 @@ const AppRouter = () => {
 
           <Route exact path={`/salespage/:id`}> <Salespage /> </Route>
 
-          <Route exact path={`/contactform/:{sender, accepter, orderId}`}> <Contactform /> </Route>
+          <Route exact path={`/contactform/:sender/:accepter/:orderId`}> <Contactform /> </Route>
 
           <Route exact path={`/messagebox/:id`}> <MessageBox /> </Route>
         </Switch>

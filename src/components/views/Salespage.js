@@ -55,7 +55,7 @@ const Salespage = () => {
     const contactwithbuyer = async (buyer_id, orderId) => {
         const sender = id;
         const accepter = buyer_id;
-        history.push('/contactform/' + {sender, accepter, orderId});
+        history.push('/contactform/' + sender + '/' +accepter + '/' + orderId);
     }
 
     const manageOrder = async (o, i) => {
@@ -64,7 +64,7 @@ const Salespage = () => {
             try {
                 const status = 'SHIPPED';
                 const requestBody = JSON.stringify(status);
-                await api.put('/orders/' + id, requestBody);
+                await api.put('/order/' + id, requestBody);
             } catch (error) {
                 alert(`Something went wrong during the modification of order: \n${handleError(error)}`);
             }
@@ -75,7 +75,7 @@ const Salespage = () => {
             }
         }else if(i == 2){
             try {
-                await api.delete('/orders/' + id);
+                await api.delete('/order/' + id);
             }catch (e) {
                 alert(`Something went wrong during the cancellation: \n${handleError(e)}`);
             }

@@ -29,24 +29,18 @@ const Orderpage = () => {
     const fetchOrders = async () => {
         try {
             const buyerId = id;
-            //const response = await api.get('/order/buyer/' + buyerId);
-            //await new Promise(resolve => setTimeout(resolve, 1000));
-            //// Get returned orders and update the state.
-            //if (response.data) {
-            //    const ordersPromise = response.data.map(order =>{
-            //        return {...order}
-            //    });
-            //    const ordersPromise_ = await Promise.all(ordersPromise);
-            //    setOrders(ordersPromise_);
-            //} else {
-            //    setOrders([]);
-            //}
-            //console.log(response);
-            const response = await api.get('/order/buyer/' + id);
-
+            const response = await api.get('/order/buyer/' + buyerId);
             await new Promise(resolve => setTimeout(resolve, 1000));
-
-            setOrders(response.data);
+            // Get returned orders and update the state.
+            if (response.data) {
+                const ordersPromise = response.data.map(order =>{
+                    return {...order}
+                });
+                const ordersPromise_ = await Promise.all(ordersPromise);
+                setOrders(ordersPromise_);
+            } else {
+                setOrders([]);
+            }
             console.log(response);
         } catch (error) {
             console.error(`Something went wrong while fetching orders: \n${handleError(error)}`);
@@ -65,7 +59,7 @@ const Orderpage = () => {
     const contactwithseller = async (seller_id, orderId) => {
         const sender = id;
         const accepter = seller_id;
-        history.push('/contactform/' + {sender, accepter, orderId});
+        history.push('/contactform/' + sender + '/' +accepter + '/' + orderId);
     }
 
     const manageOrder = async (o, i) => {
@@ -127,125 +121,62 @@ const Orderpage = () => {
         history.push(`/profile/` + id);
     }
 
-    //const viewBooks = async (id) => {
-    //    try {
-    //        const response = await api.get('/order/books/' + id);
-//
-    //        await new Promise(resolve => setTimeout(resolve, 1000));
-//
-    //        // Get the returned books and update the state.
-    //        setBooks(response.data);
-    //        //books.map(async book => (book.image = await api.get('/books/' + book.id+'/image')));
-    //        console.log(response);
-    //    } catch (error) {
-    //        console.error(`Something wrong when getting books.`);
-    //        console.error("Details:", error);
-    //        alert("Something wrong when getting books.");
-    //    }
-    //}
+    const viewBooks = async (id) => {
+        try {
+            const response = await api.get('/order/books/' + id);
 
-    const Order_ = ({order}) => {
+            await new Promise(resolve => setTimeout(resolve, 1000));
 
-
-        useEffect(() => {
-          const fetchBooks = async () => {
-            try {
-              const response = await api.get('/order/books/' + order.id);
-              await new Promise(resolve => setTimeout(resolve, 1000));
-              setBooks(response.data);
-              console.log(response);
-            } catch (error) {
-              console.error(`Something went wrong when getting books.`);
-              console.error("Details:", error);
-              alert("Something went wrong when getting books.");
-            }
-          };
-
-          fetchBooks();
-        },[order.id]);
-
-        if (books) {
-            return (
-              <div className="book container">
-                <div>
-                  <div className="book name"> Seller: {order.sellerId}</div>
-                  <div className="book name"> Amount: {order.amount}</div>
-                  <div className="book name"> Status: {order.status}</div>
-                  <div className="book">
-                    {books.map(book => (
-                      <Book_ book={book} key={book.id} />
-                    ))}
-                  </div>
-                  <div className="book seller">
-                      Chat with Seller:
-                      {'\u00A0u00A0'}
-                      <SmallButton
-                          width="50%"
-                          onClick={() => contactwithseller(order.sellerId, order.id)}>
-                          Contact
-                      </SmallButton>
-                      <br/>
-                  </div>
-                  <div className="book received">
-                      <SmallButton
-                          width="50%"
-                          onClick={() => manageOrder(order, 1)}>
-                          Receive
-                      </SmallButton>
-                      <br/>
-                  </div>
-                  <div className="book cancel">
-                      <SmallButton
-                          width="50%"
-                          onClick={() => manageOrder(order, 2)}>
-                          Cancel
-                      </SmallButton>
-                      <br/>
-                  </div>
-                </div>
-              </div>
-            );
+            // Get the returned books and update the state.
+            setBooks(response.data);
+            //books.map(async book => (book.image = await api.get('/books/' + book.id+'/image')));
+            console.log(response);
+        } catch (error) {
+            console.error(`Something wrong when getting books.`);
+            console.error("Details:", error);
+            alert("Something wrong when getting books.");
         }
-    };
+    }
 
-
-        //<div className="book container">
-        //    <div>
-        //        <div className="book name"> Seller: {order.sellerId}</div>
-        //        <div className="book name"> Amount: {order.amount}</div>
-        //        <div className="book name"> Status: {order.status}</div>
-        //        <div>
-        //            {viewBooks(order.id)}
-        //            {bookcontent}
-        //        </div>
-        //        <div className="book seller">
-        //            Chat with Seller:
-        //            {'\u00A0u00A0'}
-        //            <SmallButton
-        //                width="50%"
-        //                onClick={() => contactwithseller(order.sellerId, order.id)}>
-        //                Contact
-        //            </SmallButton>
-        //            <br/>
-        //        </div>
-        //        <div className="book received">
-        //            <SmallButton
-        //                width="50%"
-        //                onClick={() => manageOrder(order, 1)}>
-        //                Receive
-        //            </SmallButton>
-        //            <br/>
-        //        </div>
-        //        <div className="book cancel">
-        //            <SmallButton
-        //                width="50%"
-        //                onClick={() => manageOrder(order, 2)}>
-        //                Cancel
-        //            </SmallButton>
-        //            <br/>
-        //        </div>
-        //    </div>
-        //</div>
+    const Order_ = ({order}) => (
+        <div className="book container">
+            <div>
+                <div className="book name"> Seller: {order.sellerId}</div>
+                <div className="book name"> Amount: {order.amount}</div>
+                <div className="book name"> Status: {order.status}</div>
+                <div>
+                    {viewBooks(order.id)}
+                    {bookcontent}
+                </div>
+                <div className="book seller">
+                    Chat with Seller:
+                    {'\u00A0u00A0'}
+                    <SmallButton
+                        width="50%"
+                        onClick={() => contactwithseller(order.sellerId, order.id)}>
+                        Contact
+                    </SmallButton>
+                    <br/>
+                </div>
+                <div className="book received">
+                    <SmallButton
+                        width="50%"
+                        onClick={() => manageOrder(order, 1)}>
+                        Receive
+                    </SmallButton>
+                    <br/>
+                </div>
+                <div className="book cancel">
+                    <SmallButton
+                        width="50%"
+                        onClick={() => manageOrder(order, 2)}>
+                        Cancel
+                    </SmallButton>
+                    <br/>
+                </div>
+            </div>
+        </div>
+    );
     Order_.propTypes = {
         order: PropTypes.object
     };
