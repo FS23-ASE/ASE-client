@@ -74,7 +74,7 @@ const Orderpage = () => {
             try {
                 const status = 'RECEIVED';
                 const requestBody = JSON.stringify(status);
-                await api.put('/order/' + id, requestBody);
+                await api.put('/order/received/' + id, requestBody);
             } catch (error) {
                 alert(`Something went wrong during the modification of order: \n${handleError(error)}`);
             }
@@ -85,7 +85,7 @@ const Orderpage = () => {
             }
         } else if (i == 2) {
             try {
-                await api.delete('/order/' + id);
+                await api.delete('/order/cancel/' + id);
             } catch (e) {
                 alert(`Something went wrong during the cancellation: \n${handleError(e)}`);
             }
