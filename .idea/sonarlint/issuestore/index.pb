@@ -39,3 +39,17 @@ S
 #src/components/views/Contactform.js,c/e/ce81a37a95449cbc4f4433b5bb7e8d550a51b842
 L
 src/components/ui/Spinner.js,3/c/3c230f1beb2b11c8ea2614613e7c00aa8cfcc816
+P
+ src/components/views/Checkout.js,3/1/31c06ded3ec04cb495b83badbd439edb7f2a7bc0
+A
+public/index.html,f/4/f43ecdf8d666ee908aacce037b4cd72159e4741b
+I
+build/asset-manifest.json,c/1/c1ebef89e8330101684eecc1f866f45ce2df6ef8
+@
+build/index.html,9/9/990a85f5e72fc21bd93d9e8ddb10d110045a91c8
+C
+build/manifest.json,3/6/36e6da49152f4c8c9d660387b3ef8920d88802c4
+P
+ build/static/js/main.76134c31.js,a/c/acde7991f71ddbbe1468d27838c3ed3984aa44d1
+A
+package-lock.json,f/a/fa288d1472d29beccb489a676f68739ad365fc47

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, Component} from 'react';
 import {api, handleError} from 'helpers/api';
 import {Spinner} from 'components/ui/Spinner';
 import {MacScrollbar} from "mac-scrollbar";
@@ -18,7 +18,7 @@ const Header = props => (
         <h1 className="headertitle title">Order History</h1>
     </div>
 );
-const Orderpage = async () => {
+const Orderpage = () => {
     const history = useHistory();
     const {id} = useParams();
     const [order, setOrder] = useState();
@@ -26,28 +26,33 @@ const Orderpage = async () => {
     const [book, setBook] = useState(new Book());
     const [books, setBooks] = useState(null);
 
+    const fetchOrders = async () => {
+        try {
+            const buyerId = id;
+            const response = await api.get('/order/buyer/' + buyerId);
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            // Get returned orders and update the state.
+            if (response.data) {
+                const ordersPromise = response.data.map(order =>{
+                    return {...order}
+                });
+                const ordersPromise_ = await Promise.all(ordersPromise);
+                setOrders(ordersPromise_);
+            } else {
+                setOrders([]);
+            }
+            console.log(response);
+        } catch (error) {
+            console.error(`Something went wrong while fetching orders: \n${handleError(error)}`);
+            console.error("Details:", error);
+            alert("Something went wrong while fetching orders! See the console for details.");
+        }
+    }
+
     useEffect(() => {
 
         //Fetch the user's information from server side
-        async function fetchOrders() {
-            try {
-                const buyerId = id;
-                const response = await api.get('/order/buyer/' + buyerId);
-                await new Promise(resolve => setTimeout(resolve, 1000));
-                // Get returned orders and update the state.
-                if (response.data) {
-                    setOrders(response.data);
-                } else {
-                    setOrders([]);
-                }
-                console.log(response);
-                console.log(Array.isArray(orders));
-            } catch (error) {
-                console.error(`Something went wrong while fetching orders: \n${handleError(error)}`);
-                console.error("Details:", error);
-                alert("Something went wrong while fetching orders! See the console for details.");
-            }
-        };
+
         fetchOrders();
     }, []);
 
@@ -176,16 +181,23 @@ const Orderpage = async () => {
         order: PropTypes.object
     };
 
-    if (orders) {
-        ordercontent = (
-            <div className="book">
-                {orders.map(order => (
+    function OrderList(props) {
+        const orders = props.orders;
+        if (orders) {
+            const orderItems = orders.map((order) =>
+                <li>
                     <Order_ order={order} key={order.id}/>
-                ))}
-            </div>
-        )
+                </li>
+            );
+            return (
+                <ul>
+                    <div className="book">
+                        {orderItems}
+                    </div>
+                </ul>
+                );
+        }
     }
-
     return (
         <div>
             <Header height="250"/>
@@ -205,7 +217,7 @@ const Orderpage = async () => {
                     </div>
                     <MacScrollbar>
                         <div>
-                            {ordercontent}
+                            <OrderList orders = {orders}/>
                         </div>
                     </MacScrollbar>
                 </div>
