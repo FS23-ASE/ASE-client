@@ -109,6 +109,9 @@ const Profile = () => {
                 console.error(`Something went wrong while fetching the user: \n${handleError(error)}`);
                 console.error("Details:", error);
                 alert("Something went wrong while fetching the user! See the console for details.");
+                localStorage.removeItem("id");
+                localStorage.removeItem("token");
+                history.push('/login');
             }
         };
         const fetchBook = async () => {
