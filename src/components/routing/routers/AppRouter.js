@@ -15,6 +15,8 @@ import Checkout from "../../views/Checkout";
 import Orderpage from "../../views/Orderpage";
 import Salespage from "../../views/Salespage";
 import BookDetail from "../../views/BookDetail";
+import Contactform from "../../views/Contactform";
+import MessageBox from "../../views/MessageBox";
 
 const AppRouter = () => {
   return (
@@ -52,6 +54,10 @@ const AppRouter = () => {
           <Route exact path={`/orderpage/:id`}> <Orderpage /> </Route>
 
           <Route exact path={`/salespage/:id`}> <Salespage /> </Route>
+
+          <Route exact path={`/contactform/:sender/:accepter/:orderId`}> <Contactform /> </Route>
+
+          <Route exact path={`/messagebox/:id`}> <MessageBox /> </Route>
         </Switch>
       </BrowserRouter>
   );
@@ -61,3 +67,4 @@ const AppRouter = () => {
 * Don't forget to export your component!
  */
 export default AppRouter;
+

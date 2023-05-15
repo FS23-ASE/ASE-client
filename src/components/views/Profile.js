@@ -83,6 +83,10 @@ const Profile = () => {
         history.push(`/salespage/` + id)
     }
 
+    const viewMessages = () => {
+        history.push('/messagebox/' + id)
+    }
+
     const viewOrder = () => {
         history.push(`/orderpage/` + id);
     }
@@ -105,6 +109,9 @@ const Profile = () => {
                 console.error(`Something went wrong while fetching the user: \n${handleError(error)}`);
                 console.error("Details:", error);
                 alert("Something went wrong while fetching the user! See the console for details.");
+                localStorage.removeItem("id");
+                localStorage.removeItem("token");
+                history.push('/login');
             }
         };
         const fetchBook = async () => {
@@ -131,10 +138,8 @@ const Profile = () => {
                 alert("Something went wrong while fetching the book! See the console for details.");
             }
         };
-
-
         fetchData();
-        fetchBook()
+        fetchBook();
     }, []);
 
     let content = <Spinner/>;
@@ -217,7 +222,14 @@ const Profile = () => {
                     </SmallButton>
                     <br/>
                     <br/>
-
+                    <SmallButton
+                        width="80%"
+                        onClick={() => viewMessages()}
+                    >
+                        View Messages
+                    </SmallButton>
+                    <br/>
+                    <br/>
                     <SmallButton
                         width="80%"
                         onClick={() => goToCart()}

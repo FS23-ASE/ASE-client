@@ -7,6 +7,7 @@ import {Link, useHistory, useParams} from 'react-router-dom';
 import BaseContainer from "components/ui/BaseContainer";
 import PropTypes from "prop-types";
 import "styles/views/Profile.scss";
+import Contact from "../../models/Contact";
 
 const Header = props => (
     <div className="headertitle container" style={{height: props.height}}>
@@ -18,32 +19,43 @@ const Salespage = () => {
     const history = useHistory();
     const {id} = useParams();
     const [order, setOrder] = useState();
-    const [orders, setOrders] = useState([]);
-    const [book, setBook] = useState([]);
-    const [books, setBooks] = useState([]);
+    const [orders, setOrders] = useState(null);
+    const [book, setBook] = useState(new Book_());
+    const [books, setBooks] = useState(null);
 
+    async function fetchOrders() {
+        try {
+            const sellerId = id;
+            const response = await api.get('/order/seller/' + sellerId);
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            // Get returned orders and update the state.
+            if (response.data) {
+                const ordersPromise = response.data.map(order =>{
+                    return {...order}
+                });
+                const ordersPromise_ = await Promise.all(ordersPromise);
+                setOrders(ordersPromise_);
+            } else {
+                setOrders([]);
+            }
+            console.log(response);
+            console.log(Array.isArray(orders));
+        } catch (error) {
+            console.error(`Something went wrong while fetching orders: \n${handleError(error)}`);
+            console.error("Details:", error);
+            alert("Something went wrong while fetching sales! See the console for details.");
+        }
+    };
     useEffect(() => {
 
         //Fetch the user's information from server side
-        async function fetchOrders() {
-            try {
-                const sellerId = id;
-                const response = await api.get('/orders/seller/' + sellerId);
-                await new Promise(resolve => setTimeout(resolve, 1000));
-                // Get returned orders and update the state.
-                setOrders(response.data);
-                console.log(response);
-            } catch (error) {
-                console.error(`Something went wrong while fetching orders: \n${handleError(error)}`);
-                console.error("Details:", error);
-                alert("Something went wrong while fetching sales! See the console for details.");
-            }
-        };
         fetchOrders();
     }, []);
 
-    const chatwithbuyer = async (buyer_id) => {
-        /* to be done */
+    const contactwithbuyer = async (buyer_id, orderId) => {
+        const sender = id;
+        const accepter = buyer_id;
+        history.push('/contactform/' + sender + '/' +accepter + '/' + orderId);
     }
 
     const manageOrder = async (o, i) => {
@@ -52,7 +64,7 @@ const Salespage = () => {
             try {
                 const status = 'SHIPPED';
                 const requestBody = JSON.stringify(status);
-                await api.put('/orders/' + id, requestBody);
+                await api.put('/order/' + id, requestBody);
             } catch (error) {
                 alert(`Something went wrong during the modification of order: \n${handleError(error)}`);
             }
@@ -63,7 +75,7 @@ const Salespage = () => {
             }
         }else if(i == 2){
             try {
-                await api.delete('/orders/' + id);
+                await api.delete('/order/' + id);
             }catch (e) {
                 alert(`Something went wrong during the cancellation: \n${handleError(e)}`);
             }
@@ -131,8 +143,8 @@ const Salespage = () => {
                     {'\u00A0u00A0'}
                     <SmallButton
                         width="50%"
-                        onClick={() => chatwithbuyer(order.buyerId)}>
-                        Chat
+                        onClick={() => contactwithbuyer(order.buyerId, order.id)}>
+                        Contact
                     </SmallButton>
                     <br/>
                 </div>
@@ -159,14 +171,22 @@ const Salespage = () => {
         order: PropTypes.object
     };
 
-    if (orders) {
-        ordercontent = (
-            <div className="book">
-                {orders.map(order => (
+    function OrderList(props) {
+        const orders = props.orders;
+        if (orders) {
+            const orderItems = orders.map((order) =>
+                <li>
                     <Order_ order={order} key={order.id}/>
-                ))}
-            </div>
-        )
+                </li>
+            );
+            return (
+                <ul>
+                    <div className="book">
+                        {orderItems}
+                    </div>
+                </ul>
+            );
+        }
     }
 
     return (
@@ -188,7 +208,7 @@ const Salespage = () => {
                     </div>
                     <MacScrollbar>
                         <div>
-                            {ordercontent}
+                            <OrderList orders = {orders}/>
                         </div>
                     </MacScrollbar>
                 </div>

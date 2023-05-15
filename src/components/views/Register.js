@@ -52,7 +52,6 @@ const Register = () => {
         try {
             const requestBody = JSON.stringify({username, password, email});
             const response = await api.post('/users', requestBody);
-            alert('Register Successfully!');
 
             // Get the returned user and update a new object.
             const user = new User(response.data);
@@ -73,7 +72,6 @@ const Register = () => {
                                  };
             const response1 = await api.post('/cart', requestBody1);
             const cart = new Cart(response1.data);
-            alert('Create Cart Successfully!');
             // Login successfully worked --> navigate to the route /main in the MainRouter
             history.push(`/login`);
         } catch (error) {

@@ -105,9 +105,14 @@ const Browser = () => {
             let bookId = addedbook.id;
             let userId = localStorage.getItem('id');
             const requestBody = JSON.stringify({userId, bookId});
-            await api.post('/cart/' + userId + '/' + bookId, requestBody);
+            await api.post('/cart/' + userId + '/' + bookId, requestBody, {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
             alert('Add Successfully');
         } catch (error) {
+            console.log(error);
             alert(`Something went wrong when adding to the cart: \n${handleError(error)}`);
         }
     }
