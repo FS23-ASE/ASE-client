@@ -5,7 +5,7 @@ import {Link, useHistory, useParams} from 'react-router-dom';
 import BaseContainer from "components/ui/BaseContainer";
 import PropTypes from "prop-types";
 import User from 'models/User';
-import 'styles/views/Login.scss';
+import 'styles/views/Contactform.scss';
 
 const Header = props => (
     <div className="headertitle container" style={{height: props.height}}>
@@ -41,23 +41,24 @@ const Contactform = () => {
     const [acceptername, setAcceptername] = useState('');
     const {sender, accepter, orderId} = useParams();
     const [msg, setMsg] = useState('');
+    const [form, setForm] = useState('');
 
     const doSubmit = async () => {
         try {
             const requestBody = JSON.stringify({sender, accepter, orderId, msg});
             const response = await api.post('/contactform', requestBody);
-            const {formId} = response.data;
-            alert('Contact Form ' + formId + 'Submit Successfully!');
+            setForm(response.data);
+            alert('Contact Form ' + form.id + 'Submit Successfully!');
 
             // Sending contact form successfully worked --> navigate to last page
-            history.goBack();
+            history.back();
         } catch (error) {
             alert(`Something went wrong during sending contact form: \n${handleError(error)}`);
         }
     };
 
     const goBack = () => {
-        history.goBack();
+        history.back();
     };
 
     useEffect(() => {
