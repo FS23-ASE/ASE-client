@@ -7,6 +7,8 @@ before_script:
 
 addons:
   sonarcloud:
+    sonar:
+      projectKey=FS23-ASE_ASE-client:
     organization: "fs23-ase"
     token:
       secure: "DVsSv5+w4xp3a7J2xMTT0t9Ki71Nrw9f7snLBCUzcKsEOEum2h99fY4UVY7y1598jRlOQGya4DLQNQ/C2YCjNIyqAzn2ubZARVUMwLWQ+UsQohkfb59yigpG2DrkSkc2qcGl+amL29hGh5KRl1nViwA3YIWEVBYL13pxJ5JeDhE/dPOv4KMnNhQYbrtolgfmj7vbwwzlgUpsPV1gtLWAep3tbb2Iyd3FSh679FY6izZT5h2f3oWmcLKxO8OHB53cw1WZeMpTrjCkJaJU7Nt+YcPeCab8cSxw1SDCMYVoIcbWcdojd83di2L0iaTizQE8yyB0/qrFyi7TNmZN1MUEFbQWnfn0c1+Z5Tfv4X+aEgKPJ6Y6v3e9pBjt0w69dBaXeX0cP3CTeU4JWSYIPNASqtU+y5G9S1+4+A6SPjSm/qXatF+eUH+Ye6EHI2fAwG85ywlehrbWuekaCKwMXAPSN3CxUrUI53H46wUGzjDXr2OAjpa6eI4Skjt92xT1/Bm2GRXVmiUmY8q2uiyFwuIQrNUDFzvFixyBYpTPA13FlJ7BsUbe+CvoobET6gREVs6VEVCURtGhRwliR+4EWw6g5y8YuJnZw1utrTXawBpQVBxPIgBxTBHdkjwR3xDGMWhFTFZHkSg6vsYglXQr9PKRwsrpKk7+KZt0MsyBDffeEqw="
