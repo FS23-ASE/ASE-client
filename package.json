@@ -19,6 +19,7 @@
     "dev": "react-scripts start",
     "start": "serve -s build",
     "build": "CI=false react-scripts build",
+    "sonar": "sonar-scanner -Dsonar.projectKey=FS23-ASE_ASE-client",
     "eject": "react-scripts eject",
     "test": "react-scripts test --env=jsdom",
     "heroku-postbuild": "npm run build"
