@@ -6,5 +6,4 @@ before_script:
   - npm cache clean --force
 
 script:
-  - npm install
   - npm run build
