@@ -1,6 +1,8 @@
 
 FROM node:19.8.1-alpine
 
+USER nonroot
+
 WORKDIR /ASE-client
 
 ENV PATH /ASE-client/node_modules/.bin$PATH
