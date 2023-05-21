@@ -40,6 +40,7 @@ const Register = () => {
     const [password, setPassword] = useState('');
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
+    const [userId, setUserId] = useState('')
 
 
     const doRegistration = async () => {

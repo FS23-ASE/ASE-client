@@ -192,7 +192,6 @@ const Browser = () => {
 
             <div className="book-grid" >
                 {SearchBook(books)
-                    .slice(0, paginate)
                     .map((book) =>(
                         book.status &&
                             <div className="book" key={book.id} style={{"display":"inline-block"}}>
@@ -223,9 +222,6 @@ const Browser = () => {
             </div>
             <br/>
             <br/>
-            {/*<SmallButton*/}
-            {/*    width="50%"*/}
-            {/*    onClick={load_more}>Load More...</SmallButton>*/}
             <br/>
             <br/>
 
