@@ -24,8 +24,7 @@
     "sonar": "sonar-scanner -Dsonar.projectKey=FS23-ASE_ASE-client",
     "eject": "react-scripts eject",
     "cypress:open": "cypress open",
-    "cypress:run": "cypress run --headless --browser chrome",
-    "test": "npx cypress run --component --record --key 14d128e0-bc21-42b5-8404-0d9c996ae315",
+    "cypress:run": "npx cypress run --component --record --key 14d128e0-bc21-42b5-8404-0d9c996ae315",
     "heroku-postbuild": "npm run build"
   },
   "eslintConfig": {
