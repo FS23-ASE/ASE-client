@@ -40,7 +40,9 @@ const Salespage = () => {
         }
     };
     useEffect(() => {
-        fetchOrders().then().catch();
+        fetchOrders().catch((err) =>{
+            console.error(err)
+        });
     }, []);
 
     const contactwithbuyer = async (buyer_id, orderId) => {

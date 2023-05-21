@@ -43,7 +43,9 @@ const Orderpage = () => {
     }
 
     useEffect(() => {
-        fetchOrders().then().catch();
+        fetchOrders().catch((err) =>{
+            console.error(err)
+        });
     }, []);
 
 

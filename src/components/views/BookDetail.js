@@ -26,7 +26,7 @@ const BookDetail = () => {
 
     //back to main page
     const goback = () => {
-        history.goBack();
+        history.back();
     }
 
     const gotoProfile = (userid) => {
@@ -69,7 +69,9 @@ const BookDetail = () => {
             }
             ;
 
-            fetchData().then().catch();
+            fetchData().catch((err) =>{
+                console.error(err)
+            });
         },
         []
     )
@@ -113,8 +115,6 @@ const BookDetail = () => {
                 <br/>
                 <br/>
             </div>
-
-
         )
     }
 
@@ -138,7 +138,6 @@ const BookDetail = () => {
                 <br/>
             </div>
         </div>
-
     );
 }
 
