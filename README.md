@@ -12,7 +12,7 @@ UI Library: Utilizes a UI library, such as Material-UI or Ant Design, to enhance
 The setup relies on the Docker.Please make sure you have downloaded it.Also,you can download docker compose using homebrew
 by running: brew install docker-compose
 
-## How to run it
+## How to run it by docker
 To quickly build and test the docker images, a docker-compose.yml file is in the root directory.
 In the root directory, start the deployment with:
 ```bash
@@ -23,7 +23,7 @@ To stop them, run:
 docker compose down
 ```
 
-## Prerequisites and Installation to 
+## Prerequisites and Installation to run locally
  All dependencies, including React, get installed with:
 
 ```npm install```
