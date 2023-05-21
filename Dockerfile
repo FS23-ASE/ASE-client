@@ -8,7 +8,6 @@ ENV PATH /ASE-client/node_modules/.bin$PATH
 ADD . /ASE-client
 
 COPY package.json ./
-COPY package-lock.json ./
 
 RUN npm install
 
