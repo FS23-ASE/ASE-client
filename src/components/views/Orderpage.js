@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react';
 import {api, handleError} from 'helpers/api';
-import {Spinner} from 'components/ui/Spinner';
 import {MacScrollbar} from "mac-scrollbar";
 import {SmallButton} from 'components/ui/SmallButton';
 import {Button} from 'components/ui/Button';
@@ -130,6 +129,24 @@ const manageOrder = async (o, i) => {
         }
     }
 }
+
+function OrderList(props) {
+    const orders = props.orders;
+    if (orders) {
+        const orderItems = orders.map((order) =>
+            <li key={order.id}>
+                <Order_ order={order} key={order.id}/>
+            </li>
+        );
+        return (
+            <ul>
+                <div className="book">
+                    {orderItems}
+                </div>
+            </ul>
+        );
+    }
+}
 const Orderpage = () => {
     const fetchOrders = async () => {
         try {
@@ -155,23 +172,6 @@ const Orderpage = () => {
         history.push(`/profile/` + id);
     }
 
-    function OrderList(props) {
-        const orders = props.orders;
-        if (orders) {
-            const orderItems = orders.map((order) =>
-                <li>
-                    <Order_ order={order} key={order.id}/>
-                </li>
-            );
-            return (
-                <ul>
-                    <div className="book">
-                        {orderItems}
-                    </div>
-                </ul>
-            );
-        }
-    }
     return (
         <div>
             <Header height="250"/>

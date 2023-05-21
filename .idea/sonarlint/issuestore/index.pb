@@ -13,8 +13,6 @@ B
 src/models/Cart.js,5/b/5bba0e8c5ccf4d7a1f7a39eaac5dda43ae44b866
 N
 src/styles/views/Cartpage.scss,2/4/24ea795f72fece0e692cd25a3923578dbf089a01
-B
-src/models/Book.js,8/2/828ad685cfa57d9cf678c2afc7370109e4981e91
 E
 src/models/Contact.js,f/6/f6a441cd261880a63c0960b5d9becde5522f84fa
 L

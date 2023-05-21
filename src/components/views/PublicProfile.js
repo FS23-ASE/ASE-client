@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {api, handleError} from 'helpers/api';
 import {Spinner} from 'components/ui/Spinner';
 import {SmallButton} from 'components/ui/SmallButton';
-import {Link, useHistory, useParams} from 'react-router-dom';
+import {useHistory, useParams} from 'react-router-dom';
 import PropTypes from "prop-types";
 import "styles/views/Profile.scss";
 import User from "../../models/User";
@@ -63,28 +63,6 @@ const PublicProfile = () => {
     const backToMain = () => {
         history.push('/browser');
     }
-
-    //direct to edit page
-    const goToEdit = () => {
-        history.push(`/edit/` + id);
-    }
-
-    const goToUpload = () => {
-        history.push(`/upload/` + id);
-    }
-
-    const goToCart = () => {
-        history.push(`/cartpage/` + id);
-    }
-
-    const viewSales = () => {
-        history.push(`/salespage/` + id)
-    }
-
-    const viewOrder = () => {
-        history.push(`/orderpage/` + id);
-    }
-
     useEffect(() => {
 
         //Fetch the user's information from server side
@@ -107,7 +85,7 @@ const PublicProfile = () => {
         };
         const fetchBook = async () => {
             try {
-                var seller_id = id;
+                let seller_id = id;
                 const response = await api.get('/books/seller/' + seller_id);
                 await new Promise(resolve => setTimeout(resolve, 1000));
                 if (response.data) {

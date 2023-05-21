@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {api, handleError} from 'helpers/api';
 import {Spinner} from 'components/ui/Spinner';
 import {SmallButton} from 'components/ui/SmallButton';
-import {Link, useHistory, useParams} from 'react-router-dom';
+import {useHistory, useParams} from 'react-router-dom';
 import PropTypes from "prop-types";
 import "styles/views/Profile.scss";
 import User from "../../models/User";
@@ -114,7 +114,7 @@ const Profile = () => {
         };
         const fetchBook = async () => {
             try {
-                var seller_id = id;
+                let seller_id = id;
                 const response = await api.get('/books/seller/' + seller_id);
                 await new Promise(resolve => setTimeout(resolve, 1000));
                 if (response.data) {

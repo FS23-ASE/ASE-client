@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {api, handleError} from 'helpers/api';
 import {Spinner} from 'components/ui/Spinner';
 import {SmallButton} from 'components/ui/SmallButton';
-import {Link, useHistory, useParams} from 'react-router-dom';
+import {useHistory, useParams} from 'react-router-dom';
 import PropTypes from "prop-types";
 import "styles/views/Profile.scss";
 import {MacScrollbar} from "mac-scrollbar";

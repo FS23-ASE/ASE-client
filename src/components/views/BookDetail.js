@@ -27,7 +27,7 @@ const BookDetail = () => {
 
     const gotoProfile = (userid) => {
         if (localStorage.getItem('id') != userid) {
-            var path = {
+            let path = {
                 pathname: `/publicprofile/${userid}`,
             }
             history.push(path);

@@ -43,7 +43,6 @@ const Browser = () => {
     const [filter, setFilter] = useState('');
     const [a, setA] = useState('');
     const filter_items = [...new Set(books.map((book) => book.category))];
-    const [paginate, setPaginate] = useState(8);
 
     useEffect(() => {
         async function fetchBooks() {

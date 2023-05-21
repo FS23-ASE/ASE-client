@@ -7,7 +7,6 @@ import PropTypes from "prop-types";
 import "styles/views/Profile.scss";
 import User from "../../models/User";
 import Cart from "../../models/Cart";
-import Order from "../../models/Order";
 
 const Book_ = ({book}) => {
     const history = useHistory();
@@ -116,7 +115,7 @@ const Checkout = () => {
             alert('Checkout Successfully!');
             let buyerid = id;
             for (let book of books_) {
-                var bookId = book.id;
+                let bookId = book.id;
                 const requestBody = JSON.stringify(buyerid);
                 await api.put('/books/' + bookId, requestBody);
             }
