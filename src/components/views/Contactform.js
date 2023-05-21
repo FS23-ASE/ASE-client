@@ -51,14 +51,14 @@ const Contactform = () => {
             alert('Contact Form ' + form.id + 'Submit Successfully!');
 
             // Sending contact form successfully worked --> navigate to last page
-            history.back();
+            history.goBack();
         } catch (error) {
             alert(`Something went wrong during sending contact form: \n${handleError(error)}`);
         }
     };
 
     const goBack = () => {
-        history.back();
+        history.goBack();
     };
 
     useEffect(() => {
