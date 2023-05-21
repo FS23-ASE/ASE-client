@@ -1,10 +1,6 @@
 
 L
 src/styles/views/Header.scss,b/c/bccc8617021cab791f842e03d8a1a42265010591
-K
-src/styles/views/Login.scss,8/d/8d66570ff1e03387360f796924a54024ea979dc4
-F
-src/styles/_theme.scss,e/3/e3770288c7b0f0ba5dc27e712f37e3b06641bb42
 E
 src/styles/index.scss,4/1/41e30fba9abaa1ac1dfe02388867cd3b5883c5d3
 P
@@ -19,10 +15,6 @@ B
 src/models/Cart.js,5/b/5bba0e8c5ccf4d7a1f7a39eaac5dda43ae44b866
 N
 src/styles/views/Cartpage.scss,2/4/24ea795f72fece0e692cd25a3923578dbf089a01
-M
-src/components/views/Login.js,6/2/629e2775f16b82380f52def83e7e69fce0c61601
-M
-src/styles/views/Profile.scss,4/e/4e2f14377462380fb249fcf6a54662583bb39013
 B
 src/models/Book.js,8/2/828ad685cfa57d9cf678c2afc7370109e4981e91
 E
@@ -41,5 +33,3 @@ C
 build/manifest.json,3/6/36e6da49152f4c8c9d660387b3ef8920d88802c4
 P
  build/static/js/main.76134c31.js,a/c/acde7991f71ddbbe1468d27838c3ed3984aa44d1
-A
-package-lock.json,f/a/fa288d1472d29beccb489a676f68739ad365fc47

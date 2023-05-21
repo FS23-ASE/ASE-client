@@ -23,7 +23,7 @@ const MessageBox = () => {
         return (
             <div className="book container">
                 <div>
-                    <div className="book name"> {contact.id}</div>
+                    {/*<div className="book name"> {contact.id}</div>*/}
                     <div className="book author">Sender: {contact.sender}</div>
                     <div className="book publisher">Content: {contact.msg}</div>
                     <div className="book status">
