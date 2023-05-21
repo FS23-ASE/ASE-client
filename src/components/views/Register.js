@@ -65,7 +65,7 @@ const Register = () => {
                                    prop2: 0,
                                    userId: user.id
                                  };
-            const response1 = await api.post('/cart', requestBody1);
+            await api.post('/cart', requestBody1);
             // Login successfully worked --> navigate to the route /main in the MainRouter
             history.push(`/login`);
         } catch (error) {
