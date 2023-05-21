@@ -6,7 +6,6 @@ import BaseContainer from "components/ui/BaseContainer";
 import PropTypes from "prop-types";
 import User from 'models/User';
 import 'styles/views/Login.scss';
-import Cart from "../../models/Cart";
 
 const Header = props => (
     <div className="headertitle container" style={{height: props.height}}>
