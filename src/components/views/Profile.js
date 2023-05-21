@@ -138,8 +138,8 @@ const Profile = () => {
                 alert("Something went wrong while fetching the book! See the console for details.");
             }
         };
-        fetchData();
-        fetchBook();
+        fetchData().then().catch();
+        fetchBook().then().catch();
     }, []);
 
     let content = <Spinner/>;

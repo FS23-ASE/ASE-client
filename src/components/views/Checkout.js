@@ -99,9 +99,9 @@ const Checkout = () => {
             // const url = URL.createObjectURL(blob);
             // return { ...book, image: url };
         };
-        fetchData();
-        fetchCart();
-        fetchBook();
+        fetchData().then().catch();
+        fetchCart().then().catch();
+        fetchBook().then().catch();
 
         // setBook_list(cart.books);
         // for(let i = 0; i < book_list.length; i++){

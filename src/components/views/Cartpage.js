@@ -95,8 +95,8 @@ const Cartpage = () => {
             }
         }
 
-        fetchBook();
-        fetchCart();
+        fetchBook().then().catch();
+        fetchCart().then().catch();
     }, []);
 
     let bookcontent = <Spinner/>;

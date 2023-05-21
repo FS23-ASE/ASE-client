@@ -99,8 +99,8 @@ const Contactform = () => {
                 alert("Something went wrong while fetching the accepter! See the console for details.");
             }
         };
-        fetchSender();
-        fetchAccepter();
+        fetchSender().then().catch();
+        fetchAccepter().then().catch();
     })
 
     return (

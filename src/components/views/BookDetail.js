@@ -69,7 +69,7 @@ const BookDetail = () => {
             }
             ;
 
-            fetchData();
+            fetchData().then().catch();
         },
         []
     )

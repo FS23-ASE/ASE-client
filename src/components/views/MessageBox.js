@@ -67,7 +67,7 @@ const MessageBox = () => {
                 alert("Something went wrong while fetching messages! See the console for details.");
             }
         };
-        fetchContacts();
+        fetchContacts().then().catch();
     })
 
     const backToProfile = () =>{

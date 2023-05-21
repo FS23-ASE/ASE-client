@@ -43,11 +43,7 @@ const Orderpage = () => {
     }
 
     useEffect(() => {
-        //Fetch the user's information from server side
-        fetchOrders();
-
-        //Fetch the books information from server side if order exists
-
+        fetchOrders().then().catch();
     }, []);
 
 
@@ -118,7 +114,7 @@ const Orderpage = () => {
                 }
             };
 
-            fetchBooks();
+            fetchBooks().then().catch();
         },[]);
 
         if (books) {

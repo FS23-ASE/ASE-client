@@ -21,8 +21,6 @@ E
 src/models/Contact.js,f/6/f6a441cd261880a63c0960b5d9becde5522f84fa
 L
 src/components/ui/Spinner.js,3/c/3c230f1beb2b11c8ea2614613e7c00aa8cfcc816
-P
- src/components/views/Checkout.js,3/1/31c06ded3ec04cb495b83badbd439edb7f2a7bc0
 A
 public/index.html,f/4/f43ecdf8d666ee908aacce037b4cd72159e4741b
 I

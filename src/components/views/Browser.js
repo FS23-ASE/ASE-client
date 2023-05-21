@@ -74,7 +74,7 @@ const Browser = () => {
             alert("Something went wrong when fetching books!")}
         }
 
-        fetchBooks();
+        fetchBooks().then().catch();
     },[]);
 
     const logout = async () => {
