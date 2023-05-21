@@ -12,8 +12,19 @@ UI Library: Utilizes a UI library, such as Material-UI or Ant Design, to enhance
 The setup relies on the Docker.Please make sure you have downloaded it.Also,you can download docker compose using homebrew
 by running: brew install docker-compose
 
+
 ## How to run it
 
+The structure of this project is:
+
+- Root
+
+  |- ASE-client
+  
+  |- ASE-server
+  
+  |- docker-compose.yml
+  
 
 ### LocalStack
 
@@ -46,11 +57,16 @@ Also add your_access_key and your_secret_key in the docker-compose.yml file.
 ### Deploy
 
 To quickly build and test the docker images, a docker-compose.yml file is in the root directory. 
-In the root directory, start the deployment with:
+
+
+In the server folder, run:
 
 ```bash
 ./gradlew bootJar
 ```
+
+In the root directory, start the deployment with:
+
 
 ```bash
 docker compose up
