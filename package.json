@@ -23,8 +23,10 @@
     "start": "serve -s build",
     "build": "react-scripts build",
     "eject": "react-scripts eject",
-    "test": "jest",
-    "heroku-postbuild": "npm run build"
+    "heroku-postbuild": "npm run build",
+    "cypress:open": "cypress open",
+    "cypress:run": " npx cypress run --component --record --key 14d128e0-bc21-42b5-8404-0d9c996ae315",
+    "test": "npm run cypress:run"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -36,8 +38,12 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "@cypress/code-coverage": "^3.10.5",
+    "@cypress/webpack-preprocessor": "^5.17.1",
     "@testing-library/react": "^14.0.0",
     "babel-jest": "^29.5.0",
+    "babel-plugin-istanbul": "^6.1.1",
+    "cypress": "^10.11.0",
     "html-webpack-plugin": "^5.5.1",
     "jest": "^27.5.1",
     "react-test-renderer": "^18.2.0"
