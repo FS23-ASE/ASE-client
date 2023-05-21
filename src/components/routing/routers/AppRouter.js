@@ -1,6 +1,4 @@
 import {BrowserRouter, Redirect, Route, Switch} from "react-router-dom";
-import {MainGuard} from "components/routing/routeProtectors/MainGuard";
-import MainRouter from "components/routing/routers/MainRouter";
 import {LoginGuard} from "components/routing/routeProtectors/LoginGuard";
 import Login from "components/views/Login";
 import Edit from "../../views/Edit";

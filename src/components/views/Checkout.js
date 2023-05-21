@@ -2,26 +2,23 @@ import React, {useEffect, useState} from 'react';
 import {api, handleError} from 'helpers/api';
 import {Spinner} from 'components/ui/Spinner';
 import {SmallButton} from 'components/ui/SmallButton';
-import {Link, useHistory, useParams} from 'react-router-dom';
-import BaseContainer from "components/ui/BaseContainer";
+import {useHistory, useParams} from 'react-router-dom';
 import PropTypes from "prop-types";
 import "styles/views/Profile.scss";
 import User from "../../models/User";
-import Book from "../../models/Book";
 import Cart from "../../models/Cart";
 import Order from "../../models/Order";
 
 const Book_ = ({book}) => {
     const history = useHistory();
     const handleClick = () => {
-        var path={
+        let path={
             pathname:`/book/${book.id}`,
         }
         history.push(path);
     }
     return (<div className="book container" onClick={handleClick}>
         <div>
-            {/*{book.image && <img src={book.image} alt="Book image" style={{ width: '100px', height: 'auto' }} />}*/}
             <div className="book name"> {book.name}</div>
             <div className="book price">Price: {book.price}</div>
         </div>
@@ -41,7 +38,6 @@ const Checkout = () => {
     const history = useHistory();
     const [user, setUser] = useState(new User());
     const [cart, setCart] = useState(new Cart());
-    const [order, setOrder] = useState(new Order());
     const {id} = useParams();
     const [books_, setBooks_] = useState([]);
 
@@ -66,7 +62,7 @@ const Checkout = () => {
         //Fetch cart's information from server side
         async function fetchCart() {
             try {
-                var user_id = id;
+                let user_id = id;
                 const response = await api.get('/cart/' + user_id);
                 await new Promise(resolve => setTimeout(resolve, 1000));
                 // Get the returned cart and update the state.
@@ -79,25 +75,13 @@ const Checkout = () => {
         }
 
         async function fetchBook () {
-            var user_id = id;
+            let user_id = id;
             const response = await api.get('/cart/books/' + user_id);
 
             await new Promise(resolve => setTimeout(resolve, 1000));
 
             // Get the returned books and update the state.
             setBooks_(response.data);
-
-            // var id = bookid;
-            // const response = await api.get('/books/' + id);
-            // await new Promise(resolve => setTimeout(resolve, 1000));
-            //
-            // let book = new Book();
-            // book = response.data;
-            //
-            // const response1 = await api.get(`/books/${book.id}/image`, { responseType: 'arraybuffer' });
-            // const blob = new Blob([response1.data], { type: response.headers['content-type'] });
-            // const url = URL.createObjectURL(blob);
-            // return { ...book, image: url };
         };
         fetchData().catch((err) =>{
             console.error(err)
@@ -108,12 +92,6 @@ const Checkout = () => {
         fetchBook().catch((err) =>{
             console.error(err)
         });
-
-        // setBook_list(cart.books);
-        // for(let i = 0; i < book_list.length; i++){
-        //     setBook(fetchBook(book_list[i]));
-        //     books.push(book);
-        // }
     }, []);
 
     const backToCart = async () => {
@@ -121,57 +99,8 @@ const Checkout = () => {
     }
 
     const generateOrder = async () => {
-        /*
-        let today = new Date();
-        let date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
-        let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-        date = date + ' ' + time;
-        const userId = id;
-        let book_list_ = [];
-        for (let book of books_) {
-            book_list_.push({Id: book.id, sellerId: book.sellerId, Price: book.price});
-        }
-        let c = [];
-        let d = {};
-        for (let i = 0; i < book_list_.length; i++) {
-            let element = book_list_[i];
-            if (!d[element.sellerId]) {
-                c.push({
-                    seller: element.sellerId,
-                    list: [element]
-                });
-                d[element.sellerId] = element;
-            } else {
-                for (const ele of c) {
-                    if (ele.seller == element.sellerId) {
-                        ele.list.push(element);
-                    }
-                };
-            }
-        };
-        for (let i = 0; i < c.length; i++) {
-            let c1 = c[i];
-            let amount = 0.0;
-            const buyerId = userId;
-            const sellerId = c1.seller;
-            let books = [];
-            const status = 'PAID';
-            for (let j = 0; j < c1.list.length; j++) {
-                let c2 = c1.list[j];
-                amount += c2.Price;
-                books.push(c2.Id);
-            }
-            try {
-                const requestBody = JSON.stringify({buyerId, amount, sellerId, books, date, status});
-                console.log(requestBody);
-                await api.post('/order', requestBody);
-            } catch (error) {
-                alert(`Something went wrong during the order generation: \n${handleError(error)}`);
-            }
-        }*/
         let userId = id;
         try {
-
             await api.post('/cart/order/'+userId);
         } catch (error) {
             alert(`Something went wrong during the order generation: \n${handleError(error)}`);
@@ -185,7 +114,7 @@ const Checkout = () => {
             setCart(response.data);
             console.log(response);
             alert('Checkout Successfully!');
-            var buyerid = id;
+            let buyerid = id;
             for (let book of books_) {
                 var bookId = book.id;
                 const requestBody = JSON.stringify(buyerid);

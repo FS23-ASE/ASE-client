@@ -1,12 +1,10 @@
 import React, {useEffect, useState} from 'react';
-import {api, handleError} from 'helpers/api';
+import {api} from 'helpers/api';
 import {Spinner} from 'components/ui/Spinner';
 import {SmallButton} from 'components/ui/SmallButton';
 import {Link, useHistory, useParams} from 'react-router-dom';
 import PropTypes from "prop-types";
 import "styles/views/Cartpage.scss";
-import User from "../../models/User";
-import Book from "../../models/Book";
 import Cart from "../../models/Cart";
 
 const Header = props => (
@@ -17,7 +15,7 @@ const Header = props => (
 const Book_ = ({book}) => {
     const history = useHistory();
     const handleClick = () => {
-        var path = {
+        let path = {
             pathname: `/book/${book.id}`,
         }
         history.push(path);
@@ -51,11 +49,6 @@ const Cartpage = () => {
         localStorage.setItem('id', id);
         history.push('/browser');
     }
-
-    const backToProfile = () => {
-        history.push(`/profile/` + id);
-    }
-
     const gotocheckout = () => {
         history.push(`/checkout/` + id)
     }
@@ -64,7 +57,7 @@ const Cartpage = () => {
         //Fetch cart's information from server side
         async function fetchCart() {
             try {
-                var user_id = id;
+                let user_id = id;
                 const response = await api.get('/cart/' + user_id);
                 await new Promise(resolve => setTimeout(resolve, 1000));
                 // Get the returned cart and update the state.
@@ -79,14 +72,13 @@ const Cartpage = () => {
 
         async function fetchBook() {
             try {
-                var user_id = id;
+                let user_id = id;
                 const response = await api.get('/cart/books/' + user_id);
 
                 await new Promise(resolve => setTimeout(resolve, 1000));
 
                 // Get the returned books and update the state.
                 setBooks(response.data);
-                //books.map(async book => (book.image = await api.get('/books/' + book.id+'/image')));
                 console.log(response);
             } catch (error) {
                 console.error(`You have not added any book.`);

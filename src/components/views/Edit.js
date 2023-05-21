@@ -1,13 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import {api, handleError} from 'helpers/api';
-import {Spinner} from 'components/ui/Spinner';
 import {Button} from 'components/ui/Button';
-import {Link, useHistory, useParams} from 'react-router-dom';
-import BaseContainer from "components/ui/BaseContainer";
+import {useHistory, useParams} from 'react-router-dom';
 import PropTypes from "prop-types";
 import "styles/views/Profile.scss";
 import User from 'models/User';
-import Book from "../../models/Book";
 import 'styles/views/Login.scss';
 
 /*
@@ -84,17 +81,6 @@ const Edit = () => {
     const backToOverview = () => {
         history.push(`/profile/` + id);
     }
-
-    const handleChange = (e) => {
-        const file = e.target.files[0];
-        //setImage(file);
-        const reader = new FileReader();
-        reader.onload = event => {
-            document.getElementById('bi').src = event.target.result;
-        };
-        reader.readAsDataURL(file);
-    }
-
     return (
         <div>
         <Header height="100"/>

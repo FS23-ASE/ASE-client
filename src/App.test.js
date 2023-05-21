@@ -1,7 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {render, cleanup} from "@testing-library/react";
-import renderer from 'react-test-renderer';
 import App from './App';
 import expect from "expect";
 

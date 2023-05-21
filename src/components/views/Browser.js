@@ -1,14 +1,12 @@
 import React, {useEffect, useState} from 'react';
 import {api, handleError} from 'helpers/api';
-import {Spinner} from 'components/ui/Spinner';
 import {SmallButton} from 'components/ui/SmallButton';
 import {RightButton} from 'components/ui/RightButton';
 
-import {Link, useHistory, useParams} from 'react-router-dom';
+import {Link, useHistory} from 'react-router-dom';
 import PropTypes from "prop-types";
 import "styles/views/Browser.scss";
 import 'styles/views/Login.scss';
-import {Button} from "../ui/Button";
 
 const Header = props => (
     <div className="headertitle container" style={{height: props.height}}>
@@ -81,8 +79,6 @@ const Browser = () => {
 
     const logout = async () => {
         try {
-            // await api.put('/users/'+localStorage.getItem("id")+"/logout");
-
             history.push('/login');}
         catch (error) {
             alert(`Something went wrong during the logout: \n${handleError(error)}`);
@@ -118,14 +114,8 @@ const Browser = () => {
             alert(`Something went wrong when adding to the cart: \n${handleError(error)}`);
         }
     }
-
-    const load_more = () => {
-        setPaginate((preValue) => preValue + 8);
-    }
-
-
     const handleClick = (id) => {
-        var path={
+        let path={
             pathname:`/book/${id}`,
         }
         history.push(path);
@@ -206,7 +196,7 @@ const Browser = () => {
                     .slice(0, paginate)
                     .map((book) =>(
                         book.status &&
-                            <div className="book" style={{"display":"inline-block"}}>
+                            <div className="book" key={book.id} style={{"display":"inline-block"}}>
                                 <div className="book container" >
                                     <div onClick={()=>handleClick(book.id)}>
                                         {" " && (

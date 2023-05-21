@@ -9,8 +9,6 @@ I
 src/styles/ui/Button.scss,7/1/715112158c1f590a73cbcc765765b85e5663226c
 J
 src/styles/ui/Spinner.scss,4/e/4ed7459aeea66e0a1509d371554dcf3b17ee88a8
-N
-src/components/views/Header.js,c/1/c1b536fac841a5c9478da338e1fc19daa1005e67
 B
 src/models/Cart.js,5/b/5bba0e8c5ccf4d7a1f7a39eaac5dda43ae44b866
 N
