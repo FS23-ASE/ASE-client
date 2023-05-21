@@ -9,7 +9,6 @@ import PropTypes from "prop-types";
 import "styles/views/Profile.scss";
 import Book from "../../models/Book";
 import {useLocation} from "react-router";
-import {Dropdown} from "rsuite";
 
 
 const Header = props => (

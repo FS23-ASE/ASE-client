@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react';
-import { Dropdown } from 'rsuite';
 import {api, handleError} from 'helpers/api';
 import {Spinner} from 'components/ui/Spinner';
 import {Button} from 'components/ui/Button';
