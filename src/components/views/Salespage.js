@@ -109,7 +109,9 @@ const Salespage = () => {
                 }
             };
 
-            fetchBooks().then().catch();
+            fetchBooks().catch((err) =>{
+                console.error(err)
+            });
         },[]);
 
         if (books) {

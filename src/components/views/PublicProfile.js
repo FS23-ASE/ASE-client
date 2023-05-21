@@ -133,8 +133,12 @@ const PublicProfile = () => {
         };
 
 
-        fetchData().then().catch();
-        fetchBook().then().catch();
+        fetchData().catch((err) =>{
+            console.error(err)
+        });
+        fetchBook().catch((err) =>{
+            console.error(err)
+        });
     }, []);
 
     let content = <Spinner/>;

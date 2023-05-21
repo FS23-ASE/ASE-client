@@ -61,7 +61,9 @@ const Edit = () => {
             setEmail(user.email)
         }
 
-        fetchData().then().catch();
+        fetchData().catch((err) =>{
+            console.error(err)
+        });
     }, []);
 
     //function for updating profile

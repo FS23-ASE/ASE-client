@@ -99,9 +99,15 @@ const Checkout = () => {
             // const url = URL.createObjectURL(blob);
             // return { ...book, image: url };
         };
-        fetchData().then().catch();
-        fetchCart().then().catch();
-        fetchBook().then().catch();
+        fetchData().catch((err) =>{
+            console.error(err)
+        });
+        fetchCart().catch((err) =>{
+            console.error(err)
+        });
+        fetchBook().catch((err) =>{
+            console.error(err)
+        });
 
         // setBook_list(cart.books);
         // for(let i = 0; i < book_list.length; i++){
