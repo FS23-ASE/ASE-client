@@ -4,7 +4,6 @@ import {Button} from 'components/ui/Button';
 import {useHistory, useParams} from 'react-router-dom';
 import PropTypes from "prop-types";
 import "styles/views/Profile.scss";
-import Book from "../../models/Book";
 import 'styles/views/Login.scss';
 import {Dropdown} from 'rsuite';
 

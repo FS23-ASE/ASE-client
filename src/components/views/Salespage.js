@@ -133,7 +133,7 @@ const Salespage = () => {
         const orders = props.orders;
         if (orders) {
             const orderItems = orders.map((order) =>
-                <li>
+                <li key={order.id}>
                     <Order_ order={order} key={order.id}/>
                 </li>
             );
