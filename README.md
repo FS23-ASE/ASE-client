@@ -3,6 +3,10 @@
 ## Getting started
 
 This is the client-side code for a Book E-Commerce web application developed by Group ASE as part of the FS23 Advanced Software Engineering course.
+## Project organization
+
+https://github.com/FS23-ASE/ASE-server/blob/main/ORGANIZATION.md
+
 
 ## Components and UI Elements
 React Components: The frontend is structured using reusable React components, which encapsulate the UI elements and logic for different parts of the application, such as book listings, user profile, shopping cart, and checkout process.
