@@ -1,0 +1,90 @@
+@import 'styles/theme';
+.mainpage{
+  &.container {
+    margin-left:2vw;
+    margin-right:2vw;
+
+    margin-top: 1em;
+
+  }
+  &.search-input{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  &.book{
+    text-align: left;
+    border: black ridge 1px;
+    border-radius: 10px;
+    margin: 3px;
+    width: 20rem;
+    padding-left: 10px;
+  }
+  &.book-select{
+    display: flex;
+    &__menu {
+      margin: 0.125rem auto;
+    }
+
+    &__option {
+      background-color: white;
+
+      &--is-focused {
+        background-color: lightblue;
+      }
+    }
+
+    &__group {
+      padding: 0;
+    }
+
+    &__menu-portal {
+      border: 1px solid darkblue;
+    }
+  }
+}
+.search{
+  &.form {
+    display:inline-block;
+    flex-direction: column;
+    justify-content: center;
+    width: 15vw;
+    font-size: 16px;
+    font-weight: 300;
+    border-radius: 0.75em;
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+  &.field {
+    display:inline-block;
+    width:5vw;
+    padding-left: 3vw;
+    flex-direction: row;
+    justify-content: center;
+  }
+  &.input {
+    height: 50px;
+    padding-left: 15px;
+    width :13vw;
+    margin-left: -4px;
+    border:1px solid $accentDark;
+    border-radius: 0.75em;
+    margin-bottom: 20px;
+    background: transparentize(white, 1);
+    color: $accentDark;
+  }
+  &.select {
+    font-size: 16px;
+    height: 50px;
+    padding-left: 4vw;
+    width :13vw;
+    margin-bottom: 20px;
+    background: transparentize(white, 1);
+    color: $accentDark;
+  }
+  &.label {
+    color: $textColor;
+    font-weight: 400;
+    font-size: 18px;
+  }}
+.cart{float: right}

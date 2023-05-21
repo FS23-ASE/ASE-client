@@ -8,10 +8,12 @@ class Book {
         this.author = null;
         this.publisher = null;
         this.description = null;
-        this.sellerid = null;
+        this.seller_id = null;
         this.status = null;
-        this.buyerid = null;
+        this.buyer_id = null;
         this.image = null;
+        this.price = null;
+        this.category = null;
         Object.assign(this, data);
     }
 }
