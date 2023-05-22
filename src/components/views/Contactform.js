@@ -48,7 +48,7 @@ const Contactform = () => {
             const requestBody = JSON.stringify({sender, accepter, orderId, msg});
             const response = await api.post('/contactform', requestBody);
             setForm(response.data);
-            alert('Contact Form ' + form.id + 'Submit Successfully!');
+            alert('Contact Form Submit Successfully!');
 
             // Sending contact form successfully worked --> navigate to last page
             history.goBack();

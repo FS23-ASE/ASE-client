@@ -22,7 +22,7 @@ const BookDetail = () => {
 
     //back to main page
     const goback = () => {
-        history.back();
+        history.goBack();
     }
 
     const gotoProfile = (userid) => {

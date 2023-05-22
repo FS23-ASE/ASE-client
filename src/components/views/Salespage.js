@@ -17,7 +17,6 @@ const Salespage = () => {
     const Header = props => (
         <div className="headertitle container" style={{height: props.height}}>
             <h1 className="headertitle title">Personal Salespage</h1>
-            <h2 className="headertitle subtitle">Sales History:</h2>
         </div>
     );
     const contactwithbuyer = async (buyer_id, orderId) => {
@@ -98,7 +97,7 @@ const Salespage = () => {
                             <Button
                                 width="100%"
                                 onClick={() => contactwithbuyer(order.buyerId, order.id)}>
-                                Contact Seller
+                                Contact Buyer
                             </Button>
                             <br/>
                         </div>
